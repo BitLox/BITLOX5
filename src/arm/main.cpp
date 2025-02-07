@@ -42,31 +42,25 @@ void useWhatComms(void)
 
 	result = getAndReturnInput();
 	switch (result){
-	case 1:
-		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
-		writeUSB_Screen();
-		// deactivateBLE();
-		break;
-	case 2:
-		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
-		writeUSB_Screen();
-		// deactivateBLE();
-		break;
-	case 3:
-		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
-		writeUSB_Screen();
-		// deactivateBLE();
-		break;
 	case 0:
 		temp1[0] = 0;
 		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
 		// deactivateBLE();
 		break;
-	case 7:
+	case 1:
+		temp1[0] = 0;
+		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		writeUSB_Screen();
+		// deactivateBLE();
+		break;
+	case 4:
+		temp1[0] = 0;
+		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		writeUSB_Screen();
+		// deactivateBLE();
+		break;
+	case 5:
 		temp1[0] = 0;
 		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
@@ -78,14 +72,20 @@ void useWhatComms(void)
 		writeUSB_Screen();
 		// deactivateBLE();
 		break;
+	case 9:
+		temp1[0] = 0;
+		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		writeUSB_Screen();
+		// deactivateBLE();
+		break;
 
-	case 4:
+	case 2:
 		temp1[0] = 1;
 		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
 		// activateBLE();
 		break;
-	case 5:
+	case 3:
 		temp1[0] = 1;
 		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
@@ -97,7 +97,7 @@ void useWhatComms(void)
 		writeBLE_Screen();
 		// activateBLE();
 		break;
-	case 9:
+	case 7:
 		temp1[0] = 1;
 		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
