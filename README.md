@@ -1,6 +1,6 @@
 Originally forked from:
 
-> Hardware Bitcoin Wallet
+> Hardware Bitcoin Wallet https://github.com/someone42/hardware-bitcoin-wallet
 >
 > by someone42, unless stated otherwise
 >
