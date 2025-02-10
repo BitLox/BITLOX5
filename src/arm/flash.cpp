@@ -5,63 +5,25 @@
  *      Author: thesquid
  */
 
-
-
-
-/** \file eeprom.c
+/*
+  *  Use the I2C bus with EEPROM 24LC64
+  *  Sketch:    eeprom.pde
   *
-  * \brief Reads and writes to the AVR's EEPROM.
+  *  Author: hkhijhe
+  *  Date: 01/10/2010
   *
-  * This contains functions which implement non-volatile storage using the
-  * AVR's EEPROM. Compared to contemporary mass storage devices, the size of
-  * the storage space is not much (only 1024 bytes on the ATmega328), but it's
-  * enough to fit a couple of wallets.
   *
-  * This file is licensed as described by the file LICENCE.
   */
-
-//#include "flash.h"
-
-//#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)|| defined(NRF52840_XXAA)
-//
-//
-//#endif
-
 #include <Arduino.h>
+#include <Wire.h> //I2C library
+#include "Adafruit_EEPROM_I2C.h"
+#include "flash.h"
 
 #include "../common.h"
 #include "../hwinterface.h"
-#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-#include "DueFlashStorage_lib/DueFlashStorage.h"
-#endif
 
-#if defined(NRF52840_XXAA)
-// #include <extEEPROM.h>
+Adafruit_EEPROM_I2C i2ceeprom;
 
-//extEEPROM myEEPROM(kbits_256, 1, 64, 0x50);
-
-//#include <Bluefruit_FileIO.h>
-//#define FILENAME    "/bitlox.txt"
-//#define CONTENTS    "DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
-//File file(InternalFS);
-#endif
-
-#if defined(NRF52840_XXAA)
-	// extEEPROM myEEPROM(kbits_256, 1, 64, 0x50);
-	// byte i2cStat = myEEPROM.begin(myEEPROM.twiClock100kHz);
-
-#endif
-
-//#include "eink.h"
-#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-DueFlashStorage dueFlashStorage;
-#endif
-
-
-
-struct Configuration {
-  uint8_t b;
-};
 
 /** Size of EEPROM, in number of bytes. */
 //moved to hwinterface.h
@@ -79,104 +41,47 @@ NonVolatileReturn nonVolatileWrite(uint8_t *data, uint32_t address, uint32_t len
 {
 	Serial.begin(9600);
 	Serial.println("---nonVolatileWrite-------");
-//	extEEPROM myEEPROM(kbits_256, 1, 64, 0x50);
-//	byte i2cStat = myEEPROM.begin(myEEPROM.twiClock100kHz);
-
-
 
 	if ((address > EEPROM_SIZE) || (length > EEPROM_SIZE)
 		|| ((address + length) > EEPROM_SIZE))
 	{
 		return NV_INVALID_ADDRESS;
 	}
-//	eeprom_busy_wait();
-	// The (void *)(int) is there because pointers on AVR are 16 bit, so
-	// just doing (void *) would result in a "cast to pointer from integer
-	// of different size" warning.
-//	cli();
+    // char somedata[] = "testing flash TWO"; // data to write
+    
+	if (i2ceeprom.begin(EEPROM_ADDR)) {  // you can stick the new i2c addr in here, e.g. begin(0x51);
+		Serial.println("Found I2C EEPROM");
+	  } else {
+		Serial.println("I2C EEPROM not identified ... check your connections?\r\n");
+		while (1) delay(10);
+	  };
 
-	#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-	dueFlashStorage.write(address, data, (size_t)length);
-	#endif
+	// i2ceeprom.write(address, data);
 
-//#if defined(NRF52840_XXAA)
-//file.open(FILENAME, FILE_READ);
-//;
-//#endif
-
-	#if defined(NRF52840_XXAA)
-	// myEEPROM.write(address, data, (size_t)length);
-
-	;
-	#endif
-
-
-//	eeprom_write_block(data, (void *)(int)address, (size_t)length);
-//	sei();
+	uint8_t testdata = 0x65;
+	uint16_t max_addr = 0x1;
+	i2ceeprom.write(max_addr, testdata);
+    Serial.println("Memory written");
 
 	return NV_NO_ERROR;
-
-}
-
-/** Read from non-volatile storage.
-  * \param data A pointer to the buffer which will receive the data.
-  * \param address Byte offset specifying where in non-volatile storage to
-  *                start reading from.
-  * \param length The number of bytes to read.
-  * \return See #NonVolatileReturnEnum for return values.
-  */
-NonVolatileReturn nonVolatileReadNoPtr(uint8_t data, uint32_t address, uint32_t length)
-{
-#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-	if ((address > EEPROM_SIZE) || (length > EEPROM_SIZE)
-		|| ((address + (uint32_t)length) > EEPROM_SIZE))
-	{
-		return NV_INVALID_ADDRESS;
-	}
-	data = dueFlashStorage.read(address);
-#endif
-#if defined(NRF52840_XXAA)
-	if ((address > EEPROM_SIZE) || (length > EEPROM_SIZE)
-		|| ((address + (uint32_t)length) > EEPROM_SIZE))
-	{
-		return NV_INVALID_ADDRESS;
-	}
-	// data = myEEPROM.read(address);
-#endif
-	return NV_NO_ERROR;
-
 }
 
 NonVolatileReturn nonVolatileRead(uint8_t *data, uint32_t address, uint32_t length)
 {
+	Serial.begin(9600);
 	Serial.println("---nonVolatileRead--top-----");
+
 	if ((address > EEPROM_SIZE) || (length > EEPROM_SIZE)
 		|| ((address + (uint32_t)length) > EEPROM_SIZE))
 	{
 		return NV_INVALID_ADDRESS;
 	}
-//	uint8_t beingRead[length];
-	int i;
 
-	for(i=0; i<length; i++){
-		#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-		data[i] = dueFlashStorage.read(address+i);
-		#endif
 
-		#if defined(NRF52840_XXAA)
-		// data[i] = myEEPROM.read(address+i);
-		#endif
-		Serial.print(data[i]);
-		Serial.println("  ---nonVolatileRead--loop-----");
-	}
 
-//	data = beingRead;
 
-//	writeEink(, false, 10, 10);
 	Serial.println("---nonVolatileRead--out-----");
-
 	return NV_NO_ERROR;
-
 }
 
 /** Ensure that all buffered writes are committed to non-volatile storage.

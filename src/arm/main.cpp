@@ -37,6 +37,7 @@ void useWhatComms(void)
 	int result;
 	int s;
 	uint8_t temp1[1];
+	uint8_t temp2[1];
 
   writeUSB_BLE_Screen();
 
@@ -44,7 +45,8 @@ void useWhatComms(void)
 	switch (result){
 	case 0:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		// nonVolatileRead(temp2, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
 		// deactivateBLE();
 		break;
