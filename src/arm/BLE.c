@@ -10,6 +10,7 @@
 #include "main.h"
 // #include "hwinit.h"
 #include "../storage_common.h"
+#include "../hwinterface.h"
 
 #if defined(__SAM3X8E__)
 #define ENABLE_PIN  28
@@ -69,16 +70,16 @@ int checkBLE(void)
 
 void activateBLE(void)
 {
-    pinMode( ENABLE, OUTPUT );
-    pinMode(BRTS, OUTPUT);
-    pinMode(BCTS, OUTPUT);
-    digitalWrite( ENABLE, LOW );
+    // pinMode( ENABLE, OUTPUT );
+    // pinMode(BRTS, OUTPUT);
+    // pinMode(BCTS, OUTPUT);
+    // digitalWrite( ENABLE, LOW );
 }
 
 void deactivateBLE(void)
 {
-    pinMode( ENABLE, OUTPUT );
-    digitalWrite( ENABLE, HIGH );
+    // pinMode( ENABLE, OUTPUT );
+    // digitalWrite( ENABLE, HIGH );
 }
 
 

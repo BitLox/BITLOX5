@@ -23,9 +23,7 @@
 #define MAX_INPUTS				128
 
 //     must be multiple of 256
-//#define EEPROM_SIZE		 1024
-#define EEPROM_SIZE		 20992
-//20896
+#define EEPROM_SIZE		 2097152 // 2MB QSPI on Adafruit feather nRF52840
 
 #define ACCEPT_X_START	20
 #define DENY_X_START	185

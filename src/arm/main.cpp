@@ -4,7 +4,7 @@
 #include <SPI.h> 
 #include <Adafruit_LittleFS.h>
 #include <InternalFileSystem.h>
-// #include <Adafruit_TinyUSB.h>
+#include <Adafruit_TinyUSB.h>
 #include "main.h"
 #include "ST7789.h"
 #include "keypad_MPR121.h"
@@ -38,91 +38,290 @@ void useWhatComms(void)
 	int s;
 	uint8_t temp1[1];
 
-  writeUSB_BLE_Screen();
+  	writeUSB_BLE_Screen();
+
 
 	result = getAndReturnInput();
 	switch (result){
 	case 0:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-		// deactivateBLE();
+		deactivateBLE();
 		break;
 	case 1:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-		// deactivateBLE();
+		deactivateBLE();
 		break;
 	case 4:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-		// deactivateBLE();
+		deactivateBLE();
 		break;
 	case 5:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-		// deactivateBLE();
+		deactivateBLE();
 		break;
 	case 8:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-		// deactivateBLE();
+		deactivateBLE();
 		break;
 	case 9:
 		temp1[0] = 0;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-		// deactivateBLE();
+		deactivateBLE();
 		break;
 
 	case 2:
 		temp1[0] = 1;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-		// activateBLE();
+		activateBLE();
 		break;
 	case 3:
-		temp1[0] = 1;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		temp1[0] = 7;
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-		// activateBLE();
+		activateBLE();
 		break;
 	case 6:
 		temp1[0] = 1;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-		// activateBLE();
+		activateBLE();
 		break;
 	case 7:
 		temp1[0] = 1;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-		// activateBLE();
+		activateBLE();
 		break;
 	case 10:
 		temp1[0] = 1;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-		// activateBLE();
+		activateBLE();
 		break;
 	case 11:
 		temp1[0] = 1;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-		// activateBLE();
+		activateBLE();
 		break;
 
 	default:
 		s = 0;
 		temp1[0] = s;
-		// nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
 		break;
 	}
+}
+
+// void useWhatCommsStealth(void)
+// {
+// 	char rChar;
+// 	int r;
+// 	int s;
+// 	uint8_t temp1[1];
+
+// 	r = rChar - '0';
+// 	r = 1;
+// 	rChar = '1';
+// 	switch (rChar){
+// 	case '1':
+// 		temp1[0] = 0;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		deactivateBLE();
+// 		break;
+// 	case '2':
+// 		temp1[0] = 0;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		deactivateBLE();
+// 		break;
+// 	case '3':
+// 		temp1[0] = 0;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		deactivateBLE();
+// 		break;
+// 	case 'Y':
+// 		temp1[0] = 0;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		deactivateBLE();
+// 		break;
+// 	case '7':
+// 		temp1[0] = 0;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		deactivateBLE();
+// 		break;
+// 	case '8':
+// 		temp1[0] = 0;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		deactivateBLE();
+// 		break;
+
+
+// 	case '4':
+// 		temp1[0] = 1;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// 		activateBLE();
+// 		break;
+// 	case '5':
+// 		temp1[0] = 1;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// 		activateBLE();
+// 		break;
+// 	case '6':
+// 		temp1[0] = 1;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// 		activateBLE();
+// 		break;
+// 	case '9':
+// 		temp1[0] = 1;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// 		activateBLE();
+// 		break;
+// 	case '0':
+// 		temp1[0] = 1;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// 		activateBLE();
+// 		break;
+// 	case 'N':
+// 		temp1[0] = 1;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// 		activateBLE();
+// 		break;
+
+// 	default:
+// 		s = 0;
+// 		temp1[0] = s;
+// 		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		break;
+// 	}
+// }
+
+// void useWhatCommsDuress(void)
+// {
+// 	int result;
+// 	int s;
+// 	uint8_t temp1[1];
+
+//   writeUSB_BLE_Screen();
+
+// 	result = getAndReturnInput();
+// 	switch (result){
+// 	case 1:
+// //		temp1[0] = 0;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// //		deactivateBLE();
+// 		break;
+// 	case 2:
+// //		temp1[0] = 0;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// //		deactivateBLE();
+// 		break;
+// 	case 3:
+// //		temp1[0] = 0;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// //		deactivateBLE();
+// 		break;
+// 	case 0:
+// //		temp1[0] = 0;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// //		deactivateBLE();
+// 		break;
+// 	case 7:
+// //		temp1[0] = 0;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// //		deactivateBLE();
+// 		break;
+// 	case 8:
+// //		temp1[0] = 0;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// //		deactivateBLE();
+// 		break;
+
+
+// 	case 4:
+// //		temp1[0] = 1;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// //		activateBLE();
+// 		break;
+// 	case 5:
+// //		temp1[0] = 1;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// //		activateBLE();
+// 		break;
+// 	case 6:
+// //		temp1[0] = 1;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// //		activateBLE();
+// 		break;
+// 	case 9:
+// //		temp1[0] = 1;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// //		activateBLE();
+// 		break;
+// 	case 10:
+// //		temp1[0] = 1;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// //		activateBLE();
+// 		break;
+// 	case 11:
+// //		temp1[0] = 1;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeBLE_Screen();
+// //		activateBLE();
+// 		break;
+
+// 	default:
+// //		s = 0;
+// //		temp1[0] = s;
+// //		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
+// 		writeUSB_Screen();
+// 		break;
+// 	}
+// showReady();
+// }
+
+void showReady(void)
+{
+	// writeSplashScreen();
+  tftBlackScreen();
+  char p[] = "BITLOX5";
+  drawtext(p, ST77XX_WHITE, 4, 0, 0);
 }
 
 void writeUSB_BLE_Screen(void){
@@ -145,7 +344,7 @@ void writeBLE_Screen(void){
 
 
 void setup() {
-  // Serial.begin(9600);
+  Serial.begin(9600);
 
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
@@ -165,13 +364,11 @@ void setup() {
 
   initKeypad();
 
-  // int i = getAndReturnInput();
-  // Serial.print(i);
-  // Serial.println(" result");
-
-  // writeUSB_BLE_Screen();
-
   useWhatComms();
+
+//   uint8_t comms[1];
+//   nonVolatileRead(comms, DEVICE_COMMS_SET_ADDRESS, 1);
+//   Serial.println(comms[0]);
 
 // routine for checking PIN, exits if PIN correct
   
