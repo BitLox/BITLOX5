@@ -39,15 +39,11 @@ Adafruit_EEPROM_I2C i2ceeprom;
   */
 NonVolatileReturn nonVolatileWrite(uint8_t *data, uint32_t address, uint32_t length)
 {
-	Serial.begin(9600);
-	Serial.println("---nonVolatileWrite-------");
-
 	if ((address > EEPROM_SIZE) || (length > EEPROM_SIZE)
 		|| ((address + length) > EEPROM_SIZE))
 	{
 		return NV_INVALID_ADDRESS;
 	}
-    // char somedata[] = "testing flash TWO"; // data to write
     
 	if (i2ceeprom.begin(EEPROM_ADDR)) {  // you can stick the new i2c addr in here, e.g. begin(0x51);
 		Serial.println("Found I2C EEPROM");
@@ -56,12 +52,7 @@ NonVolatileReturn nonVolatileWrite(uint8_t *data, uint32_t address, uint32_t len
 		while (1) delay(10);
 	  };
 
-	// i2ceeprom.write(address, data);
-
-	uint8_t testdata = 0x65;
-	uint16_t max_addr = 0x1;
-	i2ceeprom.write(max_addr, testdata);
-    Serial.println("Memory written");
+	i2ceeprom.write(address, data, length);
 
 	return NV_NO_ERROR;
 }
