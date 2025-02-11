@@ -69,16 +69,16 @@ int checkBLE(void)
 
 void activateBLE(void)
 {
-    pinMode( ENABLE, OUTPUT );
-    pinMode(BRTS, OUTPUT);
-    pinMode(BCTS, OUTPUT);
-    digitalWrite( ENABLE, LOW );
+    // pinMode( ENABLE, OUTPUT );
+    // pinMode(BRTS, OUTPUT);
+    // pinMode(BCTS, OUTPUT);
+    // digitalWrite( ENABLE, LOW );
 }
 
 void deactivateBLE(void)
 {
-    pinMode( ENABLE, OUTPUT );
-    digitalWrite( ENABLE, HIGH );
+    // pinMode( ENABLE, OUTPUT );
+    // digitalWrite( ENABLE, HIGH );
 }
 
 

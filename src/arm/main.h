@@ -18,6 +18,7 @@ void setup(void);
 void useWhatComms(void);
 void useWhatCommsStealth(void);
 void useWhatCommsDuress(void);
+void showReady(void);
 void writeUSB_BLE_Screen(void);
 void writeUSB_Screen(void);
 void writeBLE_Screen(void);
@@ -27,4 +28,4 @@ void writeBLE_Screen(void);
 #endif
 
 //Do not add code below this line
-#endif /* _ARM_Lockbox_1_H_ */
+#endif /* _MAIN_H_ */

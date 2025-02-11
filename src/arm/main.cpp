@@ -14,6 +14,20 @@
 
 // #include "../stream_comm.h"
 
+
+void Software_Reset(void) {
+	//============================================================================================
+	//   führt ein Reset des Arduino DUE aus...
+	//
+	//   Parameter: keine
+	//   Rueckgabe: keine
+	//============================================================================================
+	// sd_nvic_SystemReset();	
+	;;
+}
+	
+
+
 /** PBKDF2 is used to derive encryption keys. In order to make brute-force
   * attacks more expensive, this should return a number which is as large
   * as possible, without being so large that key derivation requires an
@@ -317,6 +331,7 @@ void showReady(void){
 	tftBlackScreen();
 	char p[] = "READY";
 	drawtext(p, ST77XX_RED, 3, 0, 0);
+	// writeSplashScreen();
   }
   
 void writeUSB_BLE_Screen(void){
@@ -337,34 +352,246 @@ void writeBLE_Screen(void){
   drawtext(p, ST77XX_RED, 3, 0, 0);
 }
 
+// void useWhatSetup(void)
+// {
+// 	char rChar;
+// 	bool yesOrNo;
+// 	int r;
+// 	int s;
+// 	uint8_t temp1[1];
 
-void setup() {
-  // Serial.begin(9600);
+// 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+// 	rChar = waitForNumberButtonPress();
 
-  // initialize ST7789
-  initDisplay();
-  // large block of text
-  tftBlackScreen();
-  char q[] = "BITLOX5";
-  drawtext(q, ST77XX_RED, 3, 0, 0);
-  delay(3000);
+// 	clearDisplay();
+// 	r = rChar - '0';
+// 	switch (rChar){
+// 	case '1':
+// 		temp1[0] = 0;
 
-  tftBlackScreen();
-  char p[] = "INPUT PIN:";
-  drawtext(p, ST77XX_RED, 3, 0, 0);
-  delay(1000);
+// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
 
-  initKeypad();
-  useWhatComms();
+// 		yesOrNo = waitForButtonPress();
+// 		clearDisplay();
+// 		if(!yesOrNo)
+// 		{
+// 			pinStatusCheckandPremadePIN();
+// 		}else if(yesOrNo)
+// 		{
+// 			useWhatSetup();
+// 			break;
+// 		}
+// 		level = 1;
+// 		break;
 
-// routine for checking PIN, exits if PIN correct
-  
-//if PIN correct, initialize BLE
+// 	case '2':
+// 		temp1[0] = 0;
 
-// Show ready screen
+// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_ADVANCED_SETUP);
+
+// 		yesOrNo = waitForButtonPress();
+
+// 		clearDisplay();
+
+// 		if(!yesOrNo)
+// 		{
+// 			pinStatusCheck();
+// 		}else if(yesOrNo)
+// 		{
+// 			useWhatSetup();
+// 			break;
+// 		}
+// 		level = 2;
+
+// 		doAEMSet();
+
+// 		break;
+// 	case '3':
+// 		temp1[0] = 0;
+
+// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_EXPERT_SETUP);
+
+// 		yesOrNo = waitForButtonPress();
+// 		clearDisplay();
+
+// 		if(!yesOrNo)
+// 		{
+// 			pinStatusCheckExpert();
+// 		}else if(yesOrNo)
+// 		{
+// 			useWhatSetup();
+// 			break;
+// 		}
+// 		level = 3;
+
+// 		doAEMSet();
+
+// 		break;
+// 	case 'Y':
+// 		temp1[0] = 0;
+
+// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
+
+// 		yesOrNo = waitForButtonPress();
+// 		clearDisplay();
+
+// 		if(!yesOrNo)
+// 		{
+// 			pinStatusCheckandPremadePIN();
+// 		}else if(yesOrNo)
+// 		{
+// 			useWhatSetup();
+// 			break;
+// 		}
+// 		level = 1;
+
+// 		break;
+
+
+// 	case 'N':
+// 		temp1[0] = 1;
+// 		writeX_Screen();
+
+// 		#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
+// 		Software_Reset();
+// 		#endif
+
+// 		#if defined(NRF52840_XXAA)
+// 		;
+// 		#endif
+
+// 		break;
+
+// 	case '0':
+// 		writeEinkDisplay("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, "MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, "TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, "WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
+// 		useWhatCommsStealth();
+// 		initUsart();
+// 		loop();
+// 		break;
+
+// 	default:
+// 		useWhatSetup();
+// 		break;
+// 	}
+// }
+
+
+
+
+// void setupSequence(int level){
+// 	bool canceledWalletCreation;
+// 	int strength;
+// 	if(level == 1)
+// 	{
+// 		strength = 128;
+// 		initialFormatAuto();
+// 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+// 		useWhatComms();
+// 		initUsart();
+// 		if(!canceledWalletCreation)
+// 		{
+// 			showQRcode(0,0,0);
+// 		}else{
+// 			showReady();
+// 		}
+
+// 	}
+// 	else if(level == 2)
+// 	{
+// 		strength = 192;
+// 		initialFormatAuto();
+// 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+// 		useWhatComms();
+// 		initUsart();
+
+// 		if(!canceledWalletCreation)
+// 		{
+// 			showQRcode(0,0,0);
+// 		}else{
+// 			showReady();
+// 		}
+// 	}
+// 	else if(level == 3)
+// 	{
+// 		strength = 256;
+// 		initialFormatAuto();
+// 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+// 		useWhatComms();
+// 		initUsart();
+
+// 		if(!canceledWalletCreation)
+// 		{
+// 			showQRcode(0,0,0);
+// 		}else{
+// 			showReady();
+// 		}
+// 	}
+// }
+
+void setup()
+{
+	int level;
+	Serial.begin(9600);
+
+	// initialize digital pin LED_BUILTIN as an output.
+	pinMode(LED_BUILTIN, OUTPUT);
+
+	// initialize ST7789
+	initDisplay();
+	// large block of text
+	tftBlackScreen();
+	char q[] = "BITLOX5";
+	drawtext(q, ST77XX_RED, 3, 0, 0);
+	delay(3000);
+
+	// tftBlackScreen();
+	// char p[] = "INPUT PIN:";
+	// drawtext(p, ST77XX_RED, 3, 0, 0);
+	// delay(1000);
+
+	initKeypad();
+	languageMenuInitially();
+	// initFormatting();
+
+	// int AemStatus;
+	// AemStatus = checkUseAEM();
+	// Serial.print(AemStatus);
+	// Serial.println(" ---------checkUseAEM----------");
+	// if(AemStatus != 127)
+	// {
+	// 	;
+	// }
+	// else if (AemStatus == 127)
+	// {
+	// 	doAEMValidate(false);
+	// }
+
+	// int pinStatus;
+	// pinStatus = checkHasPIN();
+	// if(pinStatus != 127)
+	// {
+	// 	useWhatSetup();
+	// }
+	// else if (pinStatus == 127)
+	// {
+	// 	checkDevicePIN(false);
+	// }
+
+	useWhatCommsStealth();
+	// initUsart();
+
+	if(is_formatted != 123)
+	{
+		setupSequence(level);
+	}
+	else
+	{
+		useWhatComms();
+		// initUsart();
+		showReady();
+	}
+
 
 }
 
