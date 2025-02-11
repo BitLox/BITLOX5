@@ -6,7 +6,7 @@
   * and if it isn't available, define NO_STDINT_H and check that the typedefs
   * below refer to appropriate types.
   *
-  * This file is licensed as described by the file LICENCE.
+  * This file is licensed as described by the file LICENSE.
   */
 
 #ifndef COMMON_H_INCLUDED
