@@ -16,7 +16,8 @@ extern "C" {
 void loop(void);
 void setup(void);
 void useWhatComms(void);
-
+void useWhatCommsStealth(void);
+void useWhatCommsDuress(void);
 void writeUSB_BLE_Screen(void);
 void writeUSB_Screen(void);
 void writeBLE_Screen(void);
