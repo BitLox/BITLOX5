@@ -3,7 +3,6 @@
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h> 
 
-// #include <Adafruit_TinyUSB.h>
 #include "main.h"
 #include "ST7789.h"
 #include "keypad_MPR121.h"
@@ -11,7 +10,7 @@
 #include "../hwinterface.h"
 #include "BLE.h"
 #include "lcd_and_input.h"
-
+#include "usart.h"
 // #include "../stream_comm.h"
 
 
@@ -552,7 +551,13 @@ void setup()
 
 	initKeypad();
 	languageMenuInitially();
-	// initFormatting();
+	
+	tftBlackScreen();
+	char p[] = "after languageMenuInitially()";
+	drawtext(p, ST77XX_RED, 2, 0, 0);
+	delay(1000);
+
+	initFormatting();
 
 	// int AemStatus;
 	// AemStatus = checkUseAEM();

@@ -4,12 +4,13 @@
  *  Created on: Sep 10, 2014
  *      Author: thesquid
  */
+#include <Arduino.h>
 
-#include "Arduino.h"
 #include "BLE.h"
 #include "main.h"
-// #include "hwinit.h"
+#include "hwinit.h"
 #include "../storage_common.h"
+#include "../hwinterface.h"
 
 #if defined(__SAM3X8E__)
 #define ENABLE_PIN  28
@@ -87,9 +88,7 @@ int checkisFormatted(void)
 	int isForm;
 	uint8_t tempComms[1];
 	nonVolatileRead(tempComms, IS_FORMATTED_ADDRESS, 1);
-
 	isForm = (int)tempComms[0];
-
 	return isForm;
 }
 

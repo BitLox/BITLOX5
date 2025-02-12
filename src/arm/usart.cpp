@@ -134,6 +134,9 @@ void initFormatting(void)
 	trng_enable(TRNG);
 #endif
 	is_formatted = checkisFormatted();
+	Serial.print(is_formatted);
+	Serial.println(" ---------checkisFormatted----------");
+
 }
 
 

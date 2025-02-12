@@ -769,7 +769,8 @@ void pinStatusCheckandPremadePIN()
 		}
 		else
 		{
-			writeEink("PIN ERROR - REFLASH", false, STATUS_X, STATUS_Y);
+			char textDisplay[] = {"PIN ERROR - REFLASH"};
+			writeEink(textDisplay, false, STATUS_X, STATUS_Y);
 			while(1){;;};
 		}
 	return;
@@ -1002,7 +1003,8 @@ void pinStatusCheck()
 	}
 	else
 	{
-		writeEink("PIN ERROR - REFLASH", false, STATUS_X, STATUS_Y);
+		char textDisplay[] = {"PIN ERROR - REFLASH"};
+		writeEink(textDisplay, false, STATUS_X, STATUS_Y);
 		while(1){;;};
 	}
 	return;
@@ -1148,7 +1150,8 @@ void pinStatusCheckExpert()
 	}
 	else
 	{
-		writeEink("PIN ERROR - REFLASH", false, STATUS_X, STATUS_Y);
+		char textDisplay[] = {"PIN ERROR - REFLASH"};
+		writeEink(textDisplay, false, STATUS_X, STATUS_Y);
 		while(1){;;};
 	}
 	return;

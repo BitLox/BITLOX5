@@ -34,6 +34,7 @@
 #include "keypad_alpha.h"
 // #include "avr2arm.h"
 #include "../stream_comm.h"
+#include "keypad_MPR121.h"
 
 
 #define COUNT_OF(x) ((sizeof(x)/sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
@@ -388,52 +389,52 @@ char waitForNumberButtonPress(void)
 	bool current_8_button;
 	bool current_9_button;
 	bool current_0_button;
-	const char* ptr_pressed;
-	char pressed;
+	// const char* ptr_pressed;
+	int pressed;
 
 	do
 	{
 		// Copy to avoid race condition.
 
 //		ptr_pressed = getFullKeys();
-		pressed = getFullKeys();
+		pressed = getAndReturnInput();
 //		pressed = *ptr_pressed;
 
 		switch (pressed){
-		case 'Y'	:
+		case 11	:
 			accept_button = 1;
 			break;
-		case 'N'	:
+		case 10	:
 			cancel_button = 1;
 			break;
-		case '1'	:
+		case 1	:
 			num_1_button = 1;
 			break;
-		case '2'	:
+		case 2	:
 			num_2_button = 1;
 			break;
-		case '3'	:
+		case 3	:
 			num_3_button = 1;
 			break;
-		case '4'	:
+		case 4	:
 			num_4_button = 1;
 			break;
-		case '5'	:
+		case 5	:
 			num_5_button = 1;
 			break;
-		case '6'	:
+		case 6	:
 			num_6_button = 1;
 			break;
-		case '7'	:
+		case 7	:
 			num_7_button = 1;
 			break;
-		case '8'	:
+		case 8	:
 			num_8_button = 1;
 			break;
-		case '9'	:
+		case 9	:
 			num_9_button = 1;
 			break;
-		case '0'	:
+		case 0	:
 			num_0_button = 1;
 			break;
 		default:
