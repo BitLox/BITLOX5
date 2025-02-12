@@ -11,6 +11,7 @@
 #include "BLE.h"
 #include "lcd_and_input.h"
 #include "usart.h"
+#include "keypad_alpha.h"
 // #include "../stream_comm.h"
 
 
@@ -353,13 +354,15 @@ void writeBLE_Screen(void){
 
 void useWhatSetup(void)
 {
-// 	char rChar;
-// 	bool yesOrNo;
-// 	int r;
-// 	int s;
-// 	uint8_t temp1[1];
+Serial.println(" ---------in useWhatSetup----------");
 
-// 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
+	char rChar;
+	bool yesOrNo;
+	int r;
+	int s;
+	uint8_t temp1[1];
+
+	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
 // 	rChar = waitForNumberButtonPress();
 
@@ -572,16 +575,16 @@ void setup()
 	// 	doAEMValidate(false);
 	// }
 
-	// int pinStatus;
-	// pinStatus = checkHasPIN();
-	// if(pinStatus != 127)
-	// {
-	// 	useWhatSetup();
-	// }
-	// else if (pinStatus == 127)
-	// {
-	// 	checkDevicePIN(false);
-	// }
+	int pinStatus;
+	pinStatus = checkHasPIN();
+	if(pinStatus != 127)
+	{
+		useWhatSetup();
+	}
+	else if (pinStatus == 127)
+	{
+		checkDevicePIN(false);
+	}
 
 	useWhatCommsStealth();
 	// initUsart();

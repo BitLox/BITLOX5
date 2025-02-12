@@ -136,7 +136,6 @@ void initFormatting(void)
 	is_formatted = checkisFormatted();
 	Serial.print(is_formatted);
 	Serial.println(" ---------checkisFormatted----------");
-
 }
 
 

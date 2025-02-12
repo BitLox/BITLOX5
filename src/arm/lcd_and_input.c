@@ -656,7 +656,8 @@ char *userInput(AskUserCommand command)
 	nonVolatileRead(tempLang, DEVICE_LANG_ADDRESS, 1);
 
 	int lang;
-	lang = (int)tempLang[0];
+	// lang = (int)tempLang[0];
+	lang = 1;
 
 	int zhSizer = 1;
 
