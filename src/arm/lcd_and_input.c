@@ -23,16 +23,16 @@
 
 #include "ask_strings.h"
 
-//#include "lcd_and_input.h"
+#include "lcd_and_input.h"
 #include "../common.h"
 #include "../hwinterface.h"
 #include "../baseconv.h"
 #include "../prandom.h"
-#include "eink.h"
+// #include "eink.h"
 #include "Arduino.h"
-#include "keypad_arm.h"
+// #include "keypad_arm.h"
 #include "keypad_alpha.h"
-#include "avr2arm.h"
+// #include "avr2arm.h"
 #include "../stream_comm.h"
 
 
@@ -5486,18 +5486,18 @@ void clearDisplaySecure(void)
 
 void showBattery(void)
 {
-	int battery = batteryLevel();
-	char batteryTxt[16];
-	sprintf(batteryTxt, "%lu", battery);
+	// int battery = batteryLevel();
+	// char batteryTxt[16];
+	// sprintf(batteryTxt, "%lu", battery);
 
-	writeEinkDisplay("BATTERY", false, 5, 5, batteryTxt, false, 5, 25, "", false, 5, 45, "", false , 5, 60, "", false, 0, 0);
+	// writeEinkDisplay("BATTERY", false, 5, 5, batteryTxt, false, 5, 25, "", false, 5, 45, "", false , 5, 60, "", false, 0, 0);
 }
 
 
-void showReady(void)
-{
-	writeSplashScreen();
-}
+// void showReady(void)
+// {
+// 	writeSplashScreen();
+// }
 
 
 void languageMenuInitially(void){
@@ -5533,7 +5533,7 @@ void languageMenuInitially(void){
 //	nonVolatileRead(byteRead, DEVICE_LANG_SET_ADDRESS, 1);
 //	uint8_t  byteRead = eeprom_read_byte((uint8_t*)148);
 	if (lang != 123) {
-		initDisplay();
+		// initDisplay();
 		writeEinkDrawUnicode(str_lang_list_UNICODE[0],  24, 0, 5,
 				str_lang_list_UNICODE[1],  24, 0, 22,
 				str_lang_list_UNICODE[2],  24, 0, 39,

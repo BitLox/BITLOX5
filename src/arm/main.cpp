@@ -2,8 +2,7 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h> 
-#include <Adafruit_LittleFS.h>
-#include <InternalFileSystem.h>
+
 // #include <Adafruit_TinyUSB.h>
 #include "main.h"
 #include "ST7789.h"
@@ -11,6 +10,7 @@
 #include "../storage_common.h"
 #include "../hwinterface.h"
 #include "BLE.h"
+#include "lcd_and_input.h"
 
 // #include "../stream_comm.h"
 
@@ -352,8 +352,8 @@ void writeBLE_Screen(void){
   drawtext(p, ST77XX_RED, 3, 0, 0);
 }
 
-// void useWhatSetup(void)
-// {
+void useWhatSetup(void)
+{
 // 	char rChar;
 // 	bool yesOrNo;
 // 	int r;
@@ -474,12 +474,12 @@ void writeBLE_Screen(void){
 // 		useWhatSetup();
 // 		break;
 // 	}
-// }
+}
 
 
 
 
-// void setupSequence(int level){
+void setupSequence(int level){
 // 	bool canceledWalletCreation;
 // 	int strength;
 // 	if(level == 1)
@@ -527,7 +527,7 @@ void writeBLE_Screen(void){
 // 			showReady();
 // 		}
 // 	}
-// }
+}
 
 void setup()
 {

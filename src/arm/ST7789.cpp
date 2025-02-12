@@ -80,6 +80,22 @@ void drawtext(char *text, uint16_t color, int size, int x, int y) {
   tft.print(text);
 }
 
+void drawtextW3(char *text, int x, int y) {
+  tft.setCursor(x, y);
+  tft.setTextSize(3);
+  tft.setTextColor(ST77XX_WHITE);
+  tft.setTextWrap(true);
+  tft.print(text);
+}
+
+void drawtextW5(char *text, int x, int y) {
+  tft.setCursor(x, y);
+  tft.setTextSize(5);
+  tft.setTextColor(ST77XX_WHITE);
+  tft.setTextWrap(true);
+  tft.print(text);
+}
+
 void testlines(uint16_t color) {
   tft.fillScreen(ST77XX_BLACK);
   for (int16_t x=0; x < tft.width(); x+=6) {
@@ -146,13 +162,10 @@ void testdrawrects(uint16_t color) {
   }
 }
 
-void testfillrects(uint16_t color1, uint16_t color2) {
-  tft.fillScreen(ST77XX_BLACK);
-  for (int16_t x=tft.width()-1; x > 6; x-=6) {
-    tft.fillRect(tft.width()/2 -x/2, tft.height()/2 -x/2 , x, x, color1);
-    tft.drawRect(tft.width()/2 -x/2, tft.height()/2 -x/2 , x, x, color2);
-  }
+void fillRectangle(int x, int y, int dx, int dy){
+      tft.fillRect(x, y, dx, dy, ST77XX_RED); 
 }
+
 
 void testfillcircles(uint8_t radius, uint16_t color) {
   for (int16_t x=radius; x < tft.width(); x+=radius*2) {
@@ -240,19 +253,23 @@ void mediabuttons() {
   tft.fillTriangle(42, 20, 42, 60, 90, 40, ST77XX_GREEN);
 }
 
-void drawCheck(int x, int y)
-{
-	x = x + 2;
-
-	tft.drawLine(x+1,y-1,x+6,y+4,ST77XX_RED);
-	tft.drawLine(x+1,y,x+6,y+5,ST77XX_RED);
-	tft.drawLine(x,y,x+5,y+5,ST77XX_RED);
-	tft.drawLine(x,y+1,x+5,y+6,ST77XX_RED);
-	tft.drawLine(x-1,y+1,x+4,y+6,ST77XX_RED);
-
-	tft.drawLine(x+7,y+4,x+14,y-3,ST77XX_RED);
-	tft.drawLine(x+7,y+3,x+13,y-3,ST77XX_RED);
-	tft.drawLine(x+6,y+3,x+13,y-4,ST77XX_RED);
-	tft.drawLine(x+6,y+2,x+12,y-4,ST77XX_RED);
-	tft.drawLine(x+5,y+2,x+12,y-5,ST77XX_RED);
+void drawLine(int x, int y, int dx, int dy){
+  tft.drawLine(x,y,dx,dy,ST77XX_RED);
 }
+
+// void drawCheck(int x, int y)
+// {
+// 	x = x + 2;
+
+// 	tft.drawLine(x+1,y-1,x+6,y+4,ST77XX_RED);
+// 	tft.drawLine(x+1,y,x+6,y+5,ST77XX_RED);
+// 	tft.drawLine(x,y,x+5,y+5,ST77XX_RED);
+// 	tft.drawLine(x,y+1,x+5,y+6,ST77XX_RED);
+// 	tft.drawLine(x-1,y+1,x+4,y+6,ST77XX_RED);
+
+// 	tft.drawLine(x+7,y+4,x+14,y-3,ST77XX_RED);
+// 	tft.drawLine(x+7,y+3,x+13,y-3,ST77XX_RED);
+// 	tft.drawLine(x+6,y+3,x+13,y-4,ST77XX_RED);
+// 	tft.drawLine(x+6,y+2,x+12,y-4,ST77XX_RED);
+// 	tft.drawLine(x+5,y+2,x+12,y-5,ST77XX_RED);
+// }

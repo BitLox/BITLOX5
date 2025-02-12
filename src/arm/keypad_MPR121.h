@@ -16,7 +16,7 @@ extern "C" {
 
 // FUNCTION DECLARATIONS
 void initKeypad(void);
-void getInput(void);
+void getInput121(void);
 int getAndReturnInput(void);
 void cleanI2C(void);
 

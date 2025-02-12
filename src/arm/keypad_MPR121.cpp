@@ -69,7 +69,7 @@ void cleanI2C(){
         pinMode(23, INPUT);
 }
 
-void getInput()
+void getInput121()
 {
     do
     {

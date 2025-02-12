@@ -21,7 +21,7 @@ extern void streamError(void);
 
 //extern const unsigned int str_lang_list_UNICODE[][24];
 //extern const unsigned int str_test_list_UNICODE[][24];
-extern void showReady(void);
+// extern void showReady(void);
 extern int str_cut(char *str, int begin, int len);
 //extern void languageEEPROM(void);
 extern void setLang(void);

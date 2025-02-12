@@ -226,7 +226,7 @@ bool initialFormat(void);
 bool initialFormatAuto(void);
 bool createDefaultWallet(void);
 bool createDefaultWalletAuto(int strength, int level);
-void setupSequence(void);
+
 void sendSuccessPacketOnly(void);
 void showQRcode(AddressHandle ah_root4, AddressHandle ah_chain4, AddressHandle ah_index4);
 bool initialFormatAutoDuress(void);
