@@ -88,7 +88,7 @@ void drawtextW3(char *text, int x, int y) {
   tft.print(text);
 }
 
-void drawtextW5(char *text, int x, int y) {
+void drawtextW5(const char *text, int x, int y) {
   tft.setCursor(x, y);
   tft.setTextSize(5);
   tft.setTextColor(ST77XX_WHITE);

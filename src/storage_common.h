@@ -23,7 +23,7 @@
 
 #define ENTROPY_POOL_LENGTH				32
 
-#define POOL_CHECKSUM_LENGTH			32
+// #define POOL_CHECKSUM_LENGTH			32
 
 /** Address where the persistent entropy pool is located. */
 #define ENTROPY_POOL_ADDRESS			64

@@ -28,7 +28,7 @@
 #include "../hwinterface.h"
 #include "../baseconv.h"
 #include "../prandom.h"
-// #include "eink.h"
+#include "eink.h"
 #include "Arduino.h"
 // #include "keypad_arm.h"
 #include "keypad_alpha.h"
@@ -65,7 +65,7 @@ void setLang(void){
 		lang = 0;
 	}
 	uint8_t temp1[1];
-	temp1[0] = (uint8_t*)lang;
+	temp1[0] = (uint8_t)lang;
 
 	nonVolatileWrite(temp1, DEVICE_LANG_ADDRESS, 1);
 
@@ -256,20 +256,16 @@ void clearOutputsSeen(void)
 /** Wait until neither accept nor cancel buttons are being pressed. */
 static void waitForNoButtonPress(void)
 {
-	const char* ptr_pressed;
-	char pressed;
+	int pressed;
 
 	do
 	{
-
-//		ptr_pressed = getAcceptCancelKeys();
-		pressed = getAcceptCancelKeys();
-//		pressed = *ptr_pressed;
-		if (pressed == 'Y')
+		pressed = getAndReturnInput();
+		if (pressed == 11)
 		{
 			accept_button = 1;
 		}
-		else if (pressed == 'N')
+		else if (pressed == 10)
 		{
 			cancel_button = 1;
 		}
@@ -302,22 +298,18 @@ bool waitForButtonPress(void)
 //	bool current_8_button;
 //	bool current_9_button;
 //	bool current_0_button;
-	const char* ptr_pressed;
-	char pressed;
+	int pressed;
 
 	do
 	{
 		// Copy to avoid race condition.
-
-//		ptr_pressed = getAcceptCancelKeys();
-		pressed = getAcceptCancelKeys();
-//		pressed = *ptr_pressed;
+		pressed = getAndReturnInput();
 
 		switch (pressed){
-		case 'Y'	:
+		case 11	:
 			accept_button = 1;
 			break;
-		case 'N'	:
+		case 10	:
 			cancel_button = 1;
 			break;
 //		case '1'	:
@@ -389,16 +381,11 @@ char waitForNumberButtonPress(void)
 	bool current_8_button;
 	bool current_9_button;
 	bool current_0_button;
-	// const char* ptr_pressed;
 	int pressed;
 
 	do
 	{
-		// Copy to avoid race condition.
-
-//		ptr_pressed = getFullKeys();
 		pressed = getAndReturnInput();
-//		pressed = *ptr_pressed;
 
 		switch (pressed){
 		case 11	:
@@ -491,51 +478,51 @@ char waitForNumberButtonPress4to8(void)
 	bool current_9_button;
 	bool current_0_button;
 	const char* ptr_pressed;
-	char pressed;
+	int pressed;
 
 	do
 	{
 		// Copy to avoid race condition.
 
 //		ptr_pressed = getFullKeys();
-		pressed = getFullKeys();
+		pressed = getAndReturnInput();
 //		pressed = *ptr_pressed;
 
 		switch (pressed){
-		case 'Y'	:
+		case 11	:
 //			accept_button = 1;
 			break;
-		case 'N'	:
+		case 10	:
 			cancel_button = 1;
 			break;
-		case '1'	:
+		case 1	:
 //			num_1_button = 1;
 			break;
-		case '2'	:
+		case 2	:
 //			num_2_button = 1;
 			break;
-		case '3'	:
+		case 3	:
 //			num_3_button = 1;
 			break;
-		case '4'	:
+		case 4	:
 			num_4_button = 1;
 			break;
-		case '5'	:
+		case 5	:
 			num_5_button = 1;
 			break;
-		case '6'	:
+		case 6	:
 			num_6_button = 1;
 			break;
-		case '7'	:
+		case 7	:
 			num_7_button = 1;
 			break;
-		case '8'	:
+		case 8	:
 			num_8_button = 1;
 			break;
-		case '9'	:
+		case 9	:
 //			num_9_button = 1;
 			break;
-		case '0'	:
+		case 0	:
 //			num_0_button = 1;
 			break;
 		default:
@@ -576,6 +563,7 @@ char* getTransString0(char* str0) {
 	strcpy_P(transStringBuffer0, (char*)str0);
 	return transStringBuffer0;
 }
+
 char* getTransString1(char* str1) {
 	strcpy_P(transStringBuffer1, (char*)str1);
 	return transStringBuffer1;
@@ -726,8 +714,8 @@ char *userInput(AskUserCommand command)
 
 
 		waitForNoButtonPress();
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 //		writeEinkDrawUnicodeSingle(temp, tempLength, COL_1_X, LINE_0_Y);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
@@ -5541,7 +5529,7 @@ void languageMenuInitially(void){
 				str_lang_list_UNICODE[2],  24, 0, 39,
 				str_lang_list_UNICODE[3],  24, 0, 56,
 				str_lang_list_UNICODE[4],  24, 0, 73);
-		display();
+		// display();
 		setLangInitially();
 	}else{
 //		writeEink("set", false, 10, 10);

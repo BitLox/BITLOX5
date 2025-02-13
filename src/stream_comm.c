@@ -78,6 +78,7 @@
 
 #include "bip39_trez_prev.h"
 #include "baseconv.h"
+#include "arm/ST7789.h"
 
 #if defined(__SAM3X8E__)
 #define ENABLE_PIN2  28
@@ -107,7 +108,7 @@ bool mainOutputStreamCallback(pb_ostream_t *stream, const uint8_t *buf, size_t c
 static void writeFailureString(StringSet set, uint8_t spec);
 bool hashFieldCallback(pb_istream_t *stream, const pb_field_t *field, void **arg);
 bool checkStream(void);
-static NOINLINE void getPublicKeyOnly(uint8_t *out_address, AddressHandle ah_root, AddressHandle ah_chain, AddressHandle ah_index);
+static void getPublicKeyOnly(uint8_t *out_address, AddressHandle ah_root, AddressHandle ah_chain, AddressHandle ah_index);
 bool writeSignaturesCallback(pb_ostream_t *stream, const pb_field_t *field, void * const *arg);
 static bool passwordInterjection(bool setup);
 bool getSignaturesCallback(void);
@@ -2065,7 +2066,7 @@ bool getEntropyCallback(pb_ostream_t *stream, const pb_field_t *field, void * co
 /** Return bytes of entropy from the random number generation system.
   * \param num_bytes Number of bytes of entropy to send to stream.
   */
-static NOINLINE void getBytesOfEntropy(uint32_t num_bytes)
+static void getBytesOfEntropy(uint32_t num_bytes)
 {
 	Entropy message_buffer;
 	unsigned int random_bytes_index;

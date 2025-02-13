@@ -26,7 +26,16 @@ void Software_Reset(void) {
 	;;
 }
 	
-
+/** This will be called whenever something very unexpected occurs. This
+  * function must not return. */
+ void fatalError(void)
+ {
+	//  streamError();
+	 for (;;)
+	 {
+		 // do nothing
+	 }
+ } 
 
 /** PBKDF2 is used to derive encryption keys. In order to make brute-force
   * attacks more expensive, this should return a number which is as large
@@ -545,7 +554,7 @@ void setup()
 	tftBlackScreen();
 	char q[] = "BITLOX5";
 	drawtext(q, ST77XX_RED, 3, 0, 0);
-	delay(3000);
+	delay(2000);
 
 	// tftBlackScreen();
 	// char p[] = "INPUT PIN:";
@@ -557,7 +566,7 @@ void setup()
 	
 	tftBlackScreen();
 	char p[] = "after languageMenuInitially()";
-	drawtext(p, ST77XX_RED, 2, 0, 0);
+	drawtext(p, ST77XX_RED, 3, 0, 0);
 	delay(1000);
 
 	initFormatting();

@@ -24,6 +24,7 @@ void writeUSB_Screen(void);
 void writeBLE_Screen(void);
 void setupSequence(int level);
 void useWhatSetup(void);
+void fatalError(void);
 
 #ifdef __cplusplus
 } // extern "C"

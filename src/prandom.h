@@ -30,7 +30,7 @@ extern "C" {
   * HWRNG, the outputs of getRandom256() still have nearly 256 bits of
   * entropy.
   */
-#define ENTROPY_POOL_LENGTH		32
+// #define ENTROPY_POOL_LENGTH		32
 /** Length, in bytes, of the persistent entropy pool checksum. This can be
   * less than 32 because the checksum is only used to detect modification to
   * the persistent entropy pool.

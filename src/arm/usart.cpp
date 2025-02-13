@@ -100,7 +100,7 @@ void initUsart(void)
 //
 //		Serial1.end();
 
-		Serial1.begin(115200);
+		// Serial1.begin(115200);
 
 //		Serial1.begin(57600);
 //		Serial1.begin(38400);
@@ -112,7 +112,7 @@ void initUsart(void)
 
 
 	}else{
-		Serial.begin(57600);
+		// Serial.begin(57600);
 	}
 //	pmc_enable_periph_clk(ID_TRNG);
 //	trng_enable(TRNG);
@@ -129,10 +129,6 @@ void initUsart(void)
 void initFormatting(void)
 {
 	Serial.println(" ---------initFormatting---in-------");
-#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-	pmc_enable_periph_clk(ID_TRNG);
-	trng_enable(TRNG);
-#endif
 	is_formatted = checkisFormatted();
 	Serial.print(is_formatted);
 	Serial.println(" ---------checkisFormatted----------");

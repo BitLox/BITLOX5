@@ -148,7 +148,7 @@ static void affineToJacobian(PointJacobian *out, PointAffine *in)
   * \param out The destination point (in affine coordinates).
   * \param in The source point (in Jacobian coordinates).
   */
-static NOINLINE void jacobianToAffine(PointAffine *out, PointJacobian *in)
+static void jacobianToAffine(PointAffine *out, PointJacobian *in)
 {
 	uint8_t s[32];
 	uint8_t t[32];
@@ -175,7 +175,7 @@ static NOINLINE void jacobianToAffine(PointAffine *out, PointJacobian *in)
   * from section 4 of that article.
   * \param p The point (in Jacobian coordinates) to double.
   */
-static NOINLINE void pointDouble(PointJacobian *p)
+static void pointDouble(PointJacobian *p)
 {
 	uint8_t t[32];
 	uint8_t u[32];
@@ -229,7 +229,7 @@ static NOINLINE void pointDouble(PointJacobian *p)
   * \param junk Pointer to a dummy variable which may receive dummy writes.
   * \param p2 The point (in affine coordinates) to add to p1.
   */
-static NOINLINE void pointAdd(PointJacobian *p1, PointJacobian *junk, PointAffine *p2)
+static void pointAdd(PointJacobian *p1, PointJacobian *junk, PointAffine *p2)
 {
 	uint8_t s[32];
 	uint8_t t[32];

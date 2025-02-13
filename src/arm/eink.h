@@ -59,18 +59,18 @@
      											char *toDisplayLine7, bool is_progmem7, int x7, int y7);
 
      void writeQRcode(char toEncode[35]);
-     void writeEinkDisplayBig(	char *toDisplayLine0, int x0, int y0,
-     						char *toDisplayLine1, int x1, int y1,
-     						char *toDisplayLine2, int x2, int y2,
-     						char *toDisplayLine3, int x3, int y3,
-     						char *toDisplayLine4, int x4, int y4,
-     						char *toDisplayLine5, int x5, int y5,
-     						char *toDisplayLine6, int x6, int y6,
-     						char *toDisplayLine7, int x7, int y7,
-     						char *toDisplayLine8, int x8, int y8,
-     						char *toDisplayLine9, int x9, int y9,
-     						char *toDisplayLine10, int x10, int y10,
-     						char *toDisplayLine11, int x11, int y11 );
+     void writeEinkDisplayBig(const char *toDisplayLine0, int x0, int y0,
+		const char *toDisplayLine1, int x1, int y1,
+		const char *toDisplayLine2, int x2, int y2,
+		const char *toDisplayLine3, int x3, int y3,
+		const char *toDisplayLine4, int x4, int y4,
+		const char *toDisplayLine5, int x5, int y5,
+		const char *toDisplayLine6, int x6, int y6,
+		const char *toDisplayLine7, int x7, int y7,
+		const char *toDisplayLine8, int x8, int y8,
+		const char *toDisplayLine9, int x9, int y9,
+		const char *toDisplayLine10, int x10, int y10,
+		const char *toDisplayLine11, int x11, int y11 );
      void writeEinkDisplayPrep(	char *toDisplayLine0, int x0, int y0,
      						char *toDisplayLine1, int x1, int y1,
      						char *toDisplayLine2, int x2, int y2,

@@ -8,12 +8,12 @@
 /*
  *  hexString.c
  *  byteutils
- *
+ * 
  *  Created by Richard Murphy on 3/7/10.
  *  Copyright 2010 McKenzie-Murphy. All rights reserved.
  *
  */
-
+#include <stdlib.h>
 #include "hexString.h"
 
 /* utility function to convert hex character representation to their nibble (4 bit) values */

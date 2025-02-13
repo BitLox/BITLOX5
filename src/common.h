@@ -91,11 +91,11 @@ typedef enum BoolEnum
   * NOINLINE is supposed to tell compilers to not inline the associated
   * function. Careful use of NOINLINE can decrease the amount of maximum stack
   * space used. */
-#if defined(__GNUC__)
-#define NOINLINE __attribute__((noinline))
-#else
-#define NOINLINE
-#endif // #if defined(__GNUC__)
+// #if defined(__GNUC__)
+// #define NOINLINE __attribute__((noinline))
+// #else
+// #define NOINLINE
+// #endif // #if defined(__GNUC__)
 
 /** On certain platforms, unchanging, read-only data (eg. lookup tables) needs
   * to be marked and accessed in a way that is different to read/write data.
