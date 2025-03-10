@@ -661,7 +661,7 @@ char *userInput(AskUserCommand command)
 	if (command == ASKUSER_INITIAL_SETUP)
 		{
 		// notify2();
-		const wchar_t INITIAL_SETUP_line0[][25] = {
+		static const wchar_t INITIAL_SETUP_line0[][25] = {
 				L"INITIAL SETUP",
 				L"ERSTEINRICHTUNG",
 				L"НАЧАЛЬНАЯ НАСТРОЙКА",
@@ -674,7 +674,7 @@ char *userInput(AskUserCommand command)
 				L"CONFIGURAZIONE INIZIALE"
 		} ;
 
-		const wchar_t INITIAL_SETUP_line1[][18] = {
+		static const wchar_t INITIAL_SETUP_line1[][18] = {
 				L"STANDARD     1...",
 				L"STANDARD     1...",
 				L"СТАНДАРТНАЯ  1...",
@@ -687,7 +687,7 @@ char *userInput(AskUserCommand command)
 				L"STANDARD     1..."
 		} ;
 
-		const wchar_t INITIAL_SETUP_line2[][18] = {
+		static const wchar_t INITIAL_SETUP_line2[][18] = {
 				L"ADVANCED     2...", //EN
 				L"ERWEITERTE   2...", //DE
 				L"РАСШИРЕННАЯ  2...", //RU
@@ -700,7 +700,7 @@ char *userInput(AskUserCommand command)
 				L"AVANZATO     2..."  //IT
 		} ;
 
-		const wchar_t INITIAL_SETUP_line3[][18] = {
+		static const wchar_t INITIAL_SETUP_line3[][18] = {
 				L"EXPERT       3...", //EN
 				L"EXPERT       3...", //DE
 				L"ЭКСПЕРТ      3...", //RU
@@ -712,11 +712,23 @@ char *userInput(AskUserCommand command)
 				L"UZMAN        3...", //TU
 				L"ESPERTO      3..."  //IT
 		} ;
+
+		printf("Line0: %p, len=%d\n", INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
+		printf("Underline\n");
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
+		printf("Line1: %p, len=%d\n", INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
+		printf("Line2: %p, len=%d\n", INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
+		printf("Line3: %p, len=%d\n", INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
+
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
+		// writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
 
 		// waitForNumberButtonPress();
 		// r = waitForNumberButtonPress();

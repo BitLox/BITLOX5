@@ -180,7 +180,6 @@ int ePaper::getTemperature()
 *********************************************************************************************************/
 int ePaper::drawUnicode(unsigned int uniCode, int x, int y)
 {
-    notify4();
    // if(((x+16)>= DISP_LEN) || ((y+16) >= DISP_WIDTH) || x<0 || y<0) return 0;
    
    pinMode(9, OUTPUT);

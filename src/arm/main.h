@@ -7,6 +7,8 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+// #define NRF_STACK_SIZE 4096
+
 //end of add your includes here
 #ifdef __cplusplus
 extern "C" {
@@ -30,6 +32,7 @@ void notify2(void);
 void notify3(void);
 void notify4(void);
 void notify5(void);
+void HardFault_Handler(void);
 
 #ifdef __cplusplus
 } // extern "C"

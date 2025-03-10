@@ -15,6 +15,12 @@
 // #include "../stream_comm.h"
 
 
+
+void HardFault_Handler(void) {
+    printf("HardFault!\n");
+    while (1); // Halt for debug
+}
+
 void Software_Reset(void) {
 	//============================================================================================
 	//   führt ein Reset des Arduino DUE aus...
