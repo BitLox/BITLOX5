@@ -9,7 +9,7 @@
 #include "eink.h"
 #include <Arduino.h>
 #include "keypad_alpha.h"
-#include <due_epaper.h>
+#include "nRF52_ePaper/due_epaper.h"
 //#include "../sha2_trez.h"
 #include "usart.h"
 #include "BLE.h"

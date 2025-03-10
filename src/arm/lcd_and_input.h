@@ -33,7 +33,7 @@ extern void displayMnemonic(const char * mnemonicToDisplay, int length);
 extern void displayMnemonicCheck(const char * mnemonicToDisplay);
 //extern void inputMnemonic(char *tempMnemToSet);
 extern char nibbleToHex(uint8_t nibble);
-extern char waitForNumberButtonPress(void);
+extern int waitForNumberButtonPress(void);
 extern char waitForNumberButtonPress4to8(void);
 extern bool displayHexStream(uint8_t *stream, uint8_t length);
 extern bool displayBigHexStream(uint8_t *stream, uint32_t length);

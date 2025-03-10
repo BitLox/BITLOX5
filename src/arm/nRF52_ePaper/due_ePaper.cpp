@@ -26,17 +26,21 @@
 #include "due_GT20L16_drive.h"
 #include "due_ePaper.h"
 #include "due_ePaperDfs.h"
+#include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 
-static void spi_on()
-{
-    SPI.begin();
-    SPI.setBitOrder(MSBFIRST);
-    SPI.setDataMode(SPI_MODE0);
+#include "../ST7789.h"
+#include "../main.h"
 
-    SPI.setClockDivider(SPI_CLOCK_DIVIDER);
-    //SPI_put(0x00);
-    //SPI_put(0x00);
-}
+// static void spi_on()
+// {
+//     SPI.begin();
+//     SPI.setBitOrder(MSBFIRST);
+//     SPI.setDataMode(SPI_MODE0);
+
+//     SPI.setClockDivider(SPI_CLOCK_DIVIDER);
+//     //SPI_put(0x00);
+//     //SPI_put(0x00);
+// }
 
 /*********************************************************************************************************
 * \brief According to EPD size and temperature to get stage_time
@@ -175,17 +179,27 @@ int ePaper::getTemperature()
 *********************************************************************************************************/
 int ePaper::drawUnicode(unsigned int uniCode, int x, int y)
 {
-    
+    notify4();
    // if(((x+16)>= DISP_LEN) || ((y+16) >= DISP_WIDTH) || x<0 || y<0) return 0;
    
+   pinMode(9, OUTPUT);
+   digitalWrite(9, HIGH);
+   SPI.begin();
+   SPI.setBitOrder(MSBFIRST);
+   SPI.setDataMode(SPI_MODE0);
 
     int dtaLen = GT20L16.getMatrixUnicode(uniCode, tMatrix);
 
+    SPI.end();
+
+
+    // initDisplay();
+    // tftBlackScreen();
 
     int pX      = 0;
     int pY      = 0;
     int color   = 0;
-    //spi_on();
+
     for(int k = 0; k<2; k++)
     {
         for(int i=0; i<8; i++)
@@ -195,22 +209,20 @@ int ePaper::drawUnicode(unsigned int uniCode, int x, int y)
 
                 if(tMatrix[j+(dtaLen/2)*k] & (0x01<<(7-i)))
                 {  
-                    color = 1;
+                    color = ST77XX_RED;
+                    pX = x + j;
+                    pY = y + k*8+i;
+                    drawDot(pX, pY, color);    
                 }
                 else
                 {
-                    color = 0;
+                    // color = ST77XX_BLACK;
                 }
                 
-                pX = x + j;
-                pY = y + k*8+i;
-                
-                
-                drawPixel(pX, pY, color);
             }
         }
     }
-
+    // SPI.end();
     return dtaLen/2;        // x +
 }
 

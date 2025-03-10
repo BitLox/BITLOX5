@@ -25,6 +25,10 @@ void writeBLE_Screen(void);
 void setupSequence(int level);
 void useWhatSetup(void);
 void fatalError(void);
+void notify1(void);
+void notify2(void);
+void notify3(void);
+void notify4(void);
 
 #ifdef __cplusplus
 } // extern "C"

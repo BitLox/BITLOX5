@@ -273,3 +273,8 @@ void drawLine(int x, int y, int dx, int dy){
 // 	tft.drawLine(x+6,y+2,x+12,y-4,ST77XX_RED);
 // 	tft.drawLine(x+5,y+2,x+12,y-5,ST77XX_RED);
 // }
+
+
+void drawDot(int pX, int pY, uint16_t color){
+  tft.drawPixel(pX, pY, color);
+}

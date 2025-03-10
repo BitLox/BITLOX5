@@ -130,7 +130,7 @@ void initFormatting(void)
 {
 	Serial.println(" ---------initFormatting---in-------");
 	is_formatted = checkisFormatted();
-	Serial.print(is_formatted);
+	Serial.println(is_formatted);
 	Serial.println(" ---------checkisFormatted----------");
 }
 

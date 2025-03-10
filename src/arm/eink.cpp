@@ -5,17 +5,17 @@
  *      Author: thesquid
  *     Amended: Feb 12, 2025
  */
-#include "Arduino.h"
+#include <Arduino.h>
 #include "eink.h"
-#include <due_ePaper.h>
+#include "nRF52_ePaper/due_ePaper.h"
 #include <SPI.h>
 #include <SD.h>
-#include <due_GT20L16_drive.h>
+#include "nRF52_ePaper/due_GT20L16_drive.h"
 //#include <avr/pgmspace.h>
 // #include "due_qrencode_lib/due_qrencode.h"
 #include "lcd_and_input.h"
 #include <string.h>
-// #include "avr2arm.h"
+#include "main.h"
 
 #include "picture.h"
 #include "keypad_MPR121.h"
@@ -23,7 +23,7 @@
 
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
-#include <SPI.h>
+
 #include "ST7789.h"
 
 
@@ -234,40 +234,53 @@ void writeEinkDrawUnicode(	unsigned int *toDisplayLine0, int l0, int x0, int y0,
 								unsigned int *toDisplayLine3, int l3, int x3, int y3,
 								unsigned int *toDisplayLine4, int l4, int x4, int y4  )
 {
-    drawtextW3("UNICODE NOT YET SUPPORTED wEDrwU", 10, 10);
+    // drawtextW3("UNICODE NOT YET SUPPORTED wEDrwU", 10, 10);
 
-	// unsigned int *line0;
-	// unsigned int *line1;
-	// unsigned int *line2;
-	// unsigned int *line3;
-	// unsigned int *line4;
+	unsigned int *line0;
+	unsigned int *line1;
+	unsigned int *line2;
+	unsigned int *line3;
+	unsigned int *line4;
 
-	// line0 = toDisplayLine0;
-	// line1 = toDisplayLine1;
-	// line2 = toDisplayLine2;
-	// line3 = toDisplayLine3;
-	// line4 = toDisplayLine4;
+	line0 = toDisplayLine0;
+	line1 = toDisplayLine1;
+	line2 = toDisplayLine2;
+	line3 = toDisplayLine3;
+	line4 = toDisplayLine4;
 
-	// EPAPER.drawUnicodeString(line0, l0, x0, y0);
-    // EPAPER.drawUnicodeString(line1, l1, x1, y1);
-    // EPAPER.drawUnicodeString(line2, l2, x2, y2);
-    // EPAPER.drawUnicodeString(line3, l3, x3, y3);
-    // EPAPER.drawUnicodeString(line4, l4, x4, y4);
+	EPAPER.drawUnicodeString(line0, l0, x0, y0);
+    EPAPER.drawUnicodeString(line1, l1, x1, y1);
+    EPAPER.drawUnicodeString(line2, l2, x2, y2);
+    EPAPER.drawUnicodeString(line3, l3, x3, y3);
+    EPAPER.drawUnicodeString(line4, l4, x4, y4);
 }
 
 
 void writeEinkDrawUnicodeSingle(unsigned int *toDisplayLine0, int l0, int x0, int y0)
 {
-    drawtextW3("UNICODE NOT YET SUPPORTED wEDrwUS", 10, 10);
-// 	unsigned int *line0;
+    // drawtextW3("UNICODE NOT YET SUPPORTED wEDrwUS", 10, 10);
 
-// 	line0 = toDisplayLine0;
 
-// //	unsigned int tempLine[] = {0x7801};
-// //
-// //	line0 = tempLine;
+	notify3();
+	unsigned int *line0;
 
-// 	EPAPER.drawUnicodeString(line0, l0, x0, y0);
+	line0 = toDisplayLine0;
+
+	Serial.println(l0);
+	Serial.println(toDisplayLine0[0], HEX);
+	Serial.println(toDisplayLine0[1], HEX);
+	Serial.println(toDisplayLine0[2], HEX);
+	Serial.println(toDisplayLine0[3], HEX);
+	Serial.println(toDisplayLine0[4], HEX);
+	Serial.println(toDisplayLine0[5], HEX);
+	Serial.println(toDisplayLine0[6], HEX);
+	Serial.println(toDisplayLine0[7], HEX);
+
+//	unsigned int tempLine[] = {0x7801};
+//
+//	line0 = tempLine;
+
+	EPAPER.drawUnicodeString(line0, l0, x0, y0);
 }
 
 void writeEinkDisplayUnicode_transaction(	unsigned int *toDisplayLine0, bool is_progmem0, int l0, int x0, int y0,

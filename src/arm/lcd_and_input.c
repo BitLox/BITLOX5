@@ -1,4 +1,4 @@
-/** \file lcd_and_input.c
+﻿/** \file lcd_and_input.c
   *
   * \brief HD44780-based LCD driver and input button reader.
   *
@@ -17,7 +17,7 @@
   *
   * This file is licensed as described by the file LICENCE.
   */
-
+#include <wchar.h>
 #include <string.h>
 #include "main.h"
 
@@ -29,17 +29,16 @@
 #include "../baseconv.h"
 #include "../prandom.h"
 #include "eink.h"
-#include "Arduino.h"
+#include <Arduino.h>
 // #include "keypad_arm.h"
 #include "keypad_alpha.h"
 // #include "avr2arm.h"
 #include "../stream_comm.h"
 #include "keypad_MPR121.h"
 
-
 #define COUNT_OF(x) ((sizeof(x)/sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
 
-char waitForNumberButtonPress(void);
+int waitForNumberButtonPress(void);
 void showWorking(void);
 void showDenied(void);
 
@@ -79,10 +78,10 @@ void setLang(void){
 
 
 void setLangInitially(void){
-	char langChar;
+	// char langChar;
 	int lang;
-	langChar = waitForNumberButtonPress();
-	lang = langChar - '0';
+	lang = waitForNumberButtonPress();
+	// lang = langChar - '0';
 
 	if (lang == 0){
 		lang = 9;
@@ -91,20 +90,20 @@ void setLangInitially(void){
 	{
 		lang = lang - 1;
 	}
-	if (langChar == 'Y'){
-		lang = 0;
-	}
+	// if (langChar == 'Y'){
+	// 	lang = 0;
+	// }
 
 
 	uint8_t temp1[1];
 	temp1[0] = (uint8_t*)lang;
 
-	nonVolatileWrite(temp1, DEVICE_LANG_ADDRESS, 1);
+	nonVolatileWrite(temp1, DEVICE_LANG_ADDRESS, 1);  // 144 0x90
 
 	int s = 123;
 	uint8_t set[1];
 	set[0] = s;
-	nonVolatileWrite(set, DEVICE_LANG_SET_ADDRESS, 1);
+	nonVolatileWrite(set, DEVICE_LANG_SET_ADDRESS, 1); // 160 0xA0
 }
 
 
@@ -367,7 +366,7 @@ bool waitForButtonPress(void)
   * \return int of the button pressed.
   */
 //static const char * waitForNumberButtonPress(void)
-char waitForNumberButtonPress(void)
+int waitForNumberButtonPress(void)
 {
 	bool current_accept_button;
 	bool current_cancel_button;
@@ -644,8 +643,8 @@ char *userInput(AskUserCommand command)
 	nonVolatileRead(tempLang, DEVICE_LANG_ADDRESS, 1);
 
 	int lang;
-	// lang = (int)tempLang[0];
-	lang = 1;
+	lang = (int)tempLang[0];
+	// lang = 1;
 
 	int zhSizer = 1;
 
@@ -654,17 +653,20 @@ char *userInput(AskUserCommand command)
 		zhSizer = 2;
 	}
 
+	notify1();
 
 	char *r; // what will be returned
 
 
 	if (command == ASKUSER_INITIAL_SETUP)
 		{
+		notify2();
 		const wchar_t INITIAL_SETUP_line0[][25] = {
 				L"INITIAL SETUP",
 				L"ERSTEINRICHTUNG",
 				L"НАЧАЛЬНАЯ НАСТРОЙКА",
-				L"初始设置",
+				{0xbec6,0xbfda},		// {0x521D,0x59CB,0x8BBE,0x7F6E},
+				// L"初始设置",		// {0x521D,0x59CB,0x8BBE,0x7F6E},
 				L"POČÁTEČNÍ KONFIGURACE",
 				L"CONFIGURATION INITIALE",
 				L"CONFIGURACIÓN INICIAL",
@@ -713,20 +715,20 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 		// initDisplay();
 	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 //		writeEinkDrawUnicodeSingle(temp, tempLength, COL_1_X, LINE_0_Y);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
-		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
-		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
-		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
-		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
+// writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
 //		waitForNumberButtonPress();
-		display();
+		// display();
 
 
-//		r = waitForNumberButtonPress();
+		r = waitForNumberButtonPress();
 //		clearDisplay();
 	}
 	if (command == ASKUSER_NEW_WALLET_NUMBER)
@@ -5493,27 +5495,7 @@ void showBattery(void)
 void languageMenuInitially(void){
 	uint8_t tempLangSet[1];
 
-//	  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-//	  delay(100);              // wait for a second
-//	  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-//	  delay(1000);              // wait for a second
-//	  digitalWrite(13, HIGH);
-//	  delay(100);				// turn the LED on (HIGH is the voltage level)
-//	  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-//	  delay(1000);              // wait for a second
-//
-//	  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-//	  delay(100);              // wait for a second
-//	  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-//	  delay(1000);              // wait for a second
-//	  digitalWrite(13, HIGH);
-//	  delay(100);				// turn the LED on (HIGH is the voltage level)
-//	  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-//	  delay(1000);              // wait for a second
-
 	nonVolatileWrite(0, DEVICE_LANG_SET_ADDRESS, 1);
-
-
 	nonVolatileRead(tempLangSet, DEVICE_LANG_SET_ADDRESS, 1);
 
 	int lang;

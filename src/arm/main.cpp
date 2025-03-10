@@ -373,6 +373,7 @@ Serial.println(" ---------in useWhatSetup----------");
 
 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
+	Serial.println(" ---------after ASKUSER_INITIAL_SETUP----------");
 // 	rChar = waitForNumberButtonPress();
 
 // 	clearDisplay();
@@ -540,34 +541,59 @@ void setupSequence(int level){
 // 	}
 }
 
+void notify1(){
+	// Serial.println(" ---------in userInput----------");
+}
+void notify2(){
+	// Serial.println(" ---------in userInput/ASKUSER_INITIAL_SETUP----------");
+}
+
+void notify3(){
+	// Serial.println(" ---------in writeEinkDrawUnicodeSingle----------");
+}
+
+void notify4(){
+	// Serial.println(" ---------in drawUnicode----------");
+}
+
 void setup()
 {
 	int level;
 	Serial.begin(9600);
+
+	while (!Serial)
+    { // needed to keep leonardo/micro from starting too fast!
+        delay(10);
+    }
+
+	Serial.println(" ---------ENTRY----------");
 
 	// initialize digital pin LED_BUILTIN as an output.
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	// initialize ST7789
 	initDisplay();
-	// large block of text
+	// large block of text, temporary splash screen
 	tftBlackScreen();
 	char q[] = "BITLOX5";
 	drawtext(q, ST77XX_RED, 3, 0, 0);
-	delay(2000);
+	// delay(2000);
 
-	// tftBlackScreen();
+	tftBlackScreen();
 	// char p[] = "INPUT PIN:";
 	// drawtext(p, ST77XX_RED, 3, 0, 0);
 	// delay(1000);
 
 	initKeypad();
-	languageMenuInitially();
+	Serial.println("MPR121 init exited");
 	
+	languageMenuInitially();
+	// delay(10000);
+
 	tftBlackScreen();
-	char p[] = "after languageMenuInitially()";
-	drawtext(p, ST77XX_RED, 3, 0, 0);
-	delay(1000);
+	// char p[] = "after languageMenuInitially()";
+	// drawtext(p, ST77XX_RED, 3, 0, 0);
+	// delay(1000);
 
 	initFormatting();
 
