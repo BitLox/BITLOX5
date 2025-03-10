@@ -712,8 +712,7 @@ char *userInput(AskUserCommand command)
 				L"UZMAN        3...", //TU
 				L"ESPERTO      3..."  //IT
 		} ;
-		// delay(1000);
-		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
+		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
