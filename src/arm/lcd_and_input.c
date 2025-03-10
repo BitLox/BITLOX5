@@ -713,15 +713,15 @@ char *userInput(AskUserCommand command)
 				L"ESPERTO      3..."  //IT
 		} ;
 
-		printf("Line0: %p, len=%d\n", INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]));
+		// printf("Line0: %p, len=%d\n", INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
-		printf("Underline\n");
+		// printf("Underline\n");
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
-		printf("Line1: %p, len=%d\n", INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]));
+		// printf("Line1: %p, len=%d\n", INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
-		printf("Line2: %p, len=%d\n", INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]));
+		// printf("Line2: %p, len=%d\n", INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
-		printf("Line3: %p, len=%d\n", INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]));
+		// printf("Line3: %p, len=%d\n", INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]));
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
 
 		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
@@ -735,7 +735,7 @@ char *userInput(AskUserCommand command)
 	}
 	if (command == ASKUSER_NEW_WALLET_NUMBER)
 		{
-		const wchar_t NEW_WALLET_NUMBER_line0[][25] = {
+		static const wchar_t NEW_WALLET_NUMBER_line0[][25] = {
 				L"HIDDEN WALLET NUMBER", //EN
 				L"VERSTECKTE WALLET NUMMER", //DE
 				L"НОМЕР ТАЙНОГО КОШЕЛЬКА", //RU
@@ -748,7 +748,7 @@ char *userInput(AskUserCommand command)
 				L"NUMERO NASCOSTO"  //IT
 		} ;
 
-		const wchar_t NEW_WALLET_NUMBER_line1[][25] = {
+		static const wchar_t NEW_WALLET_NUMBER_line1[][25] = {
 				L"PLEASE ENTER A WALLET", //EN
 				L"WAHLEN SIE EIN WALLET", //DE
 				L"ВВЕДИТЕ НОМЕР КОШЕЛЬКА", //RU
@@ -762,7 +762,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_NUMBER_line2[][25] = {
+		static const wchar_t NEW_WALLET_NUMBER_line2[][25] = {
 				L"NUMBER 51-100", //EN
 				L"NUMMER ZWISCHEN 51 & 100", //DE
 				L"ОТ 51 ДО 100", //RU
@@ -776,7 +776,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_NUMBER_line3[][25] = {
+		static const wchar_t NEW_WALLET_NUMBER_line3[][25] = {
 				L"NOW USING THE KEYPAD", //EN
 				L"JETZT", //DE
 				L"ЗАПОМНИТЕ ЭТОТ НОМЕР!", //RU
@@ -788,7 +788,7 @@ char *userInput(AskUserCommand command)
 				L"BU NUMARAYI HATIRLAMANIZ", //TU
 				L"MEMORIZZARE NUMERO #"  //IT
 		} ;
-		const wchar_t uiBACK_line0[][9] = {
+		static const wchar_t uiBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -800,7 +800,7 @@ char *userInput(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t uiGO_line0[][12] = {
+		static const wchar_t uiGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -844,7 +844,7 @@ char *userInput(AskUserCommand command)
 	}
 	if (command == ASKUSER_RESTORE_WALLET_DEVICE_INPUT_TYPE)
 		{
-		const wchar_t RESTORE_WALLET_DEVICE_INPUT_TYPE_line0[][25] = {
+		static const wchar_t RESTORE_WALLET_DEVICE_INPUT_TYPE_line0[][25] = {
 				L"MNEMONIC INPUT", //EN
 				L"MNEMONIC INPUT", //DE
 				L"МНЕМОНИЧЕСКИЕ ВВОД", //RU
@@ -858,7 +858,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t RESTORE_WALLET_DEVICE_INPUT_TYPE_line1[][25] = {
+		static const wchar_t RESTORE_WALLET_DEVICE_INPUT_TYPE_line1[][25] = {
 				L"INDEX    1...", //EN
 				L"INDEX    1...", //DE
 				L"ИНДЕКС   1...", //RU
@@ -872,7 +872,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t RESTORE_WALLET_DEVICE_INPUT_TYPE_line2[][25] = {
+		static const wchar_t RESTORE_WALLET_DEVICE_INPUT_TYPE_line2[][25] = {
 				L"DIRECT   2...", //EN
 				L"DIREKT   2...", //DE
 				L"ПРЯМОЙ   2...", //RU
@@ -884,7 +884,7 @@ char *userInput(AskUserCommand command)
 				L"DOĞRUDAN 2...", //TU
 				L"DIRETTO  2..."  //IT
 		} ;
-		const wchar_t uiBACK_line0[][9] = {
+		static const wchar_t uiBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -918,7 +918,7 @@ char *userInput(AskUserCommand command)
 	}
 	if (command == ASKUSER_NEW_WALLET_STRENGTH)
 		{
-		const wchar_t NEW_WALLET_STRENGTH_line0[][25] = {
+		static const wchar_t NEW_WALLET_STRENGTH_line0[][25] = {
 				L"MNEMONIC STRENGTH", //EN
 				L"MNEMONIC STÄRKE", //DE
 				L"ВЫБОР СЛОЖНОСТИ МНЕМОНИК", //RU
@@ -932,7 +932,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_STRENGTH_line1[][25] = {
+		static const wchar_t NEW_WALLET_STRENGTH_line1[][25] = {
 				L"12 WORDS    1...", //EN
 				L"12 WÖRTEN   1...", //DE
 				L"12 СЛОВ     1...", //RU
@@ -946,7 +946,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_STRENGTH_line2[][25] = {
+		static const wchar_t NEW_WALLET_STRENGTH_line2[][25] = {
 				L"18 WORDS    2...", //EN
 				L"18 WÖRTEN   2...", //DE
 				L"18 СЛОВ     2...", //RU
@@ -960,7 +960,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_STRENGTH_line3[][25] = {
+		static const wchar_t NEW_WALLET_STRENGTH_line3[][25] = {
 				L"24 WORDS    3...", //EN
 				L"24 WÖRTEN   3...", //DE
 				L"24 СЛОВ     3...", //RU
@@ -972,7 +972,7 @@ char *userInput(AskUserCommand command)
 				L"24 KELİME   3...", //TU
 				L"24 PAROLE   3..."  //IT
 		} ;
-		const wchar_t uiCANCEL_line0[][9] = {
+		static const wchar_t uiCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1008,7 +1008,7 @@ char *userInput(AskUserCommand command)
 	}
 	if (command == ASKUSER_NEW_WALLET_LEVEL)
 		{
-		const wchar_t NEW_WALLET_LEVEL_line0[][25] = {
+		static const wchar_t NEW_WALLET_LEVEL_line0[][25] = {
 				L"WALLET PIN TYPE", //EN
 				L"WALLET PIN SORTE", //DE
 				L"ТИП ПАРОЛЯ КОШЕЛЬКА", //RU
@@ -1022,7 +1022,7 @@ char *userInput(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_LEVEL_line1[][25] = {
+		static const wchar_t NEW_WALLET_LEVEL_line1[][25] = {
 				L"STANDARD     1...",
 				L"STANDARD     1...",
 				L"СТАНДАРТНЫЙ  1...",
@@ -1035,7 +1035,7 @@ char *userInput(AskUserCommand command)
 				L"STANDARD     1..."
 		} ;
 
-		const wchar_t NEW_WALLET_LEVEL_line2[][25] = {
+		static const wchar_t NEW_WALLET_LEVEL_line2[][25] = {
 				L"ADVANCED     2...", //EN
 				L"ERWEITERTE   2...", //DE
 				L"РАСШИРЕННЫЙ  2...", //RU
@@ -1048,7 +1048,7 @@ char *userInput(AskUserCommand command)
 				L"AVANZATO     2..."  //IT
 		} ;
 
-		const wchar_t NEW_WALLET_LEVEL_line3[][25] = {
+		static const wchar_t NEW_WALLET_LEVEL_line3[][25] = {
 				L"EXPERT       3...", //EN
 				L"EXPERT       3...", //DE
 				L"ЭКСПЕРТ      3...", //RU
@@ -1060,7 +1060,7 @@ char *userInput(AskUserCommand command)
 				L"UZMAN        3...", //TU
 				L"ESPERTO      3..."  //IT
 		} ;
-		const wchar_t uiCANCEL_line0[][9] = {
+		static const wchar_t uiCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1131,7 +1131,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	r = true;
 	if (command == ASKUSER_FORMAT_WITH_PROGRESS)
 	{
-		const wchar_t FORMAT_WITH_PROGRESS_line1[][25] = {
+		static const wchar_t FORMAT_WITH_PROGRESS_line1[][25] = {
 				L"FORMATTING", //EN
 				L"FORMATIERUNG", //DE
 				L"ФОРМАТИРОВАНИЕ", //RU
@@ -1173,7 +1173,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_SET_DEVICE_PIN)
 	{
-		const wchar_t BACK_line0[][9] = {
+		static const wchar_t BACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -1185,7 +1185,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t GO_line0[][12] = {
+		static const wchar_t GO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1198,7 +1198,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"GO"  //IT
 		} ;
 
-		const wchar_t SET_DEVICE_PIN_line0[][25] = {
+		static const wchar_t SET_DEVICE_PIN_line0[][25] = {
 				L"DEVICE PIN", //EN
 				L"GERÄTE-PIN", //DE
 				L"ПАРОЛЬ УСТРОЙСТВА", //RU
@@ -1210,7 +1210,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"CİHAZ PIN", //TU
 				L"PIN DEL DISPOSITIVO"  //IT
 		} ;
-		const wchar_t SET_PIN_line1[][25] = {
+		static const wchar_t SET_PIN_line1[][25] = {
 				L"PLEASE WRITE DOWN", //EN
 				L"BITTE SCHREIBEN SIE", //DE
 				L"ПОЖАЛУЙСТА, ЗАПИШИТЕ", //RU
@@ -1222,7 +1222,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"LÜTFEN YAZIN", //TU
 				L"PER FAVORE SCRIVI IL"  //IT
 		} ;
-		const wchar_t SET_PIN_line2[][25] = {
+		static const wchar_t SET_PIN_line2[][25] = {
 				L"YOUR PIN", //EN
 				L"IHR PIN", //DE
 				L"ПАРОЛЬ", //RU
@@ -1262,7 +1262,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_SET_DEVICE_PIN_BIG)
 	{
-		const wchar_t BACK_line0[][9] = {
+		static const wchar_t BACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -1274,7 +1274,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t GO_line0[][12] = {
+		static const wchar_t GO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1286,7 +1286,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İLERLE", //TU
 				L"GO"  //IT
 		} ;
-		const wchar_t SET_DEVICE_PIN_line0[][25] = {
+		static const wchar_t SET_DEVICE_PIN_line0[][25] = {
 				L"DEVICE PIN", //EN
 				L"GERÄTE-PIN", //DE
 				L"ПАРОЛЬ УСТРОЙСТВА", //RU
@@ -1298,7 +1298,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"CİHAZ PIN", //TU
 				L"PIN DEL DISPOSITIVO"  //IT
 		} ;
-		const wchar_t SET_PIN_line1[][25] = {
+		static const wchar_t SET_PIN_line1[][25] = {
 				L"PLEASE WRITE DOWN", //EN
 				L"BITTE SCHREIBEN SIE", //DE
 				L"ПОЖАЛУЙСТА, ЗАПИШИТЕ", //RU
@@ -1310,7 +1310,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"LÜTFEN YAZIN", //TU
 				L"PER FAVORE SCRIVI IL"  //IT
 		} ;
-		const wchar_t SET_PIN_line2[][25] = {
+		static const wchar_t SET_PIN_line2[][25] = {
 				L"YOUR PIN", //EN
 				L"IHR PIN", //DE
 				L"ПАРОЛЬ", //RU
@@ -1351,7 +1351,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_SET_WALLET_PIN)
 	{
-		const wchar_t BACK_line0[][9] = {
+		static const wchar_t BACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -1363,7 +1363,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t GO_line0[][12] = {
+		static const wchar_t GO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1375,7 +1375,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İLERLE", //TU
 				L"GO"  //IT
 		} ;
-		const wchar_t SET_DEVICE_PIN_line0[][25] = {
+		static const wchar_t SET_DEVICE_PIN_line0[][25] = {
 				L"DEVICE PIN", //EN
 				L"GERÄTE-PIN", //DE
 				L"ПАРОЛЬ УСТРОЙСТВА", //RU
@@ -1388,7 +1388,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"PIN DEL DISPOSITIVO"  //IT
 		} ;
 
-		const wchar_t SET_WALLET_PIN_line0[][25] = {
+		static const wchar_t SET_WALLET_PIN_line0[][25] = {
 				L"WALLET PIN", //EN
 				L"WALLET PIN", //DE
 				L"ПАРОЛЬ КОШЕЛЬКА", //RU
@@ -1401,7 +1401,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"PIN PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t SET_PIN_line1[][25] = {
+		static const wchar_t SET_PIN_line1[][25] = {
 				L"PLEASE WRITE DOWN", //EN
 				L"BITTE SCHREIBEN SIE", //DE
 				L"ПОЖАЛУЙСТА, ЗАПИШИТЕ", //RU
@@ -1413,7 +1413,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"LÜTFEN YAZIN", //TU
 				L"PER FAVORE SCRIVI IL"  //IT
 		} ;
-		const wchar_t SET_PIN_line2[][25] = {
+		static const wchar_t SET_PIN_line2[][25] = {
 				L"YOUR PIN", //EN
 				L"IHR PIN", //DE
 				L"ПАРОЛЬ", //RU
@@ -1453,7 +1453,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_SET_WALLET_PIN_BIG)
 	{
-		const wchar_t BACK_line0[][9] = {
+		static const wchar_t BACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -1465,7 +1465,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t GO_line0[][12] = {
+		static const wchar_t GO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1478,7 +1478,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"GO"  //IT
 		} ;
 
-		const wchar_t SET_DEVICE_PIN_line0[][25] = {
+		static const wchar_t SET_DEVICE_PIN_line0[][25] = {
 				L"DEVICE PIN", //EN
 				L"GERÄTE-PIN", //DE
 				L"ПАРОЛЬ УСТРОЙСТВА", //RU
@@ -1490,7 +1490,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"CİHAZ PIN", //TU
 				L"PIN DEL DISPOSITIVO"  //IT
 		} ;
-		const wchar_t SET_WALLET_PIN_line0[][25] = {
+		static const wchar_t SET_WALLET_PIN_line0[][25] = {
 				L"WALLET PIN", //EN
 				L"WALLET PIN", //DE
 				L"ПАРОЛЬ КОШЕЛЬКА", //RU
@@ -1503,7 +1503,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"PIN PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t SET_PIN_line1[][25] = {
+		static const wchar_t SET_PIN_line1[][25] = {
 				L"PLEASE WRITE DOWN", //EN
 				L"BITTE SCHREIBEN SIE", //DE
 				L"ПОЖАЛУЙСТА, ЗАПИШИТЕ", //RU
@@ -1515,7 +1515,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"LÜTFEN YAZIN", //TU
 				L"PER FAVORE SCRIVI IL"  //IT
 		} ;
-		const wchar_t SET_PIN_line2[][25] = {
+		static const wchar_t SET_PIN_line2[][25] = {
 				L"YOUR PIN", //EN
 				L"IHR PIN", //DE
 				L"ПАРОЛЬ", //RU
@@ -1556,7 +1556,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_SHOW_DISPLAYPHRASE)
 	{
-		const wchar_t CANCEL_line0[][9] = {
+		static const wchar_t CANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1568,7 +1568,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t CONFIRM_line0[][12] = {
+		static const wchar_t CONFIRM_line0[][12] = {
 				L"CONFIRM", //EN
 				L"BESTÄTIGEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1582,7 +1582,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 		} ;
 
 
-		const wchar_t udpdAEM_DISPLAYPHRASE_line0[][25] = {
+		static const wchar_t udpdAEM_DISPLAYPHRASE_line0[][25] = {
 				L"AEM PROTECTION SETUP", //EN
 				L"AEM SCHUTZKONFIGURATION", //DE
 				L"УСТАНОВКА AEM ЗАЩИТЫ", //RU
@@ -1594,7 +1594,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"AEM KORUMA KURULUMU", //TU
 				L"IMPOSTAZIONI AEM"  //IT
 		} ;
-		const wchar_t SHOW_DISPLAYPHRASE_line1[][25] = {
+		static const wchar_t SHOW_DISPLAYPHRASE_line1[][25] = {
 				L"MEMORIZE THE SECRET", //EN
 				L"VERMERKEN SIE IHRE", //DE
 				L"ЗАПОМНИТЕ УСТАНОВЛЕННУЮ", //RU
@@ -1606,7 +1606,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"AYARLADIĞINIZ", //TU
 				L"MEMORIZZA LA FRASE CHE"  //IT
 		} ;
-		const wchar_t SHOW_DISPLAYPHRASE_line2[][25] = {
+		static const wchar_t SHOW_DISPLAYPHRASE_line2[][25] = {
 				L"PHRASE YOU HAVE SET", //EN
 				L"GEHEIM PHRASE", //DE
 				L"СЕКРЕТНУЮ ФРАЗУ", //RU
@@ -1619,7 +1619,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"È STATA IMPOSTATA"  //IT
 		} ;
 
-		const wchar_t SHOW_DISPLAYPHRASE_line3[][25] = {
+		static const wchar_t SHOW_DISPLAYPHRASE_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"", //RU
@@ -1662,7 +1662,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_SHOW_UNLOCKPHRASE)
 	{
-		const wchar_t CANCEL_line0[][9] = {
+		static const wchar_t CANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1674,7 +1674,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t CONFIRM_line0[][12] = {
+		static const wchar_t CONFIRM_line0[][12] = {
 				L"CONFIRM", //EN
 				L"BESTÄTIGEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1686,7 +1686,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"ONAYLA", //TU
 				L"CONFERMARE"  //IT
 		} ;
-		const wchar_t udpdAEM_DISPLAYPHRASE_line0[][25] = {
+		static const wchar_t udpdAEM_DISPLAYPHRASE_line0[][25] = {
 				L"AEM PROTECTION SETUP", //EN
 				L"AEM SCHUTZKONFIGURATION", //DE
 				L"УСТАНОВКА AEM ЗАЩИТЫ", //RU
@@ -1698,7 +1698,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"AEM KORUMA KURULUMU", //TU
 				L"IMPOSTAZIONI AEM"  //IT
 		} ;
-		const wchar_t SHOW_UNLOCKPHRASE_line1[][25] = {
+		static const wchar_t SHOW_UNLOCKPHRASE_line1[][25] = {
 				L"MEMORIZE THE PHRASE", //EN
 				L"VERMERKEN SIE DIE PHRASE", //DE
 				L"ЗАПОМНИТЕ ФРАЗУ", //RU
@@ -1711,7 +1711,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"MEMORIZZA LA FRASE"  //IT
 		} ;
 
-		const wchar_t SHOW_UNLOCKPHRASE_line2[][25] = {
+		static const wchar_t SHOW_UNLOCKPHRASE_line2[][25] = {
 				L"FOR DECRYPTING", //EN
 				L"ZUM ENTSCHLÜSSELN", //DE
 				L"ДЛЯ РАСШИФРОВКИ", //RU
@@ -1752,7 +1752,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_TRANSACTION_PIN_SET)
 	{
-		const wchar_t CANCEL_line0[][9] = {
+		static const wchar_t CANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1764,7 +1764,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t GO_line0[][12] = {
+		static const wchar_t GO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1776,7 +1776,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İLERLE", //TU
 				L"GO"  //IT
 		} ;
-		const wchar_t udpdDESCRIBE_EXPERT_SETUP_line0[][25] = {
+		static const wchar_t udpdDESCRIBE_EXPERT_SETUP_line0[][25] = {
 				L"EXPERT SETUP", //EN
 				L"EXPERT KONFIGURATION", //DE
 				L"ЭКСПЕРТНЫЕ НАСТРОЙКИ", //RU
@@ -1788,7 +1788,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"UZMAN KURULUMU", //TU
 				L"IMPOSTAZIONIE ESPERTO"  //IT
 		} ;
-		const wchar_t TRANSACTION_PIN_SET_line1[][25] = {
+		static const wchar_t TRANSACTION_PIN_SET_line1[][25] = {
 				L"SETTING TRANSACTION PIN:", //EN
 				L"EINSTELLUNG DER", //DE
 				L"УСТАНОВКА ПАРОЛЯ", //RU
@@ -1829,7 +1829,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 	}
 	else if (command == ASKUSER_CONFIRM_HIDDEN_WALLET_NUMBER)
 	{
-		const wchar_t CANCEL_line0[][9] = {
+		static const wchar_t CANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1841,7 +1841,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t CONFIRM_line0[][12] = {
+		static const wchar_t CONFIRM_line0[][12] = {
 				L"CONFIRM", //EN
 				L"BESTÄTIGEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -1854,7 +1854,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 				L"CONFERMARE"  //IT
 		} ;
 
-		const wchar_t CONFIRM_HIDDEN_WALLET_NUMBER_line1[][25] = {
+		static const wchar_t CONFIRM_HIDDEN_WALLET_NUMBER_line1[][25] = {
 				L"USE THIS WALLET NUMBER?", //EN
 				L"NUTZEN SIE DIESE", //DE
 				L"ИСПОЛЬЗОВАТЬ ЭТОТ", //RU
@@ -1925,7 +1925,7 @@ bool userDenied(AskUserCommand command)
 	r = true;
 	if (command == ASKUSER_NEW_WALLET_2)
 	{
-		const wchar_t NEW_WALLET_line0[][25] = {
+		static const wchar_t NEW_WALLET_line0[][25] = {
 				L"NEW WALLET", //EN
 				L"NEUE WALLET", //DE
 				L"НОВЫЙ КОШЕЛЕК", //RU
@@ -1938,7 +1938,7 @@ bool userDenied(AskUserCommand command)
 				L"NUOVO PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t NEW_WALLET_line1[][25] = {
+		static const wchar_t NEW_WALLET_line1[][25] = {
 				L"CREATE A NEW WALLET?", //EN
 				L"NEUE WALLET ERSTELLEN?", //DE
 				L"СОЗДАТЬ НОВЫЙ КОШЕЛЕК?", //RU
@@ -1950,7 +1950,7 @@ bool userDenied(AskUserCommand command)
 				L"YENİ CÜZDAN OLUŞTUR?", //TU
 				L"CREA UN PORTAFOGLIO?"  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -1963,7 +1963,7 @@ bool userDenied(AskUserCommand command)
 				L"ANNULLA"  //IT
 		} ;
 
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2002,7 +2002,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DELETE_WALLET)
 	{
-		const wchar_t DELETE_WALLET_line0[][25] = {
+		static const wchar_t DELETE_WALLET_line0[][25] = {
 				L"DELETE WALLET", //EN
 				L"LÖSCHEN GELDBÖRSEN", //DE
 				L"УДАЛ БУМАЖНИКА", //RU
@@ -2015,7 +2015,7 @@ bool userDenied(AskUserCommand command)
 				L"DELETE PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t DELETE_WALLET_line1[][25] = {
+		static const wchar_t DELETE_WALLET_line1[][25] = {
 				L"ERASE WALLET AND", //EN
 				L"LÖSCHEN GELDBÖRSEN", //DE
 				L"УДАЛ БУМАЖНИК", //RU
@@ -2028,7 +2028,7 @@ bool userDenied(AskUserCommand command)
 				L"CANCELLARE PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t DELETE_WALLET_line2[][25] = {
+		static const wchar_t DELETE_WALLET_line2[][25] = {
 				L"EVERYTHING IN IT?", //EN
 				L"UND ALLES IN IHR?", //DE
 				L"И ВСЕ В НЕМ?", //RU
@@ -2040,7 +2040,7 @@ bool userDenied(AskUserCommand command)
 				L"ŞEY SİLECEKTİR?", //TU
 				L"E TUTTO CIÒ CHE?"  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -2052,7 +2052,7 @@ bool userDenied(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2090,7 +2090,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_USE_MNEMONIC_PASSPHRASE)
 	{
-		const wchar_t USE_MNEMONIC_PASSPHRASE_line0[][25] = {
+		static const wchar_t USE_MNEMONIC_PASSPHRASE_line0[][25] = {
 				L"MNEMONIC PASSPHRASE", //EN
 				L"MNEMONIC-PASSWORT", //DE
 				L"МНЕМОНИКА ПАРОЛЬ", //RU
@@ -2103,7 +2103,7 @@ bool userDenied(AskUserCommand command)
 				L"PASSWORD MNEMONICO"  //IT
 		} ;
 
-		const wchar_t USE_MNEMONIC_PASSPHRASE_line1[][25] = {
+		static const wchar_t USE_MNEMONIC_PASSPHRASE_line1[][25] = {
 				L"USE PASSPHRASE", //EN
 				L"VERWENDEN PASSWORT", //DE
 				L"ИСПОЛЬЗОВАТЬ ПАРОЛЬ ДЛЯ", //RU
@@ -2116,7 +2116,7 @@ bool userDenied(AskUserCommand command)
 				L"UTILIZZARE PASSWORD PER"  //IT
 		} ;
 
-		const wchar_t USE_MNEMONIC_PASSPHRASE_line2[][25] = {
+		static const wchar_t USE_MNEMONIC_PASSPHRASE_line2[][25] = {
 				L"TO SECURE MNEMONIC?", //EN
 				L"MNEMONIC ZU SICHERN?", //DE
 				L"ОБЕСПЕЧЕНИЯ", //RU
@@ -2128,7 +2128,7 @@ bool userDenied(AskUserCommand command)
 				L"ŞİFRE KULLANIN?", //TU
 				L"PROTEGGERE MNEMONICO?"  //IT
 		} ;
-		const wchar_t USE_MNEMONIC_PASSPHRASE_line3[][25] = {
+		static const wchar_t USE_MNEMONIC_PASSPHRASE_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"МНЕМОНИЧЕСКИЕ?", //RU
@@ -2140,7 +2140,7 @@ bool userDenied(AskUserCommand command)
 				L"", //TU
 				L""  //IT
 		} ;
-		const wchar_t udYES_line0[][5] = {
+		static const wchar_t udYES_line0[][5] = {
 					L"YES", //EN
 					L"JA", //DE
 					L"ДА", //RU
@@ -2152,7 +2152,7 @@ bool userDenied(AskUserCommand command)
 					L"EVET", //TU
 					L"SÌ"  //IT
 			} ;
-		const wchar_t udNO_line0[][6] = {
+		static const wchar_t udNO_line0[][6] = {
 				L"NO", //EN
 				L"NEIN", //DE
 				L"НЕТ", //RU
@@ -2190,7 +2190,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ENTER_PIN)
 	{
-		const wchar_t ENTER_PIN_line0[][8] = {
+		static const wchar_t ENTER_PIN_line0[][8] = {
 				L"PIN:", //EN
 				L"PIN:", //DE
 				L"ПАРОЛЬ:", //RU
@@ -2203,7 +2203,7 @@ bool userDenied(AskUserCommand command)
 				L"PIN:"  //IT
 		} ;
 
-		const wchar_t udNUM_line0[][4] = {
+		static const wchar_t udNUM_line0[][4] = {
 				L"NUM", //EN
 				L"NUM", //DE
 				L"NUM", //RU
@@ -2216,7 +2216,7 @@ bool userDenied(AskUserCommand command)
 				L"NUM"  //IT
 		} ;
 
-		const wchar_t udGO_line0[][12] = {
+		static const wchar_t udGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2257,7 +2257,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ENTER_PIN_ALPHA)
 	{
-		const wchar_t ENTER_PIN_line0[][5] = {
+		static const wchar_t ENTER_PIN_line0[][5] = {
 				L"PIN:", //EN
 				L"PIN:", //DE
 				L"ПАРОЛЬ:", //RU
@@ -2269,7 +2269,7 @@ bool userDenied(AskUserCommand command)
 				L"PIN:", //TU
 				L"PIN:"  //IT
 		} ;
-		const wchar_t udALPHA_line0[][6] = {
+		static const wchar_t udALPHA_line0[][6] = {
 				L"ALPHA", //EN
 				L"ALPHA", //DE
 				L"ALPHA", //RU
@@ -2308,7 +2308,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ENTER_TRANSACTION_PIN)
 	{
-		const wchar_t ENTER_TRANSACTION_PIN_line0[][25] = {
+		static const wchar_t ENTER_TRANSACTION_PIN_line0[][25] = {
 				L"TRANSACTION PIN:", //EN
 				L"TRANSAKTION PIN:", //DE
 				L"ПАРОЛЬ ДЛЯ ТРАНЗАКЦИЙ:", //RU
@@ -2321,7 +2321,7 @@ bool userDenied(AskUserCommand command)
 				L"PIN DELLE TRANSAZIONI:"  //IT
 		} ;
 
-		const wchar_t udNUM_line0[][4] = {
+		static const wchar_t udNUM_line0[][4] = {
 				L"NUM", //EN
 				L"NUM", //DE
 				L"NUM", //RU
@@ -2334,7 +2334,7 @@ bool userDenied(AskUserCommand command)
 				L"NUM"  //IT
 		} ;
 
-		const wchar_t udGO_line0[][12] = {
+		static const wchar_t udGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2374,7 +2374,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ENTER_WALLET_PIN)
 	{
-		const wchar_t ENTER_WALLET_PIN_line0[][25] = {
+		static const wchar_t ENTER_WALLET_PIN_line0[][25] = {
 				L"WALLET PIN:", //EN
 				L"WALLET PIN:", //DE
 				L"ПАРОЛЬ КОШЕЛЬКА:", //RU
@@ -2386,7 +2386,7 @@ bool userDenied(AskUserCommand command)
 				L"CÜZDAN PIN KODU:", //TU
 				L"PIN PORTAFOGLIO:"  //IT
 		} ;
-		const wchar_t udNUM_line0[][4] = {
+		static const wchar_t udNUM_line0[][4] = {
 				L"NUM", //EN
 				L"NUM", //DE
 				L"NUM", //RU
@@ -2399,7 +2399,7 @@ bool userDenied(AskUserCommand command)
 				L"NUM"  //IT
 		} ;
 
-		const wchar_t udGO_line0[][12] = {
+		static const wchar_t udGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2440,7 +2440,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ENTER_WALLET_PIN_ALPHA)
 	{
-		const wchar_t ENTER_WALLET_PIN_ALPHA_line0[][25] = {
+		static const wchar_t ENTER_WALLET_PIN_ALPHA_line0[][25] = {
 				L"WALLET PIN:", //EN
 				L"WALLET PIN:", //DE
 				L"ПАРОЛЬ КОШЕЛЬКА:", //RU
@@ -2452,7 +2452,7 @@ bool userDenied(AskUserCommand command)
 				L"CÜZDAN PIN KODU:", //TU
 				L"PIN PORTAFOGLIO:"  //IT
 		} ;
-		const wchar_t udALPHA_line0[][6] = {
+		static const wchar_t udALPHA_line0[][6] = {
 				L"ALPHA", //EN
 				L"ALPHA", //DE
 				L"ALPHA", //RU
@@ -2540,7 +2540,7 @@ bool userDenied(AskUserCommand command)
 //	}
 	else if (command == ASKUSER_RESTORE_WALLET_DEVICE)
 	{
-		const wchar_t RESTORE_WALLET_DEVICE_line0[][25] = {
+		static const wchar_t RESTORE_WALLET_DEVICE_line0[][25] = {
 				L"RESTORE WALLET", //EN
 				L"RESTORE WALLET", //DE
 				L"ВОССТАНОВЛЕНИЕ БУМАЖНИКА", //RU
@@ -2553,7 +2553,7 @@ bool userDenied(AskUserCommand command)
 				L"RESTORE PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t RESTORE_WALLET_DEVICE_line1[][25] = {
+		static const wchar_t RESTORE_WALLET_DEVICE_line1[][25] = {
 				L"RESTORE A WALLET", //EN
 				L"WIEDERHERSTELLEN EINER", //DE
 				L"ВОССТАНОВЛЕНИЕ КОШЕЛЕК", //RU
@@ -2566,7 +2566,7 @@ bool userDenied(AskUserCommand command)
 				L"RESTORE UN RACCOGLITORE"  //IT
 		} ;
 
-		const wchar_t RESTORE_WALLET_DEVICE_line2[][25] = {
+		static const wchar_t RESTORE_WALLET_DEVICE_line2[][25] = {
 				L"FROM A MNEMONIC LIST?", //EN
 				L"GELDBÖRSE AUS LISTE?", //DE
 				L"ИЗ МНЕМОНИЧЕСКОЙ СПИСОК?", //RU
@@ -2578,7 +2578,7 @@ bool userDenied(AskUserCommand command)
 				L"BIR CÜZDAN RESTORE?", //TU
 				L"DA UNA LISTA MNEMONICO?"  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -2590,7 +2590,7 @@ bool userDenied(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2630,7 +2630,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_NEW_WALLET_IS_HIDDEN)
 	{
-		const wchar_t NEW_WALLET_IS_HIDDEN_line0[][25] = {
+		static const wchar_t NEW_WALLET_IS_HIDDEN_line0[][25] = {
 				L"WALLET VISIBILITY", //EN
 				L"SICHTBARKEIT WALLET", //DE
 				L"ВИДИМОСТЬ КОШЕЛЬКА", //RU
@@ -2644,7 +2644,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_IS_HIDDEN_line1[][25] = {
+		static const wchar_t NEW_WALLET_IS_HIDDEN_line1[][25] = {
 				L"MAKE WALLET HIDDEN?", //EN
 				L"WALLET VERSTECKT MACHEN?", //DE
 				L"СДЕЛАТЬ КОШЕЛЕК ТАЙНЫМ?", //RU
@@ -2657,7 +2657,7 @@ bool userDenied(AskUserCommand command)
 				L"PORTAFOGLIO INVISIBILE?"  //IT
 		} ;
 
-		const wchar_t udYES_line0[][5] = {
+		static const wchar_t udYES_line0[][5] = {
 					L"YES", //EN
 					L"JA", //DE
 					L"ДА", //RU
@@ -2669,7 +2669,7 @@ bool userDenied(AskUserCommand command)
 					L"EVET", //TU
 					L"SÌ"  //IT
 			} ;
-		const wchar_t udNO_line0[][6] = {
+		static const wchar_t udNO_line0[][6] = {
 				L"NO", //EN
 				L"NEIN", //DE
 				L"НЕТ", //RU
@@ -2706,7 +2706,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_NEW_WALLET_NO_PASSWORD)
 	{
-		const wchar_t NEW_WALLET_NO_PASSWORD_line0[][25] = {
+		static const wchar_t NEW_WALLET_NO_PASSWORD_line0[][25] = {
 				L"WALLET PIN", //EN
 				L"GELDBÖRSE PIN", //DE
 				L"PIN-КОШЕЛЕК", //RU
@@ -2720,7 +2720,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t NEW_WALLET_NO_PASSWORD_line1[][25] = {
+		static const wchar_t NEW_WALLET_NO_PASSWORD_line1[][25] = {
 				L"CREATE A WALLET", //EN
 				L"ERSTELLEN EINE", //DE
 				L"СОЗДАТЬ КОШЕЛЕК", //RU
@@ -2733,7 +2733,7 @@ bool userDenied(AskUserCommand command)
 				L"CREARE UN RACCOGLITORE"  //IT
 		} ;
 
-		const wchar_t NEW_WALLET_NO_PASSWORD_line2[][25] = {
+		static const wchar_t NEW_WALLET_NO_PASSWORD_line2[][25] = {
 				L"WITHOUT A PIN?", //EN
 				L"GELDBÖRSE OHNE PIN?", //DE
 				L"БЕЗ PIN-КОДА?", //RU
@@ -2745,7 +2745,7 @@ bool userDenied(AskUserCommand command)
 				L"CÜZDAN OLUŞTURMA?", //TU
 				L"SENZA PIN?"  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -2757,7 +2757,7 @@ bool userDenied(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2795,7 +2795,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_SIGN_TRANSACTION)
 	{
-		const wchar_t SIGN_part0[][25] = {
+		static const wchar_t SIGN_part0[][25] = {
 				L"SEND", //EN
 				L"SENDEN", //DE
 				L"ОТПРАВИТЬ", //RU
@@ -2808,7 +2808,7 @@ bool userDenied(AskUserCommand command)
 				L"INVIARE"  //IT
 		} ;
 
-		const wchar_t trCANCEL_line0[][9] = {
+		static const wchar_t trCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -2821,7 +2821,7 @@ bool userDenied(AskUserCommand command)
 				L"ANNULLA"  //IT
 		} ;
 
-		const wchar_t trCANCEL_line1[][9] = {
+		static const wchar_t trCANCEL_line1[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -2834,7 +2834,7 @@ bool userDenied(AskUserCommand command)
 				L"ANNULLA"  //IT
 		} ;
 
-		const wchar_t FEE_part0[][25] = {
+		static const wchar_t FEE_part0[][25] = {
 				L"TRANSACTION FEE", //EN
 				L"BEARBEITUNGSGEBÜHR", //DE
 				L"КОМИССИЯ НА ПЕРЕВОД", //RU
@@ -2847,7 +2847,7 @@ bool userDenied(AskUserCommand command)
 				L"COSTO DELLA TRANSAZIONE"  //IT
 		} ;
 
-		const wchar_t udYES_line0[][5] = {
+		static const wchar_t udYES_line0[][5] = {
 					L"YES", //EN
 					L"JA", //DE
 					L"ДА", //RU
@@ -2859,7 +2859,7 @@ bool userDenied(AskUserCommand command)
 					L"EVET", //TU
 					L"SÌ"  //IT
 			} ;
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -2885,7 +2885,7 @@ bool userDenied(AskUserCommand command)
 //				L" BTC"  //IT
 //		} ;
 //
-		const char str_sign_part1[]  = " BTC >>>";
+		static const char str_sign_part1[]  = " BTC >>>";
 
 		for (i = 0; i < list_index; i++)
 		{
@@ -2972,7 +2972,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_FORMAT)
 	{
-		const wchar_t FORMAT_DEVICE_line0[][25] = {
+		static const wchar_t FORMAT_DEVICE_line0[][25] = {
 				L"FORMAT DEVICE", //EN
 				L"GERÄT FORMATIEREN", //DE
 				L"ОТФОРМАТ. УСТРОЙСТВО", //RU
@@ -2986,7 +2986,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t FORMAT_DEVICE_line1[][25] = {
+		static const wchar_t FORMAT_DEVICE_line1[][25] = {
 				L"ERASE ALL WALLETS,", //EN
 				L"ALLE WALLETS LÖSCHEN,", //DE
 				L"УДАЛИТЬ ВСЕ КОШЕЛЬКИ ", //RU
@@ -3000,7 +3000,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t FORMAT_DEVICE_line2[][25] = {
+		static const wchar_t FORMAT_DEVICE_line2[][25] = {
 				L"DESTROYING ALL COINS?", //EN
 				L"ZERSTÖREN ALLE COINS?", //DE
 				L"И УНИЧТОЖИТЬ ВСЕ", //RU
@@ -3013,7 +3013,7 @@ bool userDenied(AskUserCommand command)
 				L"PORTAFOGLI, DISTRUGGENDO"  //IT
 		} ;
 
-		const wchar_t FORMAT_DEVICE_line3[][25] = {
+		static const wchar_t FORMAT_DEVICE_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"СБЕРЕЖЕНИЯ?", //RU
@@ -3025,7 +3025,7 @@ bool userDenied(AskUserCommand command)
 				L"", //TU
 				L"TUTTI I COINS?"  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -3038,7 +3038,7 @@ bool userDenied(AskUserCommand command)
 				L"ANNULLA"  //IT
 		} ;
 
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3077,7 +3077,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_PREPARING_TRANSACTION)
 	{
-		const wchar_t PREPARING_TRANSACTION_line0[][25] = {
+		static const wchar_t PREPARING_TRANSACTION_line0[][25] = {
 				L"PREPARING", //EN
 				L"VORBEREITUNG", //DE
 				L"ПОДГОТОВКА", //RU
@@ -3091,7 +3091,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t PREPARING_TRANSACTION_line1[][25] = {
+		static const wchar_t PREPARING_TRANSACTION_line1[][25] = {
 				L"TRANSACTION...", //EN
 				L"TRANSACTION...", //DE
 				L"СДЕЛКИ...", //RU
@@ -3115,7 +3115,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ASSEMBLING_HASHES)
 	{
-		const wchar_t ASSEMBLING_HASHES_line0[][25] = {
+		static const wchar_t ASSEMBLING_HASHES_line0[][25] = {
 				L"ASSEMBLING HASHES...", //EN
 				L"AUFBAU HASHES...", //DE
 				L"МОНТАЖ ХЭШЕЙ...", //RU
@@ -3141,7 +3141,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_SENDING_DATA)
 	{
-		const wchar_t SENDING_DATA_line0[][25] = {
+		static const wchar_t SENDING_DATA_line0[][25] = {
 				L"SENDING DATA...", //EN
 				L"SENDEN VON DATEN...", //DE
 				L"ОТПРАВКА ДАННЫХ...", //RU
@@ -3177,7 +3177,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_CHANGE_NAME)
 	{
-		const wchar_t CHANGE_NAME_line0[][25] = {
+		static const wchar_t CHANGE_NAME_line0[][25] = {
 				L"CHANGE WALLET NAME", //EN
 				L"WALLET-NAMEN ÄNDERN", //DE
 				L"ПЕРЕИМЕНОВАТЬ КОШЕЛЕК", //RU
@@ -3191,7 +3191,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t CHANGE_NAME_line1[][25] = {
+		static const wchar_t CHANGE_NAME_line1[][25] = {
 				L"CHANGE THE NAME", //EN
 				L"WALLET-NAMEN ÄNDERN? ", //DE
 				L"ПЕРЕИМЕНОВАТЬ КОШЕЛЕК?", //RU
@@ -3205,7 +3205,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t CHANGE_NAME_line2[][25] = {
+		static const wchar_t CHANGE_NAME_line2[][25] = {
 				L"OF YOUR WALLET?", //EN
 				L"", //DE
 				L"", //RU
@@ -3218,7 +3218,7 @@ bool userDenied(AskUserCommand command)
 				L"DEL TUO PORTAFOGLIO?"  //IT
 		} ;
 
-		const wchar_t CHANGE_NAME_line3[][25] = {
+		static const wchar_t CHANGE_NAME_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"", //RU
@@ -3230,7 +3230,7 @@ bool userDenied(AskUserCommand command)
 				L"MUSUNUZ?", //TU
 				L""  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -3242,7 +3242,7 @@ bool userDenied(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3282,7 +3282,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_SIGN_MESSAGE)
 	{
-		const wchar_t SIGN_MESSAGE_line0[][25] = {
+		static const wchar_t SIGN_MESSAGE_line0[][25] = {
 				L"SIGN MESSAGE", //EN
 				L"NACHRICHT UNTERSCHREIBEN", //DE
 				L"ПОДПИСАТЬ СООБЩЕНИЕ", //RU
@@ -3296,7 +3296,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t SIGN_MESSAGE_line1[][25] = {
+		static const wchar_t SIGN_MESSAGE_line1[][25] = {
 				L"SIGN THE MESSAGE", //EN
 				L"NACHRICHT UNTERSCHREIBEN", //DE
 				L"ПОДПИСАТЬ СООБЩЕНИЕ", //RU
@@ -3310,7 +3310,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t SIGN_MESSAGE_line2[][25] = {
+		static const wchar_t SIGN_MESSAGE_line2[][25] = {
 				L"WITH YOUR KEY?", //EN
 				L"MIT IHREN SCHLÜSSEL?", //DE
 				L"ВАШИМ КЛЮЧЕМ?", //RU
@@ -3322,7 +3322,7 @@ bool userDenied(AskUserCommand command)
 				L"İMZALAYIN?", //TU
 				L"CON LA TUA CHIAVE?"  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -3334,7 +3334,7 @@ bool userDenied(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udACCEPT_line0[][12] = {
+		static const wchar_t udACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3373,7 +3373,7 @@ bool userDenied(AskUserCommand command)
 	}
 	else if (command == ASKUSER_PRE_SIGN_MESSAGE)
 	{
-		const wchar_t PRE_SIGN_MESSAGE_line0[][25] = {
+		static const wchar_t PRE_SIGN_MESSAGE_line0[][25] = {
 				L"SIGN MESSAGE", //EN
 				L"NACHRICHT UNTERSCHREIBEN", //DE
 				L"ПОДПИСАТЬ СООБЩЕНИЕ", //RU
@@ -3387,7 +3387,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t PRE_SIGN_MESSAGE_line1[][25] = {
+		static const wchar_t PRE_SIGN_MESSAGE_line1[][25] = {
 				L"MESSAGE TO BE SIGNED:", //EN
 				L"ZU UNTERSCHREIBEN:", //DE
 				L"СООБЩЕНИЕ ДЛЯ ПОДПИСАНИЯ", //RU
@@ -3401,7 +3401,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		const wchar_t PRE_SIGN_MESSAGE_line2[][25] = {
+		static const wchar_t PRE_SIGN_MESSAGE_line2[][25] = {
 				L"[PRESS CHECK TO SCROLL]", //EN
 				L"[CHECK ZUM FORTFAHREN]", //DE
 				L"[НАЖМИТЕ ГАЛОЧКУ", //RU
@@ -3414,7 +3414,7 @@ bool userDenied(AskUserCommand command)
 				L"[PREMI CHECK]"  //IT
 		} ;
 
-		const wchar_t PRE_SIGN_MESSAGE_line3[][25] = {
+		static const wchar_t PRE_SIGN_MESSAGE_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"ДЛЯ ПРОСМОТРА]", //RU
@@ -3426,7 +3426,7 @@ bool userDenied(AskUserCommand command)
 				L"KONTROLE BASIN]", //TU
 				L""  //IT
 		} ;
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -3439,7 +3439,7 @@ bool userDenied(AskUserCommand command)
 				L"ANNULLA"  //IT
 		} ;
 
-		const wchar_t udGO_line0[][12] = {
+		static const wchar_t udGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3483,7 +3483,7 @@ bool userDenied(AskUserCommand command)
 
 	else
 	{
-		const wchar_t udCANCEL_line0[][9] = {
+		static const wchar_t udCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -3536,7 +3536,7 @@ bool userDeniedSetup(AskUserCommand command)
 	r = true;
 	if (command == ASKUSER_DESCRIBE_STANDARD_SETUP)
 	{
-		const wchar_t DESCRIBE_STANDARD_SETUP_line1[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_line1[][25] = {
 				L"12 WORD MNEMONIC", //EN
 				L"12 WORT MNEMONIC", //DE
 				L"12 МНЕМОНИЧЕСКИХ СЛОВ", //RU
@@ -3549,7 +3549,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"12 PAROLE MNEMONICHE"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_line2[][18] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_line2[][18] = {
 				L"NUMERIC PINs", //EN
 				L"NUMERISCHE PIN", //DE
 				L"ЦИФРОВЫЕ ПАРОЛИ", //RU
@@ -3562,7 +3562,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"PIN NUMERICI"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_line3[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_line3[][25] = {
 				L"AUTO PIN GENERATION", //EN
 				L"AUTO PIN GENERATION", //DE
 				L"АВТО ГЕНЕРАЦИЯ ПАРОЛЕЙ", //RU
@@ -3574,7 +3574,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"OTOMATİK PIN OLUŞTURUCU", //TU
 				L"GENERAZIONE PIN AUTOMAT."  //IT
 		} ;
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -3586,7 +3586,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3599,7 +3599,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_line0[][25] = {
 				L"STANDARD SETUP", //EN
 				L"STANDARD EINRICHTUNG", //DE
 				L"СТАНДАРТНАЯ НАСТРОЙКА", //RU
@@ -3640,7 +3640,7 @@ bool userDeniedSetup(AskUserCommand command)
 	else if (command == ASKUSER_DESCRIBE_STANDARD_SETUP_2)
 	{
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_2_line1[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_2_line1[][25] = {
 				L"DIGITS IN DEVICE PIN", //EN
 				L"NUMMERN IN GERÄTE-PIN", //DE
 				L"КОЛИЧЕСТВО ЦИФР", //RU
@@ -3653,7 +3653,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CIFRE DEL PIN"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_2_line2[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_2_line2[][25] = {
 				L"CHOOSE: 4, 5, 6, 7 OR 8", //EN
 				L"WÄHLEN: 4, 5, 6, 7, 8", //DE
 				L"В ПАРОЛЕ УСТРОЙСТВА", //RU
@@ -3666,7 +3666,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"DEL DISPOSITIVO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_2_line3[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_2_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"ВЫБРАТЬ 4, 5, 6, 7 ИЛИ 8", //RU
@@ -3678,7 +3678,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"SCELTA: 4, 5, 6, 7 o 8"  //IT
 		} ;
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -3691,7 +3691,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"INDIETRO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_line0[][25] = {
 				L"STANDARD SETUP", //EN
 				L"STANDARD EINRICHTUNG", //DE
 				L"СТАНДАРТНАЯ НАСТРОЙКА", //RU
@@ -3731,7 +3731,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_ADVANCED_SETUP)
 	{
-		const wchar_t DESCRIBE_ADVANCED_SETUP_line1[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_line1[][25] = {
 				L"18 WORD MNEMONIC", //EN
 				L"18 WORT MNEMONIC", //DE
 				L"18 МНЕМОНИЧЕСКИХ СЛОВ", //RU
@@ -3744,7 +3744,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"18 PAROLE MNEMONICHE"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_line2[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_line2[][25] = {
 				L"ALPHANUMERIC PINS", //EN
 				L"ALPHANUMERISCHE PINs", //DE
 				L"БУКВЕННО-ЦИФРОВЫЕ ПАРОЛИ", //RU
@@ -3757,7 +3757,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"PIN ALFANUMERICI"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_line3[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_line3[][25] = {
 				L"MANUAL PIN ENTRY", //EN
 				L"MANUELLE EINGABE DER PIN", //DE
 				L"РУЧНОЙ ВВОД ПАРОЛЯ", //RU
@@ -3769,7 +3769,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"MANUEL PIN GİRİŞİ", //TU
 				L"INSER. MANUALE DEL PIN"  //IT
 		} ;
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -3781,7 +3781,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3794,7 +3794,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_line0[][25] = {
 				L"ADVANCED SETUP", //EN
 				L"ERWEITERTE KONFIGURATION", //DE
 				L"РАСШИРЕННАЯ НАСТРОЙКА", //RU
@@ -3835,7 +3835,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_ADVANCED_SETUP_2)
 	{
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -3847,7 +3847,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -3860,7 +3860,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_line0[][25] = {
 				L"ADVANCED SETUP", //EN
 				L"ERWEITERTE KONFIGURATION", //DE
 				L"РАСШИРЕННАЯ НАСТРОЙКА", //RU
@@ -3873,7 +3873,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTAZIONI AVANZATE"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
 				L"TO SET PIN", //EN
 				L"UM PIN KONFIG", //DE
 				L"УСТАНОВКА ПАРОЛЯ УСТ-ВА", //RU
@@ -3885,7 +3885,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"KODUNU AYARLAMAK İÇİN", //TU
 				L"PER IMPOSTARE IL PIN"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
 				L"-PRESS AND HOLD TO CYCLE", //EN
 				L"-DRÜCKEN UND ANHALTEN", //DE
 				L"ДЕРЖИТЕ КНОПКУ: ПРОСМОТР", //RU
@@ -3897,7 +3897,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"-DÖNGÜYE BASILI TUTUN", //TU
 				L"TIENI PREMUTO LE LETTERE"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
 				L"-RELEASE TO SELECT", //EN
 				L"-LOSLASSEN ZUR AUSWAHL", //DE
 				L"ОТПУСТИТЕ: ВЫБОР", //RU
@@ -3938,7 +3938,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_EXPERT_SETUP)
 	{
-		const wchar_t DESCRIBE_EXPERT_SETUP_line1[][25] = {
+		static const wchar_t DESCRIBE_EXPERT_SETUP_line1[][25] = {
 				L"24 WORD MNEMONIC", //EN
 				L"24 WORT MNEMONIC", //DE
 				L"24 МНЕМОНИЧЕСКИХ СЛОВ", //RU
@@ -3951,7 +3951,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"24 PAROLE MNEMONICHE"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_EXPERT_SETUP_line2[][25] = {
+		static const wchar_t DESCRIBE_EXPERT_SETUP_line2[][25] = {
 				L"ALPHANUMERIC PINS", //EN
 				L"ALPHANUMERISCHE PINs", //DE
 				L"БУКВЕННО-ЦИФРОВЫЕ ПАРОЛИ", //RU
@@ -3964,7 +3964,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"PIN ALFANUMERICI"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_EXPERT_SETUP_line3[][25] = {
+		static const wchar_t DESCRIBE_EXPERT_SETUP_line3[][25] = {
 				L"MANUAL PIN ENTRY", //EN
 				L"MANUELLE EINGABE", //DE
 				L"РУЧНОЙ ВВОД ПАРОЛЯ", //RU
@@ -3976,7 +3976,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"MANUEL PIN GİRİŞİ", //TU
 				L"INSERIMENTO MANUALE"  //IT
 		} ;
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -3988,7 +3988,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4000,7 +4000,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İLERLE", //TU
 				L"GO"  //IT
 		} ;
-		const wchar_t DESCRIBE_EXPERT_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_EXPERT_SETUP_line0[][25] = {
 				L"EXPERT SETUP", //EN
 				L"EXPERT KONFIGURATION", //DE
 				L"ЭКСПЕРТНЫЕ НАСТРОЙКИ", //RU
@@ -4042,7 +4042,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_EXPERT_SETUP_2)
 	{
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -4055,7 +4055,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"INDIETRO"  //IT
 		} ;
 
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4067,7 +4067,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İLERLE", //TU
 				L"GO"  //IT
 		} ;
-		const wchar_t DESCRIBE_EXPERT_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_EXPERT_SETUP_line0[][25] = {
 				L"EXPERT SETUP", //EN
 				L"EXPERT KONFIGURATION", //DE
 				L"ЭКСПЕРТНЫЕ НАСТРОЙКИ", //RU
@@ -4080,7 +4080,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTAZIONIE ESPERTO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
 				L"TO SET PIN", //EN
 				L"UM PIN KONFIG", //DE
 				L"УСТАНОВКА ПАРОЛЯ УСТ-ВА", //RU
@@ -4093,7 +4093,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"PER IMPOSTARE IL PIN"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
 				L"-PRESS AND HOLD TO CYCLE", //EN
 				L"-DRÜCKEN UND ANHALTEN", //DE
 				L"ДЕРЖИТЕ КНОПКУ: ПРОСМОТР", //RU
@@ -4105,7 +4105,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"-DÖNGÜYE BASILI TUTUN", //TU
 				L"TIENI PREMUTO LE LETTERE"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
 				L"-RELEASE TO SELECT", //EN
 				L"-LOSLASSEN ZUR AUSWAHL", //DE
 				L"ОТПУСТИТЕ: ВЫБОР", //RU
@@ -4146,7 +4146,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_STANDARD_SETUP_2_WALLET)
 	{
-		const wchar_t DESCRIBE_STANDARD_SETUP_2_WALLET_line1[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_2_WALLET_line1[][25] = {
 				L"DIGITS IN WALLET PIN", //EN
 				L"NUMMERN IN WALLET PIN", //DE
 				L"КОЛИЧЕСТВО ЦИФР", //RU
@@ -4159,7 +4159,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CIFRE DEL PIN"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_2_WALLET_line2[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_2_WALLET_line2[][25] = {
 				L"CHOOSE: 4, 5, 6, 7 OR 8", //EN
 				L"WÄHLEN: 4, 5, 6, 7, 8", //DE
 				L"В ПАРОЛЕ КОШЕЛЬКА", //RU
@@ -4172,7 +4172,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"PER IL PORTAFOGLIO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_STANDARD_SETUP_2_WALLET_line3[][25] = {
+		static const wchar_t DESCRIBE_STANDARD_SETUP_2_WALLET_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"ВЫБРАТЬ 4, 5, 6, 7 ИЛИ 8", //RU
@@ -4185,7 +4185,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"SCELTA: 4, 5, 6, 7 o 8"  //IT
 		} ;
 
-		const wchar_t udsCANCEL_line0[][9] = {
+		static const wchar_t udsCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -4197,7 +4197,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_WALLET_line0[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_WALLET_line0[][25] = {
 				L"WALLET SETUP", //EN
 				L"WALLET KONFIGURATION", //DE
 				L"СОЗДАНИЕ КОШЕЛЬКА", //RU
@@ -4236,7 +4236,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_ADVANCED_SETUP_2_WALLET)
 	{
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -4248,7 +4248,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4261,7 +4261,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
 				L"TO SET PIN", //EN
 				L"UM PIN KONFIG", //DE
 				L"УСТАНОВКА ПАРОЛЯ УСТ-ВА", //RU
@@ -4273,7 +4273,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"KODUNU AYARLAMAK İÇİN", //TU
 				L"PER IMPOSTARE IL PIN"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
 				L"-PRESS AND HOLD TO CYCLE", //EN
 				L"-DRÜCKEN UND ANHALTEN", //DE
 				L"ДЕРЖИТЕ КНОПКУ: ПРОСМОТР", //RU
@@ -4285,7 +4285,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"-DÖNGÜYE BASILI TUTUN", //TU
 				L"TIENI PREMUTO LE LETTERE"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
 				L"-RELEASE TO SELECT", //EN
 				L"-LOSLASSEN ZUR AUSWAHL", //DE
 				L"ОТПУСТИТЕ: ВЫБОР", //RU
@@ -4298,7 +4298,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"RILASCIA PER SELEZIONARE"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_WALLET_line0[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_WALLET_line0[][25] = {
 				L"WALLET SETUP", //EN
 				L"WALLET KONFIGURATION", //DE
 				L"СОЗДАНИЕ КОШЕЛЬКА", //RU
@@ -4339,7 +4339,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DESCRIBE_EXPERT_SETUP_2_WALLET)
 	{
-		const wchar_t udsBACK_line0[][9] = {
+		static const wchar_t udsBACK_line0[][9] = {
 				L"BACK", //EN
 				L"ZURÜCK", //DE
 				L"НАЗАД", //RU
@@ -4351,7 +4351,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GERİ", //TU
 				L"INDIETRO"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4364,7 +4364,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line1[][25] = {
 				L"TO SET PIN", //EN
 				L"UM PIN KONFIG", //DE
 				L"УСТАНОВКА ПАРОЛЯ УСТ-ВА", //RU
@@ -4376,7 +4376,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"KODUNU AYARLAMAK İÇİN", //TU
 				L"PER IMPOSTARE IL PIN"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line2[][25] = {
 				L"-PRESS AND HOLD TO CYCLE", //EN
 				L"-DRÜCKEN UND ANHALTEN", //DE
 				L"ДЕРЖИТЕ КНОПКУ: ПРОСМОТР", //RU
@@ -4388,7 +4388,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"-DÖNGÜYE BASILI TUTUN", //TU
 				L"TIENI PREMUTO LE LETTERE"  //IT
 		} ;
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_line3[][25] = {
 				L"-RELEASE TO SELECT", //EN
 				L"-LOSLASSEN ZUR AUSWAHL", //DE
 				L"ОТПУСТИТЕ: ВЫБОР", //RU
@@ -4401,7 +4401,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"RILASCIA PER SELEZIONARE"  //IT
 		} ;
 
-		const wchar_t DESCRIBE_ADVANCED_SETUP_2_WALLET_line0[][25] = {
+		static const wchar_t DESCRIBE_ADVANCED_SETUP_2_WALLET_line0[][25] = {
 				L"WALLET SETUP", //EN
 				L"WALLET KONFIGURATION", //DE
 				L"СОЗДАНИЕ КОШЕЛЬКА", //RU
@@ -4442,7 +4442,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_MNEMONIC_PREP)
 	{
-		const wchar_t MNEMONIC_PREP_line1[][25] = {
+		static const wchar_t MNEMONIC_PREP_line1[][25] = {
 				L"WRITE DOWN THE NEXT", //EN
 				L"NOTIEREN SIE DEN", //DE
 				L"ЗАПИШИТЕ СЛЕДУЮЩИЙ", //RU
@@ -4454,7 +4454,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"SONRAKİ EKRANDA GELEN", //TU
 				L"ANNOTA LE PAROLE "  //IT
 		} ;
-		const wchar_t MNEMONIC_PREP_line2[][25] = {
+		static const wchar_t MNEMONIC_PREP_line2[][25] = {
 				L"SCREEN OF WORDS.", //EN
 				L"SCHIRMINHALT", //DE
 				L"СПИСОК СЛОВ.", //RU
@@ -4466,7 +4466,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"KELİMELERİ YAZINIZ", //TU
 				L"DELLA PROSSIMA SCHERMATA"  //IT
 		} ;
-		const wchar_t MNEMONIC_PREP_line3[][25] = {
+		static const wchar_t MNEMONIC_PREP_line3[][25] = {
 				L"THIS IS YOUR BACKUP!!!", //EN
 				L"DAS IST IHREN BACKUP !!!", //DE
 				L"ЭТО РЕЗЕРВНАЯ КОПИЯ !!!", //RU
@@ -4478,7 +4478,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"BU SİZİN YEDEĞİNİZ!!!", //TU
 				L"QUESTO È IL"  //IT
 		} ;
-		const wchar_t MNEMONIC_PREP_line4[][25] = {
+		static const wchar_t MNEMONIC_PREP_line4[][25] = {
 				L"", //EN
 				L"", //DE
 				L"", //RU
@@ -4490,7 +4490,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"VOSTRO BACKUP !!!"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4503,7 +4503,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		const wchar_t MNEMONIC_PREP_line0[][25] = {
+		static const wchar_t MNEMONIC_PREP_line0[][25] = {
 				L"BACKUP MNEMONIC", //EN
 				L"SICHERUNGSKOPIE MNEMONIC", //DE
 				L"СОХРАНЕНИЕ МНЕМОНИКИ", //RU
@@ -4543,7 +4543,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_MNEMONIC_PREP_2)
 	{
-		const wchar_t MNEMONIC_PREP_2_line1[][25] = {
+		static const wchar_t MNEMONIC_PREP_2_line1[][25] = {
 				L"SHOW AGAIN?", //EN
 				L"WIEDER ANZEIGEN?", //DE
 				L"ПОКАЗАТЬ ЕЩЕ РАЗ?", //RU
@@ -4555,7 +4555,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"TEKRAR GÖSTER?", //TU
 				L"MOSTRARE DI NUOVO?"  //IT
 		} ;
-		const wchar_t udsSHOW_line0[][9] = {
+		static const wchar_t udsSHOW_line0[][9] = {
 				L"SHOW", //EN
 				L"ZEIGEN", //DE
 				L"ПОКАЗАТЬ", //RU
@@ -4567,7 +4567,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GÖSTER", //TU
 				L"MOSTRARE"  //IT
 		} ;
-		const wchar_t udsSKIP_line0[][13] = {
+		static const wchar_t udsSKIP_line0[][13] = {
 				L"SKIP", //EN
 				L"ÜBERSPRINGEN", //DE
 				L"ПРОПУСТИТЬ", //RU
@@ -4579,7 +4579,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"GEÇ", //TU
 				L"SALTA"  //IT
 		} ;
-		const wchar_t MNEMONIC_PREP_line0[][25] = {
+		static const wchar_t MNEMONIC_PREP_line0[][25] = {
 				L"BACKUP MNEMONIC", //EN
 				L"SICHERUNGSKOPIE MNEMONIC", //DE
 				L"СОХРАНЕНИЕ МНЕМОНИКИ", //RU
@@ -4618,7 +4618,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_USE_AEM)
 	{
-		const wchar_t USE_AEM_line0[][25] = {
+		static const wchar_t USE_AEM_line0[][25] = {
 				L"AEM PROTECTION SETUP", //EN
 				L"AEM SCHUTZKONFIGURATION", //DE
 				L"УСТАНОВКА AEM ЗАЩИТЫ", //RU
@@ -4631,7 +4631,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTAZIONI AEM"  //IT
 		} ;
 
-		const wchar_t USE_AEM_line1[][25] = {
+		static const wchar_t USE_AEM_line1[][25] = {
 				L"GUARD AGAINST TAMPERING", //EN
 				L"SCHUTZ VOR MANIPULATION", //DE
 				L"ЗАЩИТИТЬ УСТРОЙСТВО ОТ", //RU
@@ -4644,7 +4644,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"SICUREZZA CONTRO"  //IT
 		} ;
 
-		const wchar_t USE_AEM_line2[][25] = {
+		static const wchar_t USE_AEM_line2[][25] = {
 				L"WITH A SECRET PHRASE", //EN
 				L"MIT EINEM GEHEIM. PHRASE", //DE
 				L"ВЗЛОМА ОТОБРАЖЕНИЕМ", //RU
@@ -4657,7 +4657,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"LE MANOMISSIONI CON"  //IT
 		} ;
 
-		const wchar_t USE_AEM_line3[][25] = {
+		static const wchar_t USE_AEM_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"СЕКРЕТНОЙ ФРАЗЫ", //RU
@@ -4669,7 +4669,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"UNA FRASE PERSONALIZZATA"  //IT
 		} ;
-		const wchar_t udYES_line0[][5] = {
+		static const wchar_t udYES_line0[][5] = {
 				L"YES", //EN
 				L"JA", //DE
 				L"ДА", //RU
@@ -4681,7 +4681,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"EVET", //TU
 				L"SÌ"  //IT
 		} ;
-		const wchar_t udNO_line0[][6] = {
+		static const wchar_t udNO_line0[][6] = {
 				L"NO", //EN
 				L"NEIN", //DE
 				L"НЕТ", //RU
@@ -4721,7 +4721,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_AEM_PASSPHRASE)
 	{
-		const wchar_t AEM_PASSPHRASE_line0[][25] = {
+		static const wchar_t AEM_PASSPHRASE_line0[][25] = {
 				L"AEM PROTECTION SETUP", //EN
 				L"AEM SCHUTZKONFIGURATION", //DE
 				L"УСТАНОВКА AEM ЗАЩИТЫ", //RU
@@ -4734,7 +4734,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTAZIONI AEM"  //IT
 		} ;
 
-		const wchar_t AEM_PASSPHRASE_line1[][25] = {
+		static const wchar_t AEM_PASSPHRASE_line1[][25] = {
 				L"SET YOUR CUSTOM", //EN
 				L"STELLEN SIE IHREN", //DE
 				L"УСТАНОВИТЕ СПЕЦИАЛЬНЫЙ", //RU
@@ -4747,7 +4747,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTA LA TUA CHIAVE"  //IT
 		} ;
 
-		const wchar_t AEM_PASSPHRASE_line2[][25] = {
+		static const wchar_t AEM_PASSPHRASE_line2[][25] = {
 				L"UNLOCK KEY", //EN
 				L"KUNDENSPEZIFISCHEN", //DE
 				L"КЛЮЧ РАЗБЛОКИРОВАНИЯ", //RU
@@ -4760,7 +4760,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"DI SBLOCCO"  //IT
 		} ;
 
-		const wchar_t AEM_PASSPHRASE_line3[][25] = {
+		static const wchar_t AEM_PASSPHRASE_line3[][25] = {
 				L"", //EN
 				L"FREISCHALTSCHLÜSSEL", //DE
 				L"", //RU
@@ -4772,7 +4772,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"PERSONALIZZATA"  //IT
 		} ;
-		const wchar_t udsCANCEL_line0[][9] = {
+		static const wchar_t udsCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -4784,7 +4784,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4824,7 +4824,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_AEM_DISPLAYPHRASE)
 	{
-		const wchar_t AEM_DISPLAYPHRASE_line0[][25] = {
+		static const wchar_t AEM_DISPLAYPHRASE_line0[][25] = {
 				L"AEM PROTECTION SETUP", //EN
 				L"AEM SCHUTZKONFIGURATION", //DE
 				L"УСТАНОВКА AEM ЗАЩИТЫ", //RU
@@ -4837,7 +4837,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTAZIONI AEM"  //IT
 		} ;
 
-		const wchar_t AEM_DISPLAYPHRASE_line1[][25] = {
+		static const wchar_t AEM_DISPLAYPHRASE_line1[][25] = {
 				L"ENTER SECRET PHRASE THAT", //EN
 				L"BITTE GEHEIMEN", //DE
 				L"ВВЕДИТЕ СЕКРЕТНУЮ ФРАЗУ,", //RU
@@ -4850,7 +4850,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"INSERISCI UNA FRASE CHE"  //IT
 		} ;
 
-		const wchar_t AEM_DISPLAYPHRASE_line2[][25] = {
+		static const wchar_t AEM_DISPLAYPHRASE_line2[][25] = {
 				L"WILL BE DISPLAYED", //EN
 				L"SATZGLIEDE EINGEBEN,", //DE
 				L"ДЛЯ ОТОБРАЖЕНИЯ", //RU
@@ -4863,7 +4863,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"VERRÀ VISUALIZZATA"  //IT
 		} ;
 
-		const wchar_t AEM_DISPLAYPHRASE_line3[][25] = {
+		static const wchar_t AEM_DISPLAYPHRASE_line3[][25] = {
 				L"", //EN
 				L"DER ANGEZEIGT WIRD", //DE
 				L"", //RU
@@ -4875,7 +4875,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L""  //IT
 		} ;
-		const wchar_t udsCANCEL_line0[][9] = {
+		static const wchar_t udsCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -4887,7 +4887,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4927,7 +4927,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_AEM_ENTRY)
 	{
-		const wchar_t AEM_ENTRY_line0[][25] = {
+		static const wchar_t AEM_ENTRY_line0[][25] = {
 				L"DEVICE INTEGRITY CHECK", //EN
 				L"GERÄT INTEGRITÄTSPRÜFUNG", //DE
 				L"ОПОЗНАНИЕ УСТРОЙСТВА", //RU
@@ -4940,7 +4940,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CONTROLLO INTEGRITA"  //IT
 		} ;
 
-		const wchar_t AEM_ENTRY_line1[][25] = {
+		static const wchar_t AEM_ENTRY_line1[][25] = {
 				L"ENTER VERIFICATION CODE", //EN
 				L"BESTÄTIGUNGSCODE", //DE
 				L"ВВЕДИТЕ КОД", //RU
@@ -4953,7 +4953,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"DISPOSITIVO"  //IT
 		} ;
 
-		const wchar_t AEM_ENTRY_line2[][25] = {
+		static const wchar_t AEM_ENTRY_line2[][25] = {
 				L"", //EN
 				L"EINGEBEN", //DE
 				L"ПОДТВЕРЖДЕНИЯ", //RU
@@ -4966,7 +4966,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"INSERISCI IL CODICE"  //IT
 		} ;
 
-		const wchar_t AEM_ENTRY_line3[][25] = {
+		static const wchar_t AEM_ENTRY_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"", //RU
@@ -4978,7 +4978,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"DI VERIFICA"  //IT
 		} ;
-		const wchar_t udsACCEPT_line0[][12] = {
+		static const wchar_t udsACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -4990,7 +4990,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"KABUL ET", //TU
 				L"ACCETTA"  //IT
 		} ;
-		const wchar_t udsNUM_line0[][4] = {
+		static const wchar_t udsNUM_line0[][4] = {
 				L"NUM", //EN
 				L"NUM", //DE
 				L"NUM", //RU
@@ -5030,7 +5030,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_AEM_ENTRY_ALPHA)
 	{
-		const wchar_t AEM_ENTRY_ALPHA_line0[][25] = {
+		static const wchar_t AEM_ENTRY_ALPHA_line0[][25] = {
 				L"DEVICE INTEGRITY CHECK", //EN
 				L"GERÄT INTEGRITÄTSPRÜFUNG", //DE
 				L"ОПОЗНАНИЕ УСТРОЙСТВА", //RU
@@ -5043,7 +5043,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CONTROLLO INTEGRITA"  //IT
 		} ;
 
-		const wchar_t AEM_ENTRY_ALPHA_line1[][25] = {
+		static const wchar_t AEM_ENTRY_ALPHA_line1[][25] = {
 				L"ENTER VERIFICATION CODE", //EN
 				L"BESTÄTIGUNGSCODE", //DE
 				L"ВВЕДИТЕ КОД", //RU
@@ -5056,7 +5056,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"DISPOSITIVO"  //IT
 		} ;
 
-		const wchar_t AEM_ENTRY_ALPHA_line2[][25] = {
+		static const wchar_t AEM_ENTRY_ALPHA_line2[][25] = {
 				L"", //EN
 				L"EINGEBEN", //DE
 				L"ПОДТВЕРЖДЕНИЯ", //RU
@@ -5069,7 +5069,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"INSERISCI IL CODICE"  //IT
 		} ;
 
-		const wchar_t AEM_ENTRY_ALPHA_line3[][25] = {
+		static const wchar_t AEM_ENTRY_ALPHA_line3[][25] = {
 				L"", //EN
 				L"", //DE
 				L"", //RU
@@ -5081,7 +5081,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"DI VERIFICA"  //IT
 		} ;
-		const wchar_t udsACCEPT_line0[][12] = {
+		static const wchar_t udsACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -5093,7 +5093,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"KABUL ET", //TU
 				L"ACCETTA"  //IT
 		} ;
-		const wchar_t udsALPHA_line0[][6] = {
+		static const wchar_t udsALPHA_line0[][6] = {
 				L"ALPHA", //EN
 				L"ALPHA", //DE
 				L"ALPHA", //RU
@@ -5133,7 +5133,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_DELETE_ONLY_EX_DISPLAY)
 	{
-		const wchar_t udsDELETE_line0[][9] = {
+		static const wchar_t udsDELETE_line0[][9] = {
 				L"DELETE", //EN
 				L"LÖSCHEN", //DE
 				L"УДАЛИТЬ", //RU
@@ -5170,7 +5170,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ACCEPT_AND_DELETE_EX_DISPLAY)
 	{
-		const wchar_t udsDELETE_line0[][9] = {
+		static const wchar_t udsDELETE_line0[][9] = {
 				L"DELETE", //EN
 				L"LÖSCHEN", //DE
 				L"УДАЛИТЬ", //RU
@@ -5183,7 +5183,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CANCELLA"  //IT
 		} ;
 
-		const wchar_t udsACCEPT_line0[][12] = {
+		static const wchar_t udsACCEPT_line0[][12] = {
 				L"ACCEPT", //EN
 				L"AKZEPTIEREN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -5223,7 +5223,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_ALPHA_INPUT_PREFACE)
 	{
-		const wchar_t udsALPHA_INPUT_PREFACE_A_line0[][25] = {
+		static const wchar_t udsALPHA_INPUT_PREFACE_A_line0[][25] = {
 				L"MINIMUM 4 CHARACTERS", //EN
 				L"MINIMUM 4 ZEICHEN", //DE
 				L"НЕ МЕНЕЕ 4 СИМВОЛОВ", //RU
@@ -5236,7 +5236,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"MINIMO 4 CARATTERI"  //IT
 		} ;
 
-		const wchar_t udsALPHA_INPUT_PREFACE_B_line0[][25] = {
+		static const wchar_t udsALPHA_INPUT_PREFACE_B_line0[][25] = {
 				L"PRESS/HOLD/RELEASE", //EN
 				L"DRÜCKEN/HALTEN/LOSLASSEN", //DE
 				L"НАЖАТЬ/ДЕРЖАТЬ/ОТПУСТИТЬ", //RU
@@ -5272,7 +5272,7 @@ bool userDeniedSetup(AskUserCommand command)
 	}
 	else if (command == ASKUSER_SET_TRANSACTION_PIN)
 	{
-		const wchar_t SET_TRANSACTION_PIN_line1[][25] = {
+		static const wchar_t SET_TRANSACTION_PIN_line1[][25] = {
 				L"SET TRANSACTION PIN", //EN
 				L"TRANSAKTION PIN STELLEN", //DE
 				L"УСТАНОВИТЬ ПАРОЛЬ", //RU
@@ -5285,7 +5285,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"IMPOSTA IL PIN"  //IT
 		} ;
 
-		const wchar_t SET_TRANSACTION_PIN_line2[][25] = {
+		static const wchar_t SET_TRANSACTION_PIN_line2[][25] = {
 				L"", //EN
 				L"", //DE
 				L"ДЛЯ ТРАНЗАКЦИЙ", //RU
@@ -5297,7 +5297,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"", //TU
 				L"DELLE TRANSAZIONI"  //IT
 		} ;
-		const wchar_t udsCANCEL_line0[][9] = {
+		static const wchar_t udsCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
@@ -5309,7 +5309,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İPTAL", //TU
 				L"ANNULLA"  //IT
 		} ;
-		const wchar_t udsGO_line0[][12] = {
+		static const wchar_t udsGO_line0[][12] = {
 				L"GO", //EN
 				L"GEHEN", //DE
 				L"ПОДТВЕРДИТЬ", //RU
@@ -5321,7 +5321,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"İLERLE", //TU
 				L"GO"  //IT
 		} ;
-		const wchar_t DESCRIBE_EXPERT_SETUP_line0[][25] = {
+		static const wchar_t DESCRIBE_EXPERT_SETUP_line0[][25] = {
 				L"EXPERT SETUP", //EN
 				L"EXPERT KONFIGURATION", //DE
 				L"ЭКСПЕРТНЫЕ НАСТРОЙКИ", //RU
@@ -5365,7 +5365,7 @@ bool userDeniedSetup(AskUserCommand command)
 
 	else
 	{
-		const wchar_t udsCANCEL_line0[][9] = {
+		static const wchar_t udsCANCEL_line0[][9] = {
 				L"CANCEL", //EN
 				L"ABSAGEN", //DE
 				L"ОТМЕНА", //RU
