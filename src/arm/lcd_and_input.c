@@ -653,20 +653,19 @@ char *userInput(AskUserCommand command)
 		zhSizer = 2;
 	}
 
-	notify1();
+	// notify1();
 
 	char *r; // what will be returned
 
 
 	if (command == ASKUSER_INITIAL_SETUP)
 		{
-		notify2();
+		// notify2();
 		const wchar_t INITIAL_SETUP_line0[][25] = {
 				L"INITIAL SETUP",
 				L"ERSTEINRICHTUNG",
 				L"НАЧАЛЬНАЯ НАСТРОЙКА",
-				{0xbec6,0xbfda},		// {0x521D,0x59CB,0x8BBE,0x7F6E},
-				// L"初始设置",		// {0x521D,0x59CB,0x8BBE,0x7F6E},
+				L"初始设置",		// UNICODE:{0x521D,0x59CB,0x8BBE,0x7F6E},				
 				L"POČÁTEČNÍ KONFIGURACE",
 				L"CONFIGURATION INITIALE",
 				L"CONFIGURACIÓN INICIAL",
@@ -713,23 +712,15 @@ char *userInput(AskUserCommand command)
 				L"UZMAN        3...", //TU
 				L"ESPERTO      3..."  //IT
 		} ;
+		// delay(1000);
+		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
+		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
+		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
+		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
+		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
 
-
-		// waitForNoButtonPress();
-		// initDisplay();
-	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
-//		writeEinkDrawUnicodeSingle(temp, tempLength, COL_1_X, LINE_0_Y);
-		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
-// writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
-		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
-		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
-		// writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
-//		waitForNumberButtonPress();
-		// display();
-
-
-		r = waitForNumberButtonPress();
-//		clearDisplay();
+		// waitForNumberButtonPress();
+		// r = waitForNumberButtonPress();
 	}
 	if (command == ASKUSER_NEW_WALLET_NUMBER)
 		{

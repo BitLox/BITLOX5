@@ -556,6 +556,10 @@ void notify4(){
 	// Serial.println(" ---------in drawUnicode----------");
 }
 
+void notify5(){
+	// Serial.println(" ---------after initial setup choices draw----------");
+}
+
 void setup()
 {
 	int level;
@@ -576,13 +580,10 @@ void setup()
 	// large block of text, temporary splash screen
 	tftBlackScreen();
 	char q[] = "BITLOX5";
-	drawtext(q, ST77XX_RED, 3, 0, 0);
-	// delay(2000);
+	drawtext(q, ST77XX_RED, 3, 50, 50);
+	delay(2000);
 
 	tftBlackScreen();
-	// char p[] = "INPUT PIN:";
-	// drawtext(p, ST77XX_RED, 3, 0, 0);
-	// delay(1000);
 
 	initKeypad();
 	Serial.println("MPR121 init exited");
@@ -621,19 +622,19 @@ void setup()
 		checkDevicePIN(false);
 	}
 
-	useWhatCommsStealth();
-	// initUsart();
+	// useWhatCommsStealth();
+	// // initUsart();
 
-	if(is_formatted != 123)
-	{
-		setupSequence(level);
-	}
-	else
-	{
-		useWhatComms();
-		// initUsart();
-		showReady();
-	}
+	// if(is_formatted != 123)
+	// {
+	// 	setupSequence(level);
+	// }
+	// else
+	// {
+	// 	useWhatComms();
+	// 	// initUsart();
+	// 	showReady();
+	// }
 
 
 }
@@ -642,8 +643,8 @@ void loop() {
 	// processPacket();
 
   // digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  // delay(100);                       // wait for a second
+  // delay(1000);                       // wait for a second
   // digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  // delay(100);                       // wait for a second
+  // delay(1000);                       // wait for a second
 }
 

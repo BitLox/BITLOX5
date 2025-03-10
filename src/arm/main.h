@@ -29,6 +29,7 @@ void notify1(void);
 void notify2(void);
 void notify3(void);
 void notify4(void);
+void notify5(void);
 
 #ifdef __cplusplus
 } // extern "C"

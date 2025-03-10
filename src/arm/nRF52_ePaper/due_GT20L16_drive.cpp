@@ -78,8 +78,15 @@ int GT20L16_drive::getMatrixUnicode(unsigned int uniCode, unsigned char *matrix)
         dtaLen = 32;
     }
 
-    
+    // Serial.println("before getAddrFromUnicode");
+    // Serial.println(uniCode, HEX);
+    // Serial.println();
+
     Add=getAddrFromUnicode(uniCode);
+    
+    // Serial.println("after getAddrFromUnicode");
+    // Serial.println(uniCode, HEX);
+    // Serial.println();
 
     delayMicroseconds(10);
     
@@ -191,7 +198,6 @@ unsigned long GT20L16_drive::getAddrFromUnicode(unsigned int uniCode)
         {
             Add_Chinese=(MSB-176)*94+(LSB-161)+1;
             Add_Chinese=Add_Chinese*32 +HZAdd;
-
         }
         else if((MSB>=0xD8&&MSB<=0xF7)&&(LSB>=0xA1&&LSB<=0xFE)) //chinese 5720~6763
         {

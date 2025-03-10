@@ -27,6 +27,7 @@
 #include "due_ePaper.h"
 #include "due_ePaperDfs.h"
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
+#include "GB2312.h"
 
 #include "../ST7789.h"
 #include "../main.h"
@@ -272,12 +273,33 @@ int ePaper::drawUnicodeString(unsigned int *uniCode, int len, int x, int y)
 {
     int xPlus = 0;
     int xSum  = 0;
+    int y_original = y;
+    // int x_original = x;
     
     for(int i=0; i<len; i++)
     {
-        xPlus = drawUnicode(uniCode[i], x, y);
+      if(uniCode[i]>0x4dff)
+    	{
+    		uniCode[i] = getGB(uniCode[i]);
+    	}
+
+    	if(uniCode[i]==0x0067)
+    	{
+    		y = y + 3;
+    	}
+    	if(uniCode[i] == 0x0070||uniCode[i] == 0x0071||uniCode[i]==0x0414||uniCode[i]==0x0440||uniCode[i]==0x0446||uniCode[i]==0x0443||uniCode[i]==0x0444||uniCode[i]==0x0434)
+    	{
+    		y = y + 2;
+    	}
+    	if(uniCode[i] == 0x006A||uniCode[i] == 0x0079)
+    	{
+    		y = y + 1;
+    	}
+
+    	xPlus = drawUnicode(uniCode[i], x, y);
         x += xPlus;
         xSum += xPlus;
+        y = y_original;
     }
     return xSum;
 }

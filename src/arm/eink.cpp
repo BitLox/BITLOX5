@@ -258,23 +258,20 @@ void writeEinkDrawUnicode(	unsigned int *toDisplayLine0, int l0, int x0, int y0,
 
 void writeEinkDrawUnicodeSingle(unsigned int *toDisplayLine0, int l0, int x0, int y0)
 {
-    // drawtextW3("UNICODE NOT YET SUPPORTED wEDrwUS", 10, 10);
-
-
 	notify3();
 	unsigned int *line0;
 
 	line0 = toDisplayLine0;
 
-	Serial.println(l0);
-	Serial.println(toDisplayLine0[0], HEX);
-	Serial.println(toDisplayLine0[1], HEX);
-	Serial.println(toDisplayLine0[2], HEX);
-	Serial.println(toDisplayLine0[3], HEX);
-	Serial.println(toDisplayLine0[4], HEX);
-	Serial.println(toDisplayLine0[5], HEX);
-	Serial.println(toDisplayLine0[6], HEX);
-	Serial.println(toDisplayLine0[7], HEX);
+	// Serial.println(l0);
+	// Serial.println(toDisplayLine0[0], HEX);
+	// Serial.println(toDisplayLine0[1], HEX);
+	// Serial.println(toDisplayLine0[2], HEX);
+	// Serial.println(toDisplayLine0[3], HEX);
+	// Serial.println(toDisplayLine0[4], HEX);
+	// Serial.println(toDisplayLine0[5], HEX);
+	// Serial.println(toDisplayLine0[6], HEX);
+	// Serial.println(toDisplayLine0[7], HEX);
 
 //	unsigned int tempLine[] = {0x7801};
 //
