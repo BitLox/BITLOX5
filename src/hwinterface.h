@@ -31,9 +31,9 @@
 #define DENY_X_START	185
 
 #define draw_X_X 185
-#define draw_X_Y 87
+#define draw_X_Y 90
 #define draw_check_X 1
-#define draw_check_Y 85
+#define draw_check_Y 90
 
 
 #define MAX_STRING_DISPLAY 60

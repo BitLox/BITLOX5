@@ -96,17 +96,11 @@ void writeEinkDisplay(	char *toDisplayLine0, bool is_progmem0, int x0, int y0,
 	line3 = toDisplayLine3;
 	line4 = toDisplayLine4;
 
-
-//	overlayBatteryStatus(BATT_VALUE_DISPLAY);
-
 	drawtextW3(line0, x0, y0);
     drawtextW3(line1, x1, y1);
     drawtextW3(line2, x2, y2);
     drawtextW3(line3, x3, y3);
     drawtextW3(line4, x4, y4);
-
-
-    // EPAPER.display();                                   // use only once
 
 }
 
@@ -135,7 +129,8 @@ void writeEinkNoDisplaySingle(char *toDisplayLine0, int x0, int y0)
 }
 void writeEinkNoDisplaySingleBig(char *toDisplayLine0, int x0, int y0)
 {
-//    EPAPER.drawStringBig(toDisplayLine0, x0, y0);
+	drawtextW5(toDisplayLine0, x0, y0);
+	// EPAPER.drawStringBig(toDisplayLine0, x0, y0);
 }
 
 void writeEinkDisplayNumberSingleBig(long theNumber, int x0, int y0)
@@ -194,7 +189,7 @@ void writeEinkDisplayUnicode(	unsigned int *toDisplayLine0, bool is_progmem0, in
 								unsigned int *toDisplayLine4, bool is_progmem4, int l4, int x4, int y4  )
 {
 	// initEink();
-    drawtextW3("UNICODE NOT YET SUPPORTED wEDisU", 10, 10);
+    // drawtextW3("UNICODE NOT YET SUPPORTED wEDisU", 10, 10);
 
 // 	#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)|| defined(NRF52840_XXAA)
 // 	is_progmem0 = false;
@@ -204,24 +199,24 @@ void writeEinkDisplayUnicode(	unsigned int *toDisplayLine0, bool is_progmem0, in
 // 	is_progmem4 = false;
 // 	#endif
 
-// 	unsigned int *line0;
-// 	unsigned int *line1;
-// 	unsigned int *line2;
-// 	unsigned int *line3;
-// 	unsigned int *line4;
+	unsigned int *line0;
+	unsigned int *line1;
+	unsigned int *line2;
+	unsigned int *line3;
+	unsigned int *line4;
 
-// 		line0 = toDisplayLine0;
-// 		line1 = toDisplayLine1;
-// 		line2 = toDisplayLine2;
-// 		line3 = toDisplayLine3;
-// 		line4 = toDisplayLine4;
+		line0 = toDisplayLine0;
+		line1 = toDisplayLine1;
+		line2 = toDisplayLine2;
+		line3 = toDisplayLine3;
+		line4 = toDisplayLine4;
 
 // //    int timer1 = millis();
-//     EPAPER.drawUnicodeString(line0, l0, x0, y0);
-//     EPAPER.drawUnicodeString(line1, l1, x1, y1);
-//     EPAPER.drawUnicodeString(line2, l2, x2, y2);
-//     EPAPER.drawUnicodeString(line3, l3, x3, y3);
-//     EPAPER.drawUnicodeString(line4, l4, x4, y4);
+    EPAPER.drawUnicodeString(line0, l0, x0, y0);
+    EPAPER.drawUnicodeString(line1, l1, x1, y1);
+    EPAPER.drawUnicodeString(line2, l2, x2, y2);
+    EPAPER.drawUnicodeString(line3, l3, x3, y3);
+    EPAPER.drawUnicodeString(line4, l4, x4, y4);
 
 // 	overlayBatteryStatus(BATT_VALUE_DISPLAY);
 
@@ -394,7 +389,7 @@ void writeEinkChar(char toDisplay, bool runDisplay, int x, int y)
 
 void writeEink(char *toDisplay, bool is_progmem, int x, int y )
 {
-	initEink();
+	// initEink();
 
 	#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)|| defined(NRF52840_XXAA)
 	is_progmem = false;
@@ -676,13 +671,13 @@ void writeCheck_Screen(void)
     // EPAPER.image_flash(check_bits);
 }
 
-void writeX_Screen(void)
-{
-	drawX(10, 10);
-	EPAPER.begin(EPD_SIZE);                             // setup epaper, size
-    EPAPER.setDirection(DIRDOWN);                     // set display direction
-    EPAPER.image_flash(x_mark_bits);
-}
+// void writeX_Screen(void)
+// {
+// 	drawX(10, 10);
+// 	EPAPER.begin(EPD_SIZE);                             // setup epaper, size
+//     EPAPER.setDirection(DIRDOWN);                     // set display direction
+//     EPAPER.image_flash(x_mark_bits);
+// }
 
 //void writeNotEqual_Screen(void)
 //{

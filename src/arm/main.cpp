@@ -13,8 +13,9 @@
 #include "usart.h"
 #include "keypad_alpha.h"
 // #include "../stream_comm.h"
+#include "eink.h"
 
-
+int level;
 
 void HardFault_Handler(void) {
     printf("HardFault!\n");
@@ -367,6 +368,14 @@ void writeBLE_Screen(void){
   drawtext(p, ST77XX_RED, 3, 0, 0);
 }
 
+void writeX_Screen(void)
+{
+	tftBlackScreen();
+	char p[] = "X";
+	drawtext(p, ST77XX_RED, 5, 0, 0);
+  }
+
+
 void useWhatSetup(void)
 {
 Serial.println(" ---------in useWhatSetup----------");
@@ -380,118 +389,121 @@ Serial.println(" ---------in useWhatSetup----------");
 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
 	Serial.println(" ---------after ASKUSER_INITIAL_SETUP----------");
-// 	rChar = waitForNumberButtonPress();
+	r = waitForNumberButtonPress();
+	Serial.println(" ---------after waitForNumberButtonPress----------");
+	Serial.print(" --variable r--  ");
+	Serial.println(r);
 
-// 	clearDisplay();
-// 	r = rChar - '0';
-// 	switch (rChar){
-// 	case '1':
-// 		temp1[0] = 0;
+	tftBlackScreen();
 
-// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
+	switch (r){
+	case 1:
+		temp1[0] = 0;
 
-// 		yesOrNo = waitForButtonPress();
-// 		clearDisplay();
-// 		if(!yesOrNo)
-// 		{
-// 			pinStatusCheckandPremadePIN();
-// 		}else if(yesOrNo)
-// 		{
-// 			useWhatSetup();
-// 			break;
-// 		}
-// 		level = 1;
-// 		break;
+		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
+		Serial.println(" ---------in Case 1----------");
+		yesOrNo = waitForButtonPress();
+		tftBlackScreen();
+		if(!yesOrNo)
+		{
+			pinStatusCheckandPremadePIN();
+		}else if(yesOrNo)
+		{
+			useWhatSetup();
+			break;
+		}
+		level = 1;
+		break;
 
-// 	case '2':
-// 		temp1[0] = 0;
+	case 2:
+		temp1[0] = 0;
 
-// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_ADVANCED_SETUP);
+		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_ADVANCED_SETUP);
+		Serial.println(" ---------in Case 2----------");
+		yesOrNo = waitForButtonPress();
+		tftBlackScreen();
+		if(!yesOrNo)
+		{
+			pinStatusCheck();
+		}else if(yesOrNo)
+		{
+			useWhatSetup();
+			break;
+		}
+		level = 2;
 
-// 		yesOrNo = waitForButtonPress();
+		// doAEMSet();
 
-// 		clearDisplay();
+		break;
+	case 3:
+		temp1[0] = 0;
 
-// 		if(!yesOrNo)
-// 		{
-// 			pinStatusCheck();
-// 		}else if(yesOrNo)
-// 		{
-// 			useWhatSetup();
-// 			break;
-// 		}
-// 		level = 2;
-
-// 		doAEMSet();
-
-// 		break;
-// 	case '3':
-// 		temp1[0] = 0;
-
-// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_EXPERT_SETUP);
-
-// 		yesOrNo = waitForButtonPress();
-// 		clearDisplay();
-
-// 		if(!yesOrNo)
-// 		{
-// 			pinStatusCheckExpert();
-// 		}else if(yesOrNo)
-// 		{
-// 			useWhatSetup();
-// 			break;
-// 		}
-// 		level = 3;
-
-// 		doAEMSet();
-
-// 		break;
-// 	case 'Y':
-// 		temp1[0] = 0;
-
-// 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
-
-// 		yesOrNo = waitForButtonPress();
-// 		clearDisplay();
-
-// 		if(!yesOrNo)
-// 		{
-// 			pinStatusCheckandPremadePIN();
-// 		}else if(yesOrNo)
-// 		{
-// 			useWhatSetup();
-// 			break;
-// 		}
-// 		level = 1;
-
-// 		break;
+		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_EXPERT_SETUP);
+		Serial.println(" ---------in Case 3----------");
+		yesOrNo = waitForButtonPress();
 
 
-// 	case 'N':
-// 		temp1[0] = 1;
-// 		writeX_Screen();
+		tftBlackScreen();
 
-// 		#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-// 		Software_Reset();
-// 		#endif
+		if(!yesOrNo)
+		{
+			pinStatusCheckExpert();
+		}else if(yesOrNo)
+		{
+			useWhatSetup();
+			break;
+		}
+		level = 3;
 
-// 		#if defined(NRF52840_XXAA)
-// 		;
-// 		#endif
+		// doAEMSet();
 
-// 		break;
+		break;
+	case 11:
+		temp1[0] = 0;
 
-// 	case '0':
-// 		writeEinkDisplay("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, "MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, "TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, "WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
-// 		useWhatCommsStealth();
-// 		initUsart();
-// 		loop();
-// 		break;
+		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
 
-// 	default:
-// 		useWhatSetup();
-// 		break;
-// 	}
+		yesOrNo = waitForButtonPress();
+		tftBlackScreen();
+
+		if(!yesOrNo)
+		{
+			pinStatusCheckandPremadePIN();
+		}else if(yesOrNo)
+		{
+			useWhatSetup();
+			break;
+		}
+		level = 1;
+
+		break;
+
+
+	case 10:
+		temp1[0] = 1;
+		writeX_Screen();
+
+		#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
+		Software_Reset();
+		#endif
+
+		#if defined(NRF52840_XXAA)
+		;
+		#endif
+
+		break;
+
+	case 0:
+		writeEinkDisplay("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, "MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, "TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, "WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
+		useWhatCommsStealth();
+		// initUsart();
+		loop();
+		break;
+
+	default:
+		useWhatSetup();
+		break;
+	}
 }
 
 
@@ -568,7 +580,6 @@ void notify5(){
 
 void setup()
 {
-	int level;
 	Serial.begin(9600);
 
 	while (!Serial)
@@ -595,12 +606,8 @@ void setup()
 	Serial.println("MPR121 init exited");
 	
 	languageMenuInitially();
-	// delay(10000);
 
 	tftBlackScreen();
-	// char p[] = "after languageMenuInitially()";
-	// drawtext(p, ST77XX_RED, 3, 0, 0);
-	// delay(1000);
 
 	initFormatting();
 
@@ -627,6 +634,8 @@ void setup()
 	{
 		checkDevicePIN(false);
 	}
+
+	Serial.println(" ---------PAST useWhatSetup/checkDevicePIN----------");
 
 	// useWhatCommsStealth();
 	// // initUsart();

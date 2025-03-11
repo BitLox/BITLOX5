@@ -43,10 +43,6 @@ extern void showBattery(void);
 extern bool waitForButtonPress(void);
 extern void showWorking(void);
 
-
-
-
-
 #ifdef __cplusplus
      }
 #endif

@@ -131,7 +131,7 @@ void initFormatting(void)
 	Serial.println(" ---------initFormatting---in-------");
 	is_formatted = checkisFormatted();
 	Serial.println(is_formatted);
-	Serial.println(" ---------checkisFormatted----------");
+	Serial.println(" ---------after checkisFormatted----------");
 }
 
 

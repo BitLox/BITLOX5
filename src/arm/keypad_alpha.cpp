@@ -9,7 +9,7 @@
 #include "eink.h"
 #include <Arduino.h>
 #include "keypad_alpha.h"
-#include "nRF52_ePaper/due_epaper.h"
+#include "nRF52_ePaper/due_ePaper.h"
 //#include "../sha2_trez.h"
 #include "usart.h"
 #include "BLE.h"
@@ -22,6 +22,7 @@
 #include "main.h"
 #include "../stream_comm.h"
 #include "../common.h"
+#include "ST7789.h"
 
 #include "../baseconv.h"
 
@@ -645,6 +646,8 @@ uint8_t *fetchPIN(void)
 
 void pinStatusCheckandPremadePIN()
 {
+	Serial.println(" ---------pinStatusCheckandPremadePIN----------");
+
 	uint8_t temp[32];
 	uint8_t ref_compare_hash[32];
 	uint8_t j;
@@ -679,6 +682,8 @@ void pinStatusCheckandPremadePIN()
 
 	int pinStatus;
 	pinStatus = checkHasPIN();
+	Serial.print("---------pinStatus------");
+	Serial.println(pinStatus);
 
 	if(pinStatus != 127)
 		{
@@ -689,11 +694,11 @@ void pinStatusCheckandPremadePIN()
 
 			buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP_2);
 
-			rChar = waitForNumberButtonPress4to8();
-			clearDisplay();
-			r = rChar - '0';
+			r = waitForNumberButtonPress4to8();
+			tftBlackScreen();
+			// r = rChar - '0';
 
-			if(rChar == 'N')
+			if(r == 10)
 			{
 				useWhatSetup();
 			}else
@@ -718,7 +723,7 @@ void pinStatusCheckandPremadePIN()
 
 					buttonInterjectionNoAckPlusData(ASKUSER_SET_DEVICE_PIN_BIG, bufferPIN1, r);
 					yesOrNo = waitForButtonPress();
-					clearDisplay();
+					tftBlackScreen();
 					if(!yesOrNo)
 					{
 						nonVolatileWrite(hash, PIN_ADDRESS, 32);
@@ -733,7 +738,8 @@ void pinStatusCheckandPremadePIN()
 						temp2[0] = type;
 						nonVolatileWrite(temp2, SETUP_TYPE_ADDRESS, 1);
 
-
+						Serial.println("----nonVolatileWrite PIN----");
+					
 					}else if(yesOrNo)
 					{
 						pinStatusCheckandPremadePIN();
@@ -794,9 +800,10 @@ void checkDevicePIN(bool displayAlpha)
 		buttonInterjectionNoAck(ASKUSER_ENTER_PIN);
 	}
 
+	// bufferPIN3 = waitForNumberButtonPress();
 	bufferPIN3 = getInput(displayAlpha, false);
 
-	clearDisplay();
+	tftBlackScreen();
 //	writeEink("before checkhashes", false, STATUS_X, STATUS_Y);
 	checkHashes(bufferPIN3, displayAlpha);
 //	writeEink("after checkhashes", false, STATUS_X, STATUS_Y);
@@ -1321,7 +1328,7 @@ char *getInput(bool displayInput, bool initialSetup) {
 		#endif
 
 
-//		#if defined(NRF52840_XXAA)
+		#if defined(NRF52840_XXAA)
 		if(displayInput)
 			{
 			if(caps)
@@ -1334,9 +1341,9 @@ char *getInput(bool displayInput, bool initialSetup) {
 			}
 			else
 			{
-//				theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+				// theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
 			}
-//		#endif
+		#endif
 
         if(initialSetup)
         {
