@@ -800,6 +800,11 @@ void checkDevicePIN(bool displayAlpha)
 		buttonInterjectionNoAck(ASKUSER_ENTER_PIN);
 	}
 
+	while (1)
+	{
+		;;
+	}
+	
 	// bufferPIN3 = waitForNumberButtonPress();
 	bufferPIN3 = getInput(displayAlpha, false);
 

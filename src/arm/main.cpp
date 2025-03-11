@@ -12,7 +12,7 @@
 #include "lcd_and_input.h"
 #include "usart.h"
 #include "keypad_alpha.h"
-// #include "../stream_comm.h"
+#include "../stream_comm.h"
 #include "eink.h"
 
 int level;
@@ -510,53 +510,53 @@ Serial.println(" ---------in useWhatSetup----------");
 
 
 void setupSequence(int level){
-// 	bool canceledWalletCreation;
-// 	int strength;
-// 	if(level == 1)
-// 	{
-// 		strength = 128;
-// 		initialFormatAuto();
-// 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
-// 		useWhatComms();
-// 		initUsart();
-// 		if(!canceledWalletCreation)
-// 		{
-// 			showQRcode(0,0,0);
-// 		}else{
-// 			showReady();
-// 		}
+	bool canceledWalletCreation;
+	int strength;
+	if(level == 1)
+	{
+		strength = 128;
+		initialFormatAuto();
+		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+		useWhatComms();
+		// initUsart();
+		if(!canceledWalletCreation)
+		{
+			// showQRcode(0,0,0);
+		}else{
+			showReady();
+		}
 
-// 	}
-// 	else if(level == 2)
-// 	{
-// 		strength = 192;
-// 		initialFormatAuto();
-// 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
-// 		useWhatComms();
-// 		initUsart();
+	}
+	else if(level == 2)
+	{
+		strength = 192;
+		initialFormatAuto();
+		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+		useWhatComms();
+		// initUsart();
 
-// 		if(!canceledWalletCreation)
-// 		{
-// 			showQRcode(0,0,0);
-// 		}else{
-// 			showReady();
-// 		}
-// 	}
-// 	else if(level == 3)
-// 	{
-// 		strength = 256;
-// 		initialFormatAuto();
-// 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
-// 		useWhatComms();
-// 		initUsart();
+		if(!canceledWalletCreation)
+		{
+			// showQRcode(0,0,0);
+		}else{
+			showReady();
+		}
+	}
+	else if(level == 3)
+	{
+		strength = 256;
+		initialFormatAuto();
+		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+		useWhatComms();
+		// initUsart();
 
-// 		if(!canceledWalletCreation)
-// 		{
-// 			showQRcode(0,0,0);
-// 		}else{
-// 			showReady();
-// 		}
-// 	}
+		if(!canceledWalletCreation)
+		{
+			// showQRcode(0,0,0);
+		}else{
+			showReady();
+		}
+	}
 }
 
 void notify1(){
@@ -632,24 +632,25 @@ void setup()
 	}
 	else if (pinStatus == 127)
 	{
+		Serial.println(" -----pinStatus == 127, checkDevicePIN----------");
 		checkDevicePIN(false);
 	}
 
 	Serial.println(" ---------PAST useWhatSetup/checkDevicePIN----------");
 
-	// useWhatCommsStealth();
-	// // initUsart();
+	useWhatCommsStealth();
+	// initUsart();
 
-	// if(is_formatted != 123)
-	// {
-	// 	setupSequence(level);
-	// }
-	// else
-	// {
-	// 	useWhatComms();
-	// 	// initUsart();
-	// 	showReady();
-	// }
+	if(is_formatted != 123)
+	{
+		setupSequence(level);
+	}
+	else
+	{
+		useWhatComms();
+		// initUsart();
+		showReady();
+	}
 
 
 }

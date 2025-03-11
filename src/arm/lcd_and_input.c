@@ -1860,7 +1860,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 		waitForNoButtonPress();
 
 
-		initDisplay();
+		// initDisplay();
 //	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
 //		writeEinkDrawUnicodeSingle((unsigned int*)CONFIRM_HIDDEN_WALLET_NUMBER_line0[lang], wcslen(CONFIRM_HIDDEN_WALLET_NUMBER_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
@@ -1871,7 +1871,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -1967,10 +1967,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)NEW_WALLET_line0[lang], wcslen(NEW_WALLET_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)NEW_WALLET_line1[lang], wcslen(NEW_WALLET_line1[lang]), COL_1_X, LINE_1_Y);
@@ -1980,7 +1980,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -2056,10 +2056,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
+		// waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)DELETE_WALLET_line0[lang], wcslen(DELETE_WALLET_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)DELETE_WALLET_line1[lang], wcslen(DELETE_WALLET_line1[lang]), COL_1_X, LINE_1_Y);
@@ -2069,7 +2069,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -2157,8 +2157,8 @@ bool userDenied(AskUserCommand command)
 
 		waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)USE_MNEMONIC_PASSPHRASE_line0[lang], wcslen(USE_MNEMONIC_PASSPHRASE_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)USE_MNEMONIC_PASSPHRASE_line1[lang], wcslen(USE_MNEMONIC_PASSPHRASE_line1[lang]), COL_1_X, LINE_1_Y);
@@ -2169,7 +2169,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -2221,10 +2221,10 @@ bool userDenied(AskUserCommand command)
 
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_PIN_line0[lang], wcslen(ENTER_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2235,7 +2235,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 //		r = waitForButtonPress();
 //		if (!r){
@@ -2272,10 +2272,10 @@ bool userDenied(AskUserCommand command)
 				L"ALPHA"  //IT
 		} ;
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_PIN_line0[lang], wcslen(ENTER_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2286,7 +2286,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 //		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 //		r = waitForButtonPress();
 //		if (!r){
@@ -2338,10 +2338,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_TRANSACTION_PIN_line0[lang], wcslen(ENTER_TRANSACTION_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2352,7 +2352,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 //		r = waitForButtonPress();
 //		if (!r){
@@ -2404,10 +2404,10 @@ bool userDenied(AskUserCommand command)
 
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_WALLET_PIN_line0[lang], wcslen(ENTER_WALLET_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2418,7 +2418,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 //		r = waitForButtonPress();
 //		if (!r){
@@ -2455,10 +2455,10 @@ bool userDenied(AskUserCommand command)
 				L"ALPHA"  //IT
 		} ;
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_WALLET_PIN_ALPHA_line0[lang], wcslen(ENTER_WALLET_PIN_ALPHA_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2469,7 +2469,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 //		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 //		r = waitForButtonPress();
 //		if (!r){
@@ -2594,10 +2594,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 
 		writeEinkDrawUnicodeSingle((unsigned int*)RESTORE_WALLET_DEVICE_line0[lang], wcslen(RESTORE_WALLET_DEVICE_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
@@ -2608,7 +2608,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -2672,10 +2672,10 @@ bool userDenied(AskUserCommand command)
 				L"NO"  //IT
 		} ;
 
-		waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
+		// waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)NEW_WALLET_IS_HIDDEN_line0[lang], wcslen(NEW_WALLET_IS_HIDDEN_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)NEW_WALLET_IS_HIDDEN_line1[lang], wcslen(NEW_WALLET_IS_HIDDEN_line1[lang]), COL_1_X, LINE_1_Y);
@@ -2684,7 +2684,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 //		if (!r){
@@ -2761,10 +2761,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
+		// waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)NEW_WALLET_NO_PASSWORD_line0[lang], wcslen(NEW_WALLET_NO_PASSWORD_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)NEW_WALLET_NO_PASSWORD_line1[lang], wcslen(NEW_WALLET_NO_PASSWORD_line1[lang]), COL_1_X, LINE_1_Y);
@@ -2774,7 +2774,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -2900,8 +2900,8 @@ bool userDenied(AskUserCommand command)
 			str_cut(add2, 0, 17);
 
 
-			initDisplay();
-			overlayBatteryStatus(BATT_VALUE_DISPLAY);
+			// initDisplay();
+			// overlayBatteryStatus(BATT_VALUE_DISPLAY);
 
 			writeEinkDrawUnicodeSingle((unsigned int*)SIGN_part0[lang], wcslen(SIGN_part0[lang]), COL_1_X, 5);
 			writeEinkNoDisplaySingle(str, COL_1_X, 25);
@@ -2915,7 +2915,7 @@ bool userDenied(AskUserCommand command)
 			drawX(draw_X_X,draw_X_Y);
 			drawCheck(draw_check_X,draw_check_Y);
 
-			display();
+			// display();
 
 
 			r = waitForButtonPress();
@@ -2941,8 +2941,8 @@ bool userDenied(AskUserCommand command)
 			strcat (strFee,feePart1);
 
 
-			initDisplay();
-			overlayBatteryStatus(BATT_VALUE_DISPLAY);
+			// initDisplay();
+			// overlayBatteryStatus(BATT_VALUE_DISPLAY);
 
 
 			writeEinkDrawUnicodeSingle((unsigned int*)FEE_part0[lang], wcslen(FEE_part0[lang]), COL_1_X, LINE_0_Y);
@@ -2953,7 +2953,7 @@ bool userDenied(AskUserCommand command)
 			drawX(draw_X_X,draw_X_Y);
 			drawCheck(draw_check_X,draw_check_Y);
 
-			display();
+			// display();
 
 			r = waitForButtonPress();
 			clearDisplay();
@@ -3043,8 +3043,8 @@ bool userDenied(AskUserCommand command)
 
 		waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)FORMAT_DEVICE_line0[lang], wcslen(FORMAT_DEVICE_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)FORMAT_DEVICE_line1[lang], wcslen(FORMAT_DEVICE_line1[lang]), COL_1_X, LINE_1_Y);
@@ -3055,7 +3055,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -3095,12 +3095,12 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		initDisplay();
+		// initDisplay();
 
 		writeEinkDrawUnicodeSingle((unsigned int*)PREPARING_TRANSACTION_line0[lang], wcslen(PREPARING_TRANSACTION_line0[lang]), COL_1_X, LINE_0_Y);
 		writeEinkDrawUnicodeSingle((unsigned int*)PREPARING_TRANSACTION_line1[lang], wcslen(PREPARING_TRANSACTION_line1[lang]), COL_1_X, LINE_1_Y);
 
-		display();
+		// display();
 
 	}
 	else if (command == ASKUSER_ASSEMBLING_HASHES)
@@ -3121,12 +3121,12 @@ bool userDenied(AskUserCommand command)
 
 
 
-		initDisplay();
+		// initDisplay();
 
 		writeEinkDrawUnicodeSingle((unsigned int*)ASSEMBLING_HASHES_line0[lang], wcslen(ASSEMBLING_HASHES_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeEinkDrawUnicodeSingle((unsigned int*)ASSEMBLING_HASHES_line1[lang], wcslen(ASSEMBLING_HASHES_line1[lang]), COL_1_X, LINE_1_Y);
 
-		display();
+		// display();
 
 	}
 	else if (command == ASKUSER_SENDING_DATA)
@@ -3147,12 +3147,12 @@ bool userDenied(AskUserCommand command)
 
 
 
-		initDisplay();
+		// initDisplay();
 
 		writeEinkDrawUnicodeSingle((unsigned int*)SENDING_DATA_line0[lang], wcslen(SENDING_DATA_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeEinkDrawUnicodeSingle((unsigned int*)SENDING_DATA_line1[lang], wcslen(SENDING_DATA_line1[lang]), COL_1_X, LINE_1_Y);
 
-		display();
+		// display();
 
 	}
 	else if (command == ASKUSER_FORMAT_AUTO)
@@ -3246,10 +3246,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)CHANGE_NAME_line0[lang], wcslen(CHANGE_NAME_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)CHANGE_NAME_line1[lang], wcslen(CHANGE_NAME_line1[lang]), COL_1_X, LINE_1_Y);
@@ -3260,7 +3260,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -3338,10 +3338,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)SIGN_MESSAGE_line0[lang], wcslen(SIGN_MESSAGE_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)SIGN_MESSAGE_line1[lang], wcslen(SIGN_MESSAGE_line1[lang]), COL_1_X, LINE_1_Y);
@@ -3351,7 +3351,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -3443,10 +3443,10 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
-		initDisplay();
-	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// initDisplay();
+	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)PRE_SIGN_MESSAGE_line0[lang], wcslen(PRE_SIGN_MESSAGE_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)PRE_SIGN_MESSAGE_line1[lang], wcslen(PRE_SIGN_MESSAGE_line1[lang]), COL_1_X, LINE_1_Y);
@@ -3457,7 +3457,7 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 		r = waitForButtonPress();
 		if (!r){
@@ -3486,17 +3486,17 @@ bool userDenied(AskUserCommand command)
 				L"ANNULLA"  //IT
 		} ;
 
-		waitForNoButtonPress();
+		// waitForNoButtonPress();
 
 
-				initDisplay();
-			    overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		// 		initDisplay();
+		// 	    overlayBatteryStatus(BATT_VALUE_DISPLAY);
 				writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 				writeEinkDrawUnicodeSingle((unsigned int*)udCANCEL_line0[lang], wcslen(udCANCEL_line0[lang]), (DENY_X_START)-((zhSizer*wcslen(udCANCEL_line0[lang]))*8), LINE_4_Y);
 
 				drawX(draw_X_X,draw_X_Y);
 				drawCheck(draw_check_X,draw_check_Y);
-				display();
+				// display();
 		waitForButtonPress();
 		r = true; // unconditionally deny
 	}
@@ -5487,7 +5487,7 @@ void showBattery(void)
 void languageMenuInitially(void){
 	uint8_t tempLangSet[1];
 
-	nonVolatileWrite(0, DEVICE_LANG_SET_ADDRESS, 1);
+	// nonVolatileWrite(0, DEVICE_LANG_SET_ADDRESS, 1);
 	nonVolatileRead(tempLangSet, DEVICE_LANG_SET_ADDRESS, 1);
 
 	int lang;
