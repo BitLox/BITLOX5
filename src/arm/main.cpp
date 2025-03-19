@@ -512,11 +512,17 @@ Serial.println(" ---------in useWhatSetup----------");
 void setupSequence(int level){
 	bool canceledWalletCreation;
 	int strength;
+	Serial.println(" ---------in setupSequence----------");
+
 	if(level == 1)
 	{
 		strength = 128;
+		Serial.println(" ---------in level 1----------");
 		initialFormatAuto();
+		Serial.println(" ---------after initialFormatAuto----------");
+		delay(10000);
 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+		Serial.println(" ---------after createDefaultWalletAuto----------");
 		useWhatComms();
 		// initUsart();
 		if(!canceledWalletCreation)

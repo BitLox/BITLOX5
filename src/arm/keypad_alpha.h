@@ -102,6 +102,12 @@ void doAEMSet(void);
 
 char *getInputAEM(bool displayInput, bool initialSetup);
 
+char *mnemonic_input(void);
+char alphkeypad_noNumbers_3A8C(int current_x, int current_y);
+void writeSelectedCharAndStringBlankingMnemonics(int current_x, int current_y, bool caps);
+
+
+
 #ifdef __cplusplus
      }
 #endif

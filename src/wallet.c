@@ -49,6 +49,8 @@
 // #include "arm/keypad_alpha.h"
 #include "stream_comm.h"
 #include "messages.pb.h"
+#include "arm/lcd_and_input.h"
+
 /** Length of the checksum field of a wallet record. This is 32 since SHA-256
   * is used to calculate the checksum and the output of SHA-256 is 32 bytes
   * long. */
@@ -507,13 +509,15 @@ WalletErrors sanitiseNonVolatileStorage(uint32_t start, uint32_t end, bool quiet
 	// 1. A new device UUID is written, if necessary.
 	// 2. Hidden wallets are actually plausibly deniable.
 	for (pass = 0; pass < 4; pass++)
-	{
+	{ 
+		clearDisplay();
 		if(!quiet)
 		{
 			char passPrt[16];
 			sprintf(passPrt,"%lu", pass*25);
 //			writeEinkDisplay("pre bINAPD", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 			buttonInterjectionNoAckPlusData(ASKUSER_FORMAT_WITH_PROGRESS, passPrt, lang);
+
 //			writeEinkDisplay("post bINAPD", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 
 //			initDisplay();
@@ -523,6 +527,7 @@ WalletErrors sanitiseNonVolatileStorage(uint32_t start, uint32_t end, bool quiet
 //			writeEinkNoDisplaySingleBig(passPrt,COL_1_X,LINE_3_Y);
 //			writeEinkNoDisplaySingleBig("%",39,LINE_3_Y);
 //			display();
+			
 		}
 
 		address = start;
@@ -594,6 +599,7 @@ WalletErrors sanitiseNonVolatileStorage(uint32_t start, uint32_t end, bool quiet
 			return last_error;
 		}
 	} // end for (pass = 0; pass < 4; pass++)
+	clearDisplay();
 
 #ifdef TEST_WALLET
 	if (!suppress_set_entropy_pool)

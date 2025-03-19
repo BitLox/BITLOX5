@@ -26,14 +26,10 @@
 
 #include "../baseconv.h"
 
+// char *mnemonic_input(void);
+// char alphkeypad_noNumbers_3A8C(int current_x, int current_y);
+// void writeSelectedCharAndStringBlankingMnemonics(int current_x, int current_y, bool caps);
 
-
-
-char *mnemonic_input(void);
-char alphkeypad_noNumbers_3A8C(int current_x, int current_y);
-void writeSelectedCharAndStringBlankingMnemonics(int current_x, int current_y, bool caps);
-
-#if defined(__SAM3A8C__)
 
 const byte DEPTH = 4;
 const byte COLS = 3; //three columns
@@ -164,197 +160,6 @@ const char hexaKeysCAPSPlusSpace[DEPTH][COLS][ROWS] = {
     {'I', 'F', 'C', '~'}
   }
 };
-#endif
-
-
-#if defined(NRF52840_XXAA)
-
-const byte DEPTH = 4;
-const byte COLS = 3; //three columns
-const byte ROWS = 4; //four rows
-
-
-#define ROW_PIN_1      22
-#define ROW_PIN_2      23
-#define ROW_PIN_3      24
-#define COL_PIN_1      18
-#define COL_PIN_2      19
-#define COL_PIN_3      20
-#define COL_PIN_4      21
-
-//define the symbols on the buttons of the keypads
-//char hexaKeys_plastic[DEPTH][COLS][ROWS] = {
-//  {
-//    {'~', '@', '9', '8'},
-//    {'7', '6', '5', '4'},
-//    {'3', '2', '1', '0'}
-//  },
-//  {
-//    {'~', '@', 'y', 'v'},
-//    {'s', 'p', 'm', 'j'},
-//    {'g', 'd', 'a', '^'}
-//  },
-//  {
-//    {'~', '@', 'z', 'w'},
-//    {'t', 'q', 'n', 'k'},
-//    {'h', 'e', 'b', '^'}
-//  },
-//  {
-//    {'~', '@', 'z', 'x'},
-//    {'u', 'r', 'p', 'l'},
-//    {'i', 'f', 'c', '^'}
-//  }
-//};
-//
-
-const char hexaKeys[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'p', '^', 'y'},
-    {'v', 's', 'm', 'j'},
-    {'g', 'd', 'a', '~'}
-  },
-  {
-    {'@', 'q', '^', 'z'},
-    {'w', 't', 'n', 'k'},
-    {'h', 'e', 'b', '~'}
-  },
-  {
-    {'@', 'r', '^', 'z'},
-    {'x', 'u', 'o', 'l'},
-    {'i', 'f', 'c', '~'}
-  }
-};
-
-const char hexaKeysCAPS[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'P', '^', 'Y'},
-    {'V', 'S', 'M', 'J'},
-    {'G', 'D', 'A', '~'}
-  },
-  {
-    {'@', 'Q', '^', 'Z'},
-    {'W', 'T', 'N', 'K'},
-    {'H', 'E', 'B', '~'}
-  },
-  {
-    {'@', 'R', '^', 'Z'},
-    {'X', 'U', 'O', 'L'},
-    {'I', 'F', 'C', '~'}
-  }
-};
-
-const char hexaKeysPlusSpace[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'p', '^', 'y'},
-    {'v', 's', 'm', 'j'},
-    {'g', 'd', 'a', '~'}
-  },
-  {
-    {'@', 'q', '_', 'z'},
-    {'w', 't', 'n', 'k'},
-    {'h', 'e', 'b', '~'}
-  },
-  {
-    {'@', 'r', '^', 'z'},
-    {'x', 'u', 'o', 'l'},
-    {'i', 'f', 'c', '~'}
-  }
-};
-
-const char hexaKeysCAPSPlusSpace[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'P', '^', 'Y'},
-    {'V', 'S', 'M', 'J'},
-    {'G', 'D', 'A', '~'}
-  },
-  {
-    {'@', 'Q', '_', 'Z'},
-    {'W', 'T', 'N', 'K'},
-    {'H', 'E', 'B', '~'}
-  },
-  {
-    {'@', 'R', '^', 'Z'},
-    {'X', 'U', 'O', 'L'},
-    {'I', 'F', 'C', '~'}
-  }
-};
-#endif
-
-
-/*
-#if defined(__SAM3X8E__)
-
-const byte ROWS = 4; //four rows
-const byte COLS = 3; //four columns
-const byte DEPTH = 4;
-
-
-#define COL_PIN_0      69
-#define COL_PIN_1      68
-#define COL_PIN_2      67
-#define ROW_PIN_0      63
-#define ROW_PIN_1      64
-#define ROW_PIN_2      65
-#define ROW_PIN_3      66
-
-//define the symbols on the buttons of the keypads
-char hexaKeys[DEPTH][COLS][ROWS] = {
-  {
-    {'0', '1', '2', '3'},
-    {'4', '5', '6', '7'},
-    {'8', '9', '@', '~'}
-  },
-  {
-    {'^', 'a', 'd', 'g'},
-    {'j', 'm', 'p', 's'},
-    {'v', 'y', '@', '~'}
-  },
-  {
-    {'^', 'b', 'e', 'h'},
-    {'k', 'n', 'q', 't'},
-    {'w', 'z', '@', '~'}
-  },
-  {
-    {'^', 'c', 'f', 'i'},
-    {'l', 'o', 'r', 'u'},
-    {'x', 'z', '@', '~'}
-  }
-};
-
-const int r1 = ROW_PIN_0;
-const int r2 = ROW_PIN_1;
-const int r3 = ROW_PIN_2;
-const int r4 = ROW_PIN_3;
-const int c1 = COL_PIN_0;
-const int c2 = COL_PIN_1;
-const int c3 = COL_PIN_2;
-
-#define COL_PIN_3      70
-#define COL_PIN_4      71
-
-
-#endif
-*/
 
 const int keyDelay = 50;
 
@@ -815,33 +620,6 @@ void checkDevicePIN(bool displayAlpha)
 
 }
 
-//bool checkDevicePIN(bool displayAlpha)
-//{
-//	char bufferPIN3array[21]={};
-////	char *bufferPIN3;
-//	bool results;
-////	bufferPIN3 = &bufferPIN3array[0];
-//
-//	memset(&bufferPIN3array[0], 0, sizeof(bufferPIN3array));
-////	memset(bufferPIN3, 0, 21);
-////	strcpy(bufferPIN3, "");
-//
-//	if(displayAlpha){
-//		buttonInterjectionNoAck(ASKUSER_ENTER_PIN_ALPHA);
-//	}else{
-//		buttonInterjectionNoAck(ASKUSER_ENTER_PIN);
-//	}
-//
-//	bufferPIN3array = getInput(displayAlpha, false);
-//
-//	clearDisplay();
-////	writeEink("before checkhashes", false, STATUS_X, STATUS_Y);
-//	results = checkHashes(&bufferPIN3array[0], displayAlpha);
-////	writeEink("after checkhashes", false, STATUS_X, STATUS_Y);
-//	return results;
-//}
-
-
 char *getTransactionPINfromUser(void)
 {
 	char bufferPIN3array[21]={};
@@ -861,8 +639,6 @@ char *getTransactionPINfromUser(void)
 	return bufferPIN3;
 }
 
-
-
 void duressFormat()
 {
 //	writeEink("STOMP2", false, STATUS_X, STATUS_Y);
@@ -872,7 +648,6 @@ void duressFormat()
 //	writeEink("STOMP4", false, STATUS_X, STATUS_Y);
 	useWhatCommsDuress();
 }
-
 
 void pinStatusCheck()
 {
@@ -1169,8 +944,6 @@ void pinStatusCheckExpert()
 	return;
 }
 
-
-
 char *mnemonic_input_stacker(int mlen)
 {
 
@@ -1202,7 +975,6 @@ char *mnemonic_input_stacker(int mlen)
 	return mnemo;
 }
 
-
 //Need to put a wrapper and display on this to loop the query
 char *mnemonic_input(void)
 {
@@ -1218,9 +990,6 @@ char *mnemonic_input(void)
 
 	  for (i=0; i<20; i++)
 	  {
-	        #if defined(__SAM3X8E__)
-	        theChar = alphkeypad((8*i)+INPUT_X, INPUT_Y);
-			#endif
 
 			#if defined(__SAM3A8C__)
 			if(displayInput)
@@ -1296,8 +1065,6 @@ char *mnemonic_input(void)
 	  return staticBuffer;
 }
 
-
-
 char *getInput(bool displayInput, bool initialSetup) {
   int i;
   char theChar;
@@ -1311,9 +1078,6 @@ char *getInput(bool displayInput, bool initialSetup) {
 
   for (i=0; i<20; i++)
   {
-        #if defined(__SAM3X8E__)
-        theChar = alphkeypad((8*i)+INPUT_X, INPUT_Y);
-		#endif
 
 		#if defined(__SAM3A8C__)
 		if(displayInput)
@@ -1346,7 +1110,7 @@ char *getInput(bool displayInput, bool initialSetup) {
 			}
 			else
 			{
-				// theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+				theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
 			}
 		#endif
 
@@ -1462,10 +1226,6 @@ char *getInput(bool displayInput, bool initialSetup) {
   return staticBuffer;
 }
 
-
-
-
-
 char *getInputIndices(bool displayInput, bool initialSetup) {
   int i;
   char theChar;
@@ -1480,28 +1240,42 @@ char *getInputIndices(bool displayInput, bool initialSetup) {
 
   for (i=0; i<20; i++)
   {
-        #if defined(__SAM3X8E__)
-        theChar = alphkeypad((8*i)+INPUT_X, INPUT_Y);
-		#endif
 
-		#if defined(__SAM3A8C__)
-        if(displayInput)
+	#if defined(__SAM3A8C__)
+	if(displayInput)
+		{
+		if(caps)
 			{
-        	if(caps)
-				{
-					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
-				}else
-				{
-					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
-				}
-			}
-			else
+				theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+			}else
 			{
-				theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+				theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
 			}
-		#endif
+		}
+		else
+		{
+			theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+		}
+	#endif
 
-        if(initialSetup)
+	#if defined(NRF52840_XXAA)
+	if(displayInput)
+		{
+		if(caps)
+			{
+				theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+			}else
+			{
+				theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+			}
+		}
+		else
+		{
+			theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+		}
+	#endif
+
+if(initialSetup)
         {
         	j = 3;
             if(theChar == '@' && i > j)
@@ -1622,164 +1396,6 @@ char *getInputIndices(bool displayInput, bool initialSetup) {
   return staticBuffer;
 }
 
-
-//int getInputIndicesInt(bool displayInput, bool initialSetup) {
-//  int i;
-//  char theChar;
-//  static char staticBuffer[21] = {};
-//  static char finalBuffer[21] = {};
-//  char tempBuffer[21] = {};
-//  int j;
-//  bool caps = false;
-//
-//  memset(staticBuffer, 0, 21);
-//  strcpy(staticBuffer, "");
-//
-//  for (i=0; i<20; i++)
-//  {
-//        #if defined(__SAM3X8E__)
-//        theChar = alphkeypad((8*i)+INPUT_X, INPUT_Y);
-//		#endif
-//
-//		#if defined(__SAM3A8C__)
-//        if(displayInput)
-//			{
-//        	if(caps)
-//				{
-//					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
-//				}else
-//				{
-//					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
-//				}
-//			}
-//			else
-//			{
-//				theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
-//			}
-//		#endif
-//
-//        if(initialSetup)
-//        {
-//        	j = 3;
-//            if(theChar == '@' && i > j)
-//             {
-//             	break;
-//             }
-//             else if(theChar == '@' && i <= j)
-//             {
-//             	i = i - 1;
-//             }
-//             else if(theChar == '^')
-//             {
-//             	i = i - 1;
-//             	caps = !caps;
-//             	writeSelectedCharAndStringBlanking((8*i)+INPUT_X, INPUT_Y, caps);
-//             }
-//             else if(theChar == '~' && (i != 0))
-//             {
-//             	memset(&tempBuffer[0], 0, sizeof(tempBuffer));
-//              	strncpy(tempBuffer, staticBuffer, i-1);
-//              	memset(&staticBuffer[0], 0, sizeof(staticBuffer));
-//      	  		strncpy(staticBuffer, tempBuffer, i-1);
-//             	i= i - 2;
-//             	if(display){
-//             		writeSelectedCharAndStringBlanking((8*i)+INPUT_X, INPUT_Y, caps);
-//             	}
-//             }
-//             else if(theChar == '~' && (i == 0))
-//             {
-//             	i = i - 1;
-//             	if(!initialSetup)
-//             	{
-//     				if(displayInput){//############################################################
-//     	//        		writeEink("before cDP true>false", false, STATUS_X, STATUS_Y);
-//     					checkDevicePIN(false);
-//     	//        		writeEink("stuck cDP true>false", false, STATUS_X, STATUS_Y);
-//
-//     					break;
-//     				}else{
-//     	//        		writeEink("before cDP false>true", false, STATUS_X, STATUS_Y);
-//     					checkDevicePIN(true);
-//     	//        		writeEink("stuck cDP false>true", false, STATUS_X, STATUS_Y);
-//     					break;
-//     				}
-//             	}else if(initialSetup)
-//             	{
-//             		useWhatSetup();
-//             	}
-//             }
-//             else
-//             {
-//             	staticBuffer[i] = theChar;
-//             }
-//        }
-//        else
-//        {
-//            if(theChar == '@')
-//             {
-//             	break;
-//             }
-////             else if(theChar == '^')
-////             {
-////             	i = i - 1;
-////             	caps = !caps;
-////             	writeSelectedCharAndStringBlanking((8*i)+INPUT_X, INPUT_Y, caps);
-////             }
-//             else if(theChar == '~' && (i != 0))
-//             {
-//             	memset(&tempBuffer[0], 0, sizeof(tempBuffer));
-//              	strncpy(tempBuffer, staticBuffer, i-1);
-//              	memset(&staticBuffer[0], 0, sizeof(staticBuffer));
-//      	  		strncpy(staticBuffer, tempBuffer, i-1);
-//             	i= i - 1;
-//             	if(display){
-//             		writeSelectedCharAndStringBlanking((8*i)+INPUT_X, INPUT_Y, caps);
-//             	}
-//             }
-////             else if(theChar == '~' && (i == 0))
-////             {
-////             	i = i - 1;
-////             	if(!initialSetup)
-////             	{
-////     				if(displayInput){
-////     	//        		writeEink("before cDP true>false", false, STATUS_X, STATUS_Y);
-////     					strcpy(staticBuffer, "");
-////     					checkDevicePIN(false);
-////     	//        		writeEink("stuck cDP true>false", false, STATUS_X, STATUS_Y);
-////     					break;
-////     				}else{
-////     	//        		writeEink("before cDP false>true", false, STATUS_X, STATUS_Y);
-////     					strcpy(staticBuffer, "");
-////     					checkDevicePIN(true);
-////     	//        		writeEink("stuck cDP false>true", false, STATUS_X, STATUS_Y);
-////     					break;
-////     				}
-////             	}else if(initialSetup)
-////             	{
-////             		useWhatSetup();
-////     //        		initDisplay();
-////     //        		overlayBatteryStatus(BATT_VALUE_DISPLAY);
-////     //        		writeEinkNoDisplay("SET NUMERIC PIN:",  COL_1_X, LINE_1_Y, "",0,0, "",  0,0, "",  0,0, "",5,35);
-////     //        		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
-////     //				writeEinkNoDisplay("",  0, 0, "",0,0, "",0,0, "GO",22,80, "NUM",145,80);
-////     //				drawCheck(3,85);
-////     //           		drawX(180,87);
-////     //        		display();
-////     //        		break;
-////     //        		getInput(!displayInput, true);
-////             	}
-////             }
-////             else
-//             {
-//             	staticBuffer[i] = theChar;
-//             }
-//       }
-//  }
-//  strncpy(finalBuffer, staticBuffer, i);
-//  return finalBuffer;
-//}
-
-
 char *getInputAEM(bool displayInput, bool initialSetup)
 {
   int i;
@@ -1892,6 +1508,7 @@ char *getInputAEM(bool displayInput, bool initialSetup)
 //  strncpy(finalBuffer, staticBuffer, i);
   return staticBuffer;
 }
+
 char *getInputVariable(bool displayInput, bool initialSetup, int numChars) {
   int i;
   char theChar;
@@ -1906,11 +1523,25 @@ char *getInputVariable(bool displayInput, bool initialSetup, int numChars) {
 
   for (i=0; i<20; i++)
   {
-        #if defined(__SAM3X8E__)
-        theChar = alphkeypad((8*i)+INPUT_X, INPUT_Y);
-		#endif
 
 		#if defined(__SAM3A8C__)
+        if(displayInput)
+			{
+        	if(caps)
+				{
+					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+				}else
+				{
+					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+				}
+			}
+			else
+			{
+				theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+			}
+		#endif
+
+		#if defined(NRF52840_XXAA)
         if(displayInput)
 			{
         	if(caps)
@@ -2037,7 +1668,6 @@ char *getInputVariable(bool displayInput, bool initialSetup, int numChars) {
   return staticBuffer;
 }
 
-
 char *getInputWallets(bool displayInput, bool initialSetup) {
   int i;
   char theChar;
@@ -2052,11 +1682,25 @@ char *getInputWallets(bool displayInput, bool initialSetup) {
 
   for (i=0; i<20; i++)
   {
-        #if defined(__SAM3X8E__)
-        theChar = alphkeypad((8*i)+INPUT_X, INPUT_Y);
-		#endif
 
 		#if defined(__SAM3A8C__)
+        if(displayInput)
+		{
+			if(caps)
+				{
+					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+				}else
+				{
+					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+				}
+		}
+		else
+		{
+			theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+		}
+		#endif
+
+		#if defined(NRF52840_XXAA)
         if(displayInput)
 		{
 			if(caps)
@@ -2157,8 +1801,6 @@ char *getInputWallets(bool displayInput, bool initialSetup) {
 //  strncpy(finalBuffer, staticBuffer, i);
   return staticBuffer;
 }
-
-
 
 void checkHashes(char *buffer4, bool displayAlpha)
 {
@@ -2346,7 +1988,6 @@ void checkHashes(char *buffer4, bool displayAlpha)
 	}
 }
 
-
 void writeSelectedCharAndString(char currentChar, int current_x, int current_y, bool caps)
 {
 	initDisplay();
@@ -2371,7 +2012,6 @@ void writeSelectedCharAndString(char currentChar, int current_x, int current_y, 
 	display();
 
 }
-
 
 void writeSelectedCharAndStringBlanking(int current_x, int current_y, bool caps)
 {
@@ -2465,10 +2105,6 @@ void writeSelectedCharAndStringBlankingPlus(int current_x, int current_y)
 //
 	display();
 }
-
-
-
-#if defined(__SAM3A8C__)
 
 char alphkeypad_3A8C(int current_x, int current_y)
 {
@@ -3910,333 +3546,3 @@ char alphkeypad_3A8CnoDisplay(int current_x, int current_y)
   return selectedChar;
 
 }//ALPHKEYPAD_3A8CNoDisplay  ENDING
-#endif
-
-/*
-#if defined(__SAM3X8E__)
-char alphkeypad(int current_x, int current_y)
-{
-  pinMode(r1, OUTPUT);
-  pinMode(r2, OUTPUT);
-  pinMode(r3, OUTPUT);
-  pinMode(r4, OUTPUT);
-  pinMode(c1, INPUT);
-  pinMode(c2, INPUT);
-  pinMode(c3, INPUT);
-
-	bool displayOrNot = true;
-	char selectedChar;
-
-	char a = 'a';
-
-  while (a != 'c') {
-
-
-
-
-
-
-    digitalWrite(c1, HIGH);  digitalWrite(c2, HIGH); digitalWrite(c3, HIGH);
-
-    //  0
-    digitalWrite(r1, LOW); digitalWrite(r2, HIGH);
-    digitalWrite(r3, HIGH); digitalWrite(r4, HIGH);
-    while(digitalRead(c1) == LOW){
-		if (digitalRead(c1) == LOW) {
-		  selectedChar = hexaKeys[0][0][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-		  if (digitalRead(c1) == LOW) {
-			selectedChar = hexaKeys[1][0][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-			if (digitalRead(c1) == LOW) {
-			  selectedChar = hexaKeys[2][0][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-			  if (digitalRead(c1) == LOW) {
-				selectedChar = hexaKeys[3][0][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-
-    //  4
-    digitalWrite(r1, LOW); digitalWrite(r2, HIGH);
-    digitalWrite(r3, HIGH); digitalWrite(r4, HIGH);
-    while(digitalRead(c2) == LOW){
-		if (digitalRead(c2) == LOW) {
-		  selectedChar = hexaKeys[0][1][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c2) == LOW) {
-			selectedChar = hexaKeys[1][1][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c2) == LOW) {
-			  selectedChar = hexaKeys[2][1][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c2) == LOW) {
-				selectedChar = hexaKeys[3][1][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-
-    }
-
-    //   8 hexaKeys[0][2][0]
-    digitalWrite(r1, LOW); digitalWrite(r2, HIGH);
-    digitalWrite(r3, HIGH); digitalWrite(r4, HIGH);
-    while(digitalRead(c3) == LOW){
-		if (digitalRead(c3) == LOW) {
-		  selectedChar = hexaKeys[0][2][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c3) == LOW) {
-			selectedChar = hexaKeys[1][2][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c3) == LOW) {
-			  selectedChar = hexaKeys[2][2][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c3) == LOW) {
-				selectedChar = hexaKeys[3][2][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-
-
-
-
-
-
-
-
-
-    //   1 hexaKeys[0][0][1]
-    digitalWrite(r1, HIGH); digitalWrite(r2, LOW);
-    digitalWrite(r3, HIGH); digitalWrite(r4, HIGH);
-    while(digitalRead(c1) == LOW){
-		if (digitalRead(c1) == LOW) {
-		  selectedChar = hexaKeys[0][0][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c1) == LOW) {
-			selectedChar = hexaKeys[1][0][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c1) == LOW) {
-			  selectedChar = hexaKeys[2][0][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c1) == LOW) {
-				selectedChar = hexaKeys[3][0][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-    //     5  hexaKeys[0][1][1]
-    digitalWrite(r1, HIGH); digitalWrite(r2, LOW);
-    digitalWrite(r3, HIGH); digitalWrite(r4, HIGH);
-    while(digitalRead(c2) == LOW){
-		if (digitalRead(c2) == LOW) {
-		  selectedChar = hexaKeys[0][1][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c2) == LOW) {
-			selectedChar = hexaKeys[1][1][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c2) == LOW) {
-			  selectedChar = hexaKeys[2][1][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c2) == LOW) {
-				selectedChar = hexaKeys[3][1][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-
-    //     9  hexaKeys[0][2][1]
-    digitalWrite(r1, HIGH); digitalWrite(r2, LOW);
-    digitalWrite(r3, HIGH); digitalWrite(r4, HIGH);
-    while(digitalRead(c3) == LOW){
-		if (digitalRead(c3) == LOW) {
-		  selectedChar = hexaKeys[0][2][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c3) == LOW) {
-			selectedChar = hexaKeys[1][2][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c3) == LOW) {
-			  selectedChar = hexaKeys[2][2][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c3) == LOW) {
-				selectedChar = hexaKeys[3][2][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-    //      2  hexaKeys[0][0][2]
-    digitalWrite(r1, HIGH); digitalWrite(r2, HIGH);
-    digitalWrite(r3, LOW); digitalWrite(r4, HIGH);
-    while(digitalRead(c1) == LOW){
-		if (digitalRead(c1) == LOW) {
-		  selectedChar = hexaKeys[0][0][2];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c1) == LOW) {
-			selectedChar = hexaKeys[1][0][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c1) == LOW) {
-			  selectedChar = hexaKeys[2][0][2];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c1) == LOW) {
-				selectedChar = hexaKeys[3][0][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c'   ;
-    }
-
-    //     6  hexaKeys[0][1][2]
-    digitalWrite(r1, HIGH); digitalWrite(r2, HIGH);
-    digitalWrite(r3, LOW); digitalWrite(r4, HIGH);
-    while(digitalRead(c2) == LOW){
-		if (digitalRead(c2) == LOW) {
-		  selectedChar = hexaKeys[0][1][2];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c2) == LOW) {
-			selectedChar = hexaKeys[1][1][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c2) == LOW) {
-			  selectedChar = hexaKeys[2][1][2];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c2) == LOW) {
-				selectedChar = hexaKeys[3][1][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-    //  Y=@  hexaKeys[0][2][2]
-    digitalWrite(r1, HIGH); digitalWrite(r2, HIGH);
-    digitalWrite(r3, LOW); digitalWrite(r4, HIGH);
-    while(digitalRead(c3) == LOW){
-		if (digitalRead(c3) == LOW) {
-		  selectedChar = hexaKeys[0][2][2];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-	//      if (digitalRead(c3) == LOW) {
-	//        selectedChar = hexaKeys[1][2][2];
-	//        writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-	//        if (digitalRead(c3) == LOW) {
-	//          selectedChar = hexaKeys[2][2][2];
-	//          writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-	//        }
-	//      }
-		}
-      a = 'c';
-    }
-
-    //  3  hexaKeys[0][0][3]
-    digitalWrite(r1, HIGH); digitalWrite(r2, HIGH);
-    digitalWrite(r3, HIGH); digitalWrite(r4, LOW);
-    while(digitalRead(c1) == LOW){
-		if (digitalRead(c1) == LOW) {
-		  selectedChar = hexaKeys[0][0][3];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c1) == LOW) {
-			selectedChar = hexaKeys[1][0][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c1) == LOW) {
-			  selectedChar = hexaKeys[2][0][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c1) == LOW) {
-				selectedChar = hexaKeys[3][0][3];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-
-    //  7  hexaKeys[0][1][3]
-    digitalWrite(r1, HIGH); digitalWrite(r2, HIGH);
-    digitalWrite(r3, HIGH); digitalWrite(r4, LOW);
-    while(digitalRead(c2) == LOW){
-		if (digitalRead(c2) == LOW) {
-		  selectedChar = hexaKeys[0][1][3];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(c2) == LOW) {
-			selectedChar = hexaKeys[1][1][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(c2) == LOW) {
-			  selectedChar = hexaKeys[2][1][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(c2) == LOW) {
-				selectedChar = hexaKeys[3][1][3];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-    //  N  hexaKeys[0][2][3]
-    digitalWrite(r1, HIGH); digitalWrite(r2, HIGH);
-    digitalWrite(r3, HIGH); digitalWrite(r4, LOW);
-    while(digitalRead(c3) == LOW){
-		if (digitalRead(c3) == LOW) {
-		  selectedChar = hexaKeys[0][2][3];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//		  if (digitalRead(c3) == LOW) {
-//			selectedChar = hexaKeys[1][2][3];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			if (digitalRead(c3) == LOW) {
-//			  selectedChar = hexaKeys[2][2][3];
-//			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(c3) == LOW) {
-//				selectedChar = hexaKeys[3][2][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-//			}
-//		  }
-		}
-      a = 'c';
-    }
-
-  }//WHILE ENDING
-  if(selectedChar == '@')
-  {
-	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
-  }
-  else if(selectedChar == '~')
-  {
-	  return selectedChar;
-  }
-  else
-  {
-	  writeSelectedCharAndStringBlanking(current_x, current_y);
-  }
-  return selectedChar;
-
-}//ALPHKEYPAD  ENDING
-#endif
-*/
-

@@ -567,70 +567,6 @@ char* getTransString1(char* str1) {
 	strcpy_P(transStringBuffer1, (char*)str1);
 	return transStringBuffer1;
 }
-/*
-###########################################################
-###########################################################
-###########################################################
-###########################################################
-###########################################################
-*/
-
-
-
-
-
-//const wchar_t INITIAL_SETUP_line1[][18] = {
-//		L"STANDARD     1...",
-//		L"STANDARD     1...",
-//		L"СТАНДАРТНАЯ  1...",
-//		L"常态    1...",
-//		L"STANDARDNÍ   1...",
-//		L"STANDARD     1...",
-//		L"ESTÁNDAR     1...",
-//		L"PADRÃO       1...",
-//		L"STANDART     1...",
-//		L"STANDARD     1..."
-//} ;
-//
-//const wchar_t INITIAL_SETUP_line2[][18] = {
-//		L"ADVANCED     2...", //EN
-//		L"ERWEITERTE   2...", //DE
-//		L"РАСШИРЕННАЯ  2...", //RU
-//		L"高级    2...", //ZH
-//		L"POKROČILÉ    2...", //CZ
-//		L"AVANCÉE      2...", //FR
-//		L"AVANZADA     2...", //ES
-//		L"AVANÇADOS    2...", //PT
-//		L"GELİŞMİŞ     2...", //TU
-//		L"AVANZATO     2..."  //IT
-//} ;
-//
-//const wchar_t INITIAL_SETUP_line3[][18] = {
-//		L"EXPERT       3...", //EN
-//		L"EXPERT       3...", //DE
-//		L"ЭКСПЕРТ      3...", //RU
-//		L"专家    3...", //ZH
-//		L"EXPERT       3...", //CZ
-//		L"EXPERT       3...", //FR
-//		L"EXPERTO      3...", //ES
-//		L"ESPECIALISTA 3...", //PT
-//		L"UZMAN        3...", //TU
-//		L"ESPERTO      3..."  //IT
-//} ;
-
-
-/*
-###########################################################
-###########################################################
-###########################################################
-###########################################################
-###########################################################
-*/
-
-
-//#####################################################################################
-//#####################################################################################
-//#####################################################################################
 
 /** Ask user for input.
   * \param command The action to ask the user about. See #AskUserCommandEnum.
@@ -678,7 +614,8 @@ char *userInput(AskUserCommand command)
 				L"STANDARD     1...",
 				L"STANDARD     1...",
 				L"СТАНДАРТНАЯ  1...",
-				L"常态    1...",
+				L"レベル    1...",
+				// L"常态    1...",
 				L"STANDARDNÍ   1...",
 				L"STANDARD     1...",
 				L"ESTÁNDAR     1...",
@@ -712,7 +649,6 @@ char *userInput(AskUserCommand command)
 				L"UZMAN        3...", //TU
 				L"ESPERTO      3..."  //IT
 		} ;
-
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
@@ -1144,7 +1080,7 @@ bool userDeniedPlusData(AskUserCommand command, char *passed_data, int size_of_d
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)FORMAT_WITH_PROGRESS_line1[lang], wcslen(FORMAT_WITH_PROGRESS_line1[lang]), COL_1_X, LINE_1_Y);
 		writeEinkNoDisplaySingleBig(passed_data,COL_1_X,LINE_2_Y);
-		writeEinkNoDisplaySingleBig("%",39,LINE_2_Y);
+		writeEinkNoDisplaySingleBig("%",71,LINE_2_Y);
 
 //		writeEinkDrawUnicodeSingle(str_CONFIRM_line0_UNICODE_sized[lang][0], line4length, ACCEPT_X_START, 80);
 //		writeEinkDrawUnicodeSingle((unsigned int*)BACK_line0[lang], wcslen(BACK_line0[lang]), (DENY_X_START)-((zhSizer*wcslen(BACK_line0[lang]))*8), LINE_4_Y);
@@ -4199,7 +4135,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CÜZDAN KURULUMU", //TU
 				L"IMPOSTAZIONI PORTAFOGLIO"  //IT
 		} ;
-
+		clearDisplay();
 		// waitForNoButtonPress();
 
 		// initDisplay();
@@ -4300,7 +4236,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CÜZDAN KURULUMU", //TU
 				L"IMPOSTAZIONI PORTAFOGLIO"  //IT
 		} ;
-
+		clearDisplay();
 		// waitForNoButtonPress();
 
 
@@ -4403,7 +4339,7 @@ bool userDeniedSetup(AskUserCommand command)
 				L"CÜZDAN KURULUMU", //TU
 				L"IMPOSTAZIONI PORTAFOGLIO"  //IT
 		} ;
-
+		clearDisplay();
 		// waitForNoButtonPress();
 
 
@@ -5247,8 +5183,11 @@ bool userDeniedSetup(AskUserCommand command)
 		// display();
 
 		// initDisplay();
-		writeEinkDrawUnicodeSingle((unsigned int*)udsALPHA_INPUT_PREFACE_B_line0[lang], wcslen(udsALPHA_INPUT_PREFACE_B_line0[lang]), COL_1_X, LINE_0_Y);
+		writeEinkDrawUnicodeSingle((unsigned int*)udsALPHA_INPUT_PREFACE_B_line0[lang], wcslen(udsALPHA_INPUT_PREFACE_B_line0[lang]), COL_1_X, LINE_1_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
+
+		// delay(1000);
+
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_ALPHA_INPUT_PREFACE_line2_UNICODE_SIZED[lang][0], line2length, COL_1_X, LINE_2_Y);
 		// display();
 
