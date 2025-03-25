@@ -83,6 +83,11 @@
      						char *toDisplayLine9, int x9, int y9,
      						char *toDisplayLine10, int x10, int y10,
      						char *toDisplayLine11, int x11, int y11 );
+	void writeDisplayW2(	char *toDisplayLine0, bool is_progmem0, int x0, int y0,
+							char *toDisplayLine1, bool is_progmem1, int x1, int y1,
+							char *toDisplayLine2, bool is_progmem2, int x2, int y2,
+							char *toDisplayLine3, bool is_progmem3, int x3, int y3,
+							char *toDisplayLine4, bool is_progmem4, int x4, int y4 );
      void writeBlankScreen(void);
      void writeSleepScreen(void);
      void writeSplashScreen(void);

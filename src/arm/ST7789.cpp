@@ -80,6 +80,14 @@ void drawtext(char *text, uint16_t color, int size, int x, int y) {
   tft.print(text);
 }
 
+void drawtextW2(char *text, int x, int y) {
+  tft.setCursor(x, y);
+  tft.setTextSize(2);
+  tft.setTextColor(ST77XX_WHITE);
+  tft.setTextWrap(true);
+  tft.print(text);
+}
+
 void drawtextW3(char *text, int x, int y) {
   tft.setCursor(x, y);
   tft.setTextSize(3);

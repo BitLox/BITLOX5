@@ -34,7 +34,8 @@ extern void displayMnemonicCheck(const char * mnemonicToDisplay);
 //extern void inputMnemonic(char *tempMnemToSet);
 extern char nibbleToHex(uint8_t nibble);
 extern int waitForNumberButtonPress(void);
-extern char waitForNumberButtonPress4to8(void);
+extern int waitForNumberButtonPress4to8(void);
+int waitForNumberButtonPress0to3(void);
 extern bool displayHexStream(uint8_t *stream, uint8_t length);
 extern bool displayBigHexStream(uint8_t *stream, uint32_t length);
 extern void clearDisplay(void);
@@ -42,6 +43,7 @@ extern void clearDisplaySecure(void);
 extern void showBattery(void);
 extern bool waitForButtonPress(void);
 extern void showWorking(void);
+void showCreatingWallet(void);
 
 #ifdef __cplusplus
      }

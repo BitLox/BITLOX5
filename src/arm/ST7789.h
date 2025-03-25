@@ -58,6 +58,7 @@ void mediabuttons();
 void initDisplay(void);
 void tftBlackScreen(void);
 void drawtext(char *text, uint16_t color, int size, int x, int y);
+void drawtextW2(char *text, int x, int y);
 void drawtextW3(char *text, int x, int y);
 void drawtextW5(const char *text, int x, int y);
 void drawCheck(int x, int y);

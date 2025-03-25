@@ -104,6 +104,43 @@ void writeEinkDisplay(	char *toDisplayLine0, bool is_progmem0, int x0, int y0,
 
 }
 
+void writeDisplayW2(	char *toDisplayLine0, bool is_progmem0, int x0, int y0,
+	char *toDisplayLine1, bool is_progmem1, int x1, int y1,
+	char *toDisplayLine2, bool is_progmem2, int x2, int y2,
+	char *toDisplayLine3, bool is_progmem3, int x3, int y3,
+	char *toDisplayLine4, bool is_progmem4, int x4, int y4 )
+{
+// initEink();
+
+#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)|| defined(NRF52840_XXAA)
+is_progmem0 = false;
+is_progmem1 = false;
+is_progmem2 = false;
+is_progmem3 = false;
+is_progmem4 = false;
+#endif
+
+
+char *line0;
+char *line1;
+char *line2;
+char *line3;
+char *line4;
+
+line0 = toDisplayLine0;
+line1 = toDisplayLine1;
+line2 = toDisplayLine2;
+line3 = toDisplayLine3;
+line4 = toDisplayLine4;
+
+drawtextW2(line0, x0, y0);
+drawtextW2(line1, x1, y1);
+drawtextW2(line2, x2, y2);
+drawtextW2(line3, x3, y3);
+drawtextW2(line4, x4, y4);
+
+}
+
 void writeEinkNoDisplay(char *toDisplayLine0, int x0, int y0,
 						char *toDisplayLine1, int x1, int y1,
 						char *toDisplayLine2, int x2, int y2,
@@ -114,11 +151,11 @@ void writeEinkNoDisplay(char *toDisplayLine0, int x0, int y0,
 
 
 
-    drawtextW3(toDisplayLine0, x0, y0);
-    drawtextW3(toDisplayLine1, x1, y1);
-    drawtextW3(toDisplayLine2, x2, y2);
-    drawtextW3(toDisplayLine3, x3, y3);
-    drawtextW3(toDisplayLine4, x4, y4);
+    drawtextW2(toDisplayLine0, x0, y0);
+    drawtextW2(toDisplayLine1, x1, y1);
+    drawtextW2(toDisplayLine2, x2, y2);
+    drawtextW2(toDisplayLine3, x3, y3);
+    drawtextW2(toDisplayLine4, x4, y4);
 
 
 
@@ -146,7 +183,7 @@ void writeEinkDrawNumberSingleBig(long theNumber, int x0, int y0)
 }
 void writeEinkDrawNumberSingle(long theNumber, int x0, int y0)
 {
- 	EPAPER.drawNumber(theNumber, x0, y0);
+ 	// EPAPER.drawNumber(theNumber, x0, y0);
 }
 
 
@@ -502,18 +539,18 @@ void writeEinkDisplayPrep(	char *toDisplayLine0, int x0, int y0,
 {
 	// initEink();
 
-    drawtextW3(toDisplayLine0, x0, y0);
-    drawtextW3(toDisplayLine1, x1, y1);
-    drawtextW3(toDisplayLine2, x2, y2);
-    drawtextW3(toDisplayLine3, x3, y3);
-    drawtextW3(toDisplayLine4, x4, y4);
-    drawtextW3(toDisplayLine5, x5, y5);
-    drawtextW3(toDisplayLine6, x6, y6);
-    drawtextW3(toDisplayLine7, x7, y7);
-    drawtextW3(toDisplayLine8, x8, y8);
-    drawtextW3(toDisplayLine9, x9, y9);
-    drawtextW3(toDisplayLine10, x10, y10);
-    drawtextW3(toDisplayLine11, x11, y11);
+    drawtextW2(toDisplayLine0, x0, y0);
+    drawtextW2(toDisplayLine1, x1, y1);
+    drawtextW2(toDisplayLine2, x2, y2);
+    drawtextW2(toDisplayLine3, x3, y3);
+    drawtextW2(toDisplayLine4, x4, y4);
+    drawtextW2(toDisplayLine5, x5, y5);
+    drawtextW2(toDisplayLine6, x6, y6);
+    drawtextW2(toDisplayLine7, x7, y7);
+    drawtextW2(toDisplayLine8, x8, y8);
+    drawtextW2(toDisplayLine9, x9, y9);
+    drawtextW2(toDisplayLine10, x10, y10);
+    drawtextW2(toDisplayLine11, x11, y11);
 
 }
 

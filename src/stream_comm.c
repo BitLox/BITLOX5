@@ -79,6 +79,8 @@
 #include "bip39_trez_prev.h"
 #include "baseconv.h"
 #include "arm/ST7789.h"
+#include "arm/eink.h"
+#include "arm/lcd_and_input.h"
 
 #if defined(__SAM3X8E__)
 #define ENABLE_PIN2  28
@@ -960,17 +962,16 @@ bool passwordInterjectionAutoPIN(int level)
 	bool yesOrNo;
 
 
-
+	// wallet creation
     if(level==1)
     {
-
     	buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP_2_WALLET);
 
-		rChar = waitForNumberButtonPress4to8();
+		r = waitForNumberButtonPress4to8();
 		clearDisplay();
-		r = rChar - '0';
+		// r = rChar - '0';
 
-		if(rChar == 'N')
+		if(r == 10)
 		{
 			return true;
 		}else
@@ -998,7 +999,8 @@ bool passwordInterjectionAutoPIN(int level)
 				writeHashToByteArray(field_hash, sig_hash_hs_ptr2, false);
 				field_hash_set = true;
 	//			waitForButtonPress();
-				showWorking();
+				showCreatingWallet();
+				delay(1000);
 
 				if (!field_hash_set)
 				{
@@ -2541,7 +2543,7 @@ bool createDefaultWalletAuto(int strength, int level)
 			password_length = sizeof(field_hash);
 			if(pin_field_hash_set)
 			{
-//				writeEinkDisplay("In if(set)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+				// writeEinkDisplay("In if(set)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 //				displayBigHexStream(pin_field_hash, 32);
 //				waitForButtonPress();
 
@@ -2560,12 +2562,26 @@ bool createDefaultWalletAuto(int strength, int level)
 		if (!cancelWalletCreation)
 		{
 			char* pass = 0;
+			// clearDisplay();
+			writeEinkNoDisplay("Line 2566",  COL_1_X, LINE_4_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+			delay(1000);
 			use_mnemonic_pass = buttonInterjectionNoAck(ASKUSER_USE_MNEMONIC_PASSPHRASE);
 			if(!use_mnemonic_pass)
 			{
+				writeEinkNoDisplay("use_mnemonic_pass is FALSE",  COL_1_X, LINE_3_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+				delay(1000);
+			}
+			if(use_mnemonic_pass)
+			{
+				writeEinkNoDisplay("use_mnemonic_pass is TRUE",  COL_1_X, LINE_3_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+				delay(1000);
+			}
+			if(!use_mnemonic_pass)
+			{
 				buttonInterjectionNoAckSetup(ASKUSER_ALPHA_INPUT_PREFACE);
-
-				pass = getInput(true, false);
+				writeEinkNoDisplay("Line 2582",  COL_1_X, LINE_4_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+				delay(1000);
+				// pass = getInput(true, false);
 			}
 			clearDisplay();
 			uint8_t seed[512 / 8] = { };
@@ -2592,7 +2608,7 @@ bool createDefaultWalletAuto(int strength, int level)
 #ifdef DISPLAY_SEED
 			int len = strength / 8;
 			int mlen = len * 3 / 4;
-			displayMnemonic(mnem128, mlen); //################################################################################################# REMOVE THIS after test
+			displayMnemonic(mnem128, mlen); //############################################### REMOVE THIS after test
 #endif
 
 			is_hidden = false;
@@ -2610,13 +2626,13 @@ bool createDefaultWalletAuto(int strength, int level)
 			translateWalletError(wallet_return);
 		}else if(cancelWalletCreation)
 		{
-			initDisplay();
-			overlayBatteryStatus(BATT_VALUE_DISPLAY);
 			writeEinkNoDisplay("CANCELING",  COL_1_X, LINE_1_Y, "NO WALLET CREATED",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
 			writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
-			display();
+			delay(1000);
 			return true;
 		}
+		writeEinkNoDisplay("Line 2634",  COL_1_X, LINE_4_Y+20, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+		delay(1000);
 	}
 	return false;
 }
@@ -2628,7 +2644,9 @@ void showQRcode(AddressHandle ah_root4, AddressHandle ah_chain4, AddressHandle a
 
 	getAddressOnly(address_hash, ah_root4, ah_chain4, ah_index4);
 	hashToAddr(toEncode, address_hash, ADDRESS_VERSION_PUBKEY);
-	writeQRcode(toEncode);
+	writeEinkNoDisplay(toEncode,  COL_1_X, LINE_1_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+
+	// writeQRcode(toEncode);
 }
 
 void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHandle ah_index5)
@@ -3337,253 +3355,6 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 	}
 }
 
-//void showSeed(void)
-// {
-//		uint16_t message_id;
-//		union MessageBufferUnion message_buffer;
-//		PointAffine master_public_key;
-//		bool receive_failure;
-//		bool permission_denied;
-//		bool invalid_otp;
-//		unsigned int password_length;
-//		WalletErrors wallet_return;
-//		char ping_greeting[sizeof(message_buffer.ping.greeting)];
-//		bool has_ping_greeting;
-//		int lang;
-//		bool use_seed;
-//	//	uint8_t testSeed[] = {};
-//		uint8_t langHold[1];
-//
-//	 backupWallet(message_buffer.backup_wallet.is_encrypted, message_buffer.backup_wallet.device);
-// }
-
-/*
-bool pseudoPacketNewWallet(int strength, int level)
-{
-	bool cancelWalletCreation = false;
-	uint16_t message_id;
-	union MessageBufferUnion message_buffer;
-	bool receive_failure;
-	bool permission_denied;
-	unsigned int password_length;
-	WalletErrors wallet_return;
-	int lang;
-	bool use_seed;
-	bool trans_pin_used = false;
-	uint32_t wallet_number_derived;
-	uint32_t wallet_number_hidden;
-
-	bool is_hidden;
-	bool ask_hidden = true;
-
-	char *wallet_numberChar;
-
-//	int strength;
-	char *strengthChar;
-//	int level;
-	char *levelChar;
-
-
-	int passwordMatch;
-
-//	void __WFE(void);
-
-	message_id = PACKET_TYPE_NEW_WALLET;
-
-
-	memset(&message_buffer, 0, sizeof(message_buffer));
-
-
-	wallet_number_derived = countExistingWallets();
-
-	 while (checkWalletSlotIsNotEmpty(wallet_number_derived))
-	 {
-		 wallet_number_derived--;
-	 }
-
-
-	// Create new wallet.
-	field_hash_set = false;
-	memset(field_hash, 0, sizeof(field_hash));
-	memset(temp_field_hash, 0, sizeof(temp_field_hash));
-	message_buffer.new_wallet.password.funcs.decode = &hashFieldCallback;
-	message_buffer.new_wallet.password.arg = NULL;
-
-	pin_field_hash_set = false;
-	memset(pin_field_hash, 0, sizeof(pin_field_hash));
-	memset(temp_pin_field_hash, 0, sizeof(temp_pin_field_hash));
-
-	receive_failure = receiveMessage(NewWallet_fields, &(message_buffer.new_wallet));
-
-	message_buffer.new_wallet.wallet_name.bytes[39] = '\0';
-
-	if (!receive_failure)
-	{
-		permission_denied = buttonInterjection(ASKUSER_NEW_WALLET_2); // need to ask hidden/level/strength
-		if (!permission_denied)
-		{
-			if(strength==0)
-			{
-				strengthChar = inputInterjectionNoAck(ASKUSER_NEW_WALLET_STRENGTH);
-				if(strengthChar == 'N')
-				{
-					cancelWalletCreation = true;
-				}
-				else
-				{
-					int strengthNum;
-					strengthNum = strengthChar - '0';
-					if(strengthNum==1){
-						strength = 128;
-					}else if(strengthNum==2){
-						strength = 192;
-					}else if(strengthNum==3){
-						strength = 256;
-					}
-				}
-			}
-
-			if (!cancelWalletCreation)
-			{
-				if (field_hash_set)
-				{
-					if(level==0)
-					{
-						levelChar = inputInterjectionNoAck(ASKUSER_NEW_WALLET_LEVEL);
-						if(levelChar == 'N')
-						{
-							cancelWalletCreation = true;
-						}
-
-						level = levelChar - '0';
-					}
-
-					if (!cancelWalletCreation)
-					{
-						if(ask_hidden)
-						{
-							is_hidden = buttonInterjectionNoAck(ASKUSER_NEW_WALLET_IS_HIDDEN);
-							if(!is_hidden){
-								message_buffer.new_wallet.is_hidden = true;
-								wallet_number_derived = 0;
-
-								do{
-									wallet_numberChar = inputInterjectionNoAck(ASKUSER_NEW_WALLET_NUMBER);
-									wallet_numberChar = getInput(false,false);
-									wallet_number_derived = atoi(wallet_numberChar);
-								}while (wallet_number_derived<51||wallet_number_derived>100);
-								clearDisplay();
-
-
-								char hidden_wallet_text[3];
-								sprintf(hidden_wallet_text,"%lu", wallet_number_derived);
-
-								int size_of_chosen = 2;
-								if(wallet_number_derived == 100)
-								{
-									size_of_chosen = 3;
-								}
-
-								permission_denied = buttonInterjectionNoAckPlusData(ASKUSER_CONFIRM_HIDDEN_WALLET_NUMBER, hidden_wallet_text, size_of_chosen);
-								if(permission_denied)
-								{
-									cancelWalletCreation = true;
-								}
-
-							}else{
-								message_buffer.new_wallet.is_hidden = false;
-							}
-						}
-					}
-					if (!cancelWalletCreation)
-					{
-
-						cancelWalletCreation = passwordInterjectionAutoPIN(level);
-						if(pin_field_hash_set)
-						{
-							trans_pin_used = true;
-						}else
-						{
-							trans_pin_used = false;
-						}
-
-						memcpy(temp_field_hash, field_hash, 32);
-						password_length = sizeof(field_hash);
-					}
-				}
-				else
-				{
-					buttonInterjectionNoAck(ASKUSER_NEW_WALLET_NO_PASSWORD);
-					password_length = 0; // no password
-					trans_pin_used = false;
-				}
-			}
-//			INSERT ROUTINE TO RUN BIP39 HERE	false & NULL will be replaced by true & the seed - MUST DISPLAY & VERIFY WORD LIST
-			if (!cancelWalletCreation)
-			{
-				const char* pass = 0;
-				uint8_t seed[512 / 8] = { };
-
-				uint8_t empty[512 / 8] = { };
-	//			uint8_t i;
-	//			uint8_t one_byte; // current byte of seed
-	//			char strBits[3];
-	//			char lineTemp[64] = { };
-		#ifdef FIXED_SEED_DANA
-					const char * mnem128 = DANA_SEED_2;
-		#endif
-
-
-		#ifdef FIXED_SEED_NIK
-					const char * mnem128 = NIK_SEED_1;
-		#endif
-				int len = strength / 8;
-				int mlen = len * 3 / 4;
-
-		#ifndef FIXED_SEED_NIK
-		#ifndef FIXED_SEED_DANA
-				const char * mnem128 = mnemonic_generate(strength);
-		#endif
-		#endif
-				mnemonic_to_seed(mnem128, pass, seed); // creating the seed BEFORE displaying mnemonic seems to generate the CORRECT seed!
-		#ifdef DISPLAY_SEED
-				displayMnemonic(mnem128, mlen); //################################################################################################# REMOVE THIS after test
-		#endif
-
-				use_seed = true;
-				wallet_return = newWallet(
-					wallet_number_derived,
-					message_buffer.new_wallet.wallet_name.bytes,
-					use_seed,
-					seed,
-					message_buffer.new_wallet.is_hidden,
-					field_hash,
-					password_length,
-					pin_field_hash,
-					trans_pin_used);
-				translateWalletError(wallet_return);
-				if(wallet_return == WALLET_NO_ERROR)
-				{
-					showQRcode(0,0,0);
-				}
-			}else if(cancelWalletCreation)
-			{
-				initDisplay();
-				overlayBatteryStatus(BATT_VALUE_DISPLAY);
-				writeEinkNoDisplay("CANCELING",  COL_1_X, LINE_0_Y, "NO WALLET CREATED",COL_1_X,LINE_1_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
-				writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
-				display();
-				return true;
-			}
-		}else if(permission_denied){
-			return true;
-		}
-	}
-	return false;
-}
-*/
-
-
  bool pseudoPacketNewWallet(int strength, int level)
  {
  	bool cancelWalletCreation = false;
@@ -3740,44 +3511,6 @@ bool pseudoPacketNewWallet(int strength, int level)
  						memcpy(temp_field_hash, field_hash, 32);
  						password_length = sizeof(field_hash);
  					}
-// 					if (!cancelWalletCreation)
-// 					{
-// 						if(ask_mnemonic_password)
-// 						{
-// 							is_mnemonic_password = buttonInterjectionNoAck(ASKUSER_NEW_WALLET_IS_MNEMONIC_PASSWORD);
-// 							if(!is_mnemonic_password){
-// 								message_buffer.new_wallet.is_hidden = true;
-// 								wallet_number_derived = 0;
-//
-// 								do{
-// 									wallet_numberChar = inputInterjectionNoAck(ASKUSER_NEW_WALLET_NUMBER);
-// 									wallet_numberChar = getInput(false,false);
-// 									wallet_number_derived = atoi(wallet_numberChar);
-// 								}while (wallet_number_derived<51||wallet_number_derived>100);
-// 								clearDisplay();
-//
-//
-// 								char hidden_wallet_text[3];
-// 								sprintf(hidden_wallet_text,"%lu", wallet_number_derived);
-//
-// 								int size_of_chosen = 2;
-// 								if(wallet_number_derived == 100)
-// 								{
-// 									size_of_chosen = 3;
-// 								}
-//
-// 								permission_denied = buttonInterjectionNoAckPlusData(ASKUSER_CONFIRM_HIDDEN_WALLET_NUMBER, hidden_wallet_text, size_of_chosen);
-// 								if(permission_denied)
-// 								{
-// 									cancelWalletCreation = true;
-// 								}
-//
-// 							}else{
-// 								message_buffer.new_wallet.is_hidden = false;
-// 							}
-// 						}
-// 					}
-
  				}
  				else
  				{
@@ -3823,7 +3556,7 @@ bool pseudoPacketNewWallet(int strength, int level)
  		#endif
  				mnemonic_to_seed(mnem128, pass, seed); // creating the seed BEFORE displaying mnemonic seems to generate the CORRECT seed!
  		#ifdef DISPLAY_SEED
- 				displayMnemonic(mnem128, mlen); //################################################################################################# REMOVE THIS after test
+ 				displayMnemonic(mnem128, mlen); //########################## REMOVE THIS after test
  		#endif
 
  				use_seed = true;
@@ -4067,7 +3800,7 @@ bool pseudoPacketRestoreWallet(int strength, int level)
 
 				mnemonic_to_seed(mnem128, pass, seed); // creating the seed BEFORE displaying mnemonic seems to generate the CORRECT seed!
 		#ifdef DISPLAY_SEED
-				displayMnemonic(mnem128, mlen); //################################################################################################# REMOVE THIS after test
+				displayMnemonic(mnem128, mlen); //############################################ REMOVE THIS after test
 		#endif
 				uint8_t defaultName[40] = {	82,101,115,116,111,114,101,100, 32, 32,
 											32, 32, 32, 32, 32, 32, 32, 32, 32, 32,

@@ -50,6 +50,7 @@
 #include "stream_comm.h"
 #include "messages.pb.h"
 #include "arm/lcd_and_input.h"
+#include "arm/ST7789.h"
 
 /** Length of the checksum field of a wallet record. This is 32 since SHA-256
   * is used to calculate the checksum and the output of SHA-256 is 32 bytes
@@ -768,9 +769,10 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 	uint8_t uuid[DEVICE_UUID_LENGTH];
 	WalletErrors r;
 
-//	writeEinkDisplay("In newWallet", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	writeEinkDisplay("In newWallet", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 //	displayBigHexStream(transaction_pin_hash, 32);
-//	waitForButtonPress();
+	waitForButtonPress();
+	writeEinkDisplay("After ButtonPress", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 
 	if (uninitWallet() != WALLET_NO_ERROR)
 	{

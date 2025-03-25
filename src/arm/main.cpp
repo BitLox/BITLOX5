@@ -389,7 +389,7 @@ Serial.println(" ---------in useWhatSetup----------");
 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
 	Serial.println(" ---------after ASKUSER_INITIAL_SETUP----------");
-	r = waitForNumberButtonPress();
+	r = waitForNumberButtonPress0to3();
 	Serial.println(" ---------after waitForNumberButtonPress----------");
 	Serial.print(" --variable r--  ");
 	Serial.println(r);
@@ -494,7 +494,7 @@ Serial.println(" ---------in useWhatSetup----------");
 		break;
 
 	case 0:
-		writeEinkDisplay("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, "MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, "TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, "WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
+		writeDisplayW2("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, "MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, "TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, "WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
 		useWhatCommsStealth();
 		// initUsart();
 		loop();
@@ -581,7 +581,7 @@ void notify4(){
 }
 
 void notify5(){
-	// Serial.println(" ---------after initial setup choices draw----------");
+	// Serial.println(" ---------Create new wallet.----------");
 }
 
 void setup()
@@ -663,7 +663,7 @@ void setup()
 
 void loop() {
 	// processPacket();
-
+	Serial.println(" ---------LOOP A LOOP----------");
   // digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
   // delay(1000);                       // wait for a second
   // digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW

@@ -279,10 +279,10 @@ static void waitForNoButtonPress(void)
 
 
 
-/** Wait until a numerical, accept or cancel button is pressed.
+/** Wait until an accept or cancel button is pressed.
   * \return int of the button pressed.
   */
-//static const char * waitForNumberButtonPress(void)
+ // NOTE this function should be renamed/refactored to something more appropriate
 bool waitForButtonPress(void)
 {
 	bool current_accept_button;
@@ -457,12 +457,10 @@ int waitForNumberButtonPress(void)
 	return pressed;
 }
 
-
-/** Wait until a numerical, accept or cancel button is pressed.
+/** Wait until a 0 1 2 or 3 button is pressed.
   * \return int of the button pressed.
   */
-//static const char * waitForNumberButtonPress(void)
-char waitForNumberButtonPress4to8(void)
+int waitForNumberButtonPress0to3(void)
 {
 	bool current_accept_button;
 	bool current_cancel_button;
@@ -479,6 +477,116 @@ char waitForNumberButtonPress4to8(void)
 	const char* ptr_pressed;
 	int pressed;
 
+	do
+	{
+		pressed = getAndReturnInput();
+
+		switch (pressed){
+		case 11	:
+//			accept_button = 1;
+			break;
+		case 10	:
+//			cancel_button = 1;
+			break;
+		case 1	:
+			num_1_button = 1;
+			break;
+		case 2	:
+			num_2_button = 1;
+			break;
+		case 3	:
+			num_3_button = 1;
+			break;
+		case 4	:
+//			num_4_button = 1;
+			break;
+		case 5	:
+//			num_5_button = 1;
+			break;
+		case 6	:
+//			num_6_button = 1;
+			break;
+		case 7	:
+//			num_7_button = 1;
+			break;
+		case 8	:
+//			num_8_button = 1;
+			break;
+		case 9	:
+//			num_9_button = 1;
+			break;
+		case 0	:
+			num_0_button = 1;
+			break;
+		default:
+			accept_button = 0;
+			cancel_button = 0;
+			num_1_button  = 0;
+			num_2_button  = 0;
+			num_3_button  = 0;
+			num_4_button  = 0;
+			num_5_button  = 0;
+			num_6_button  = 0;
+			num_7_button  = 0;
+			num_8_button  = 0;
+			num_9_button  = 0;
+			num_0_button  = 0;
+		}
+
+		current_accept_button = accept_button;
+		current_cancel_button = cancel_button;
+		current_1_button = num_1_button;
+		current_2_button = num_2_button;
+		current_3_button = num_3_button;
+		current_4_button = num_4_button;
+		current_5_button = num_5_button;
+		current_6_button = num_6_button;
+		current_7_button = num_7_button;
+		current_8_button = num_8_button;
+		current_9_button = num_9_button;
+		current_0_button = num_0_button;
+
+
+	} while (!current_accept_button && !current_cancel_button && !current_1_button && !current_2_button && !current_3_button && !current_4_button && !current_5_button && !current_6_button && !current_7_button && !current_8_button && !current_9_button && !current_0_button);
+
+	return pressed;
+}
+
+/** Wait until a numerical, accept or cancel button is pressed.
+  * \return int of the button pressed.
+  */
+//static const char * waitForNumberButtonPress(void)
+int waitForNumberButtonPress4to8(void)
+{
+	bool current_accept_button;
+	bool current_cancel_button;
+	bool current_1_button;
+	bool current_2_button;
+	bool current_3_button;
+	bool current_4_button;
+	bool current_5_button;
+	bool current_6_button;
+	bool current_7_button;
+	bool current_8_button;
+	bool current_9_button;
+	bool current_0_button;
+	const char* ptr_pressed;
+	int pressed;
+
+	accept_button = 0;
+	cancel_button = 0;
+	num_1_button  = 0;
+	num_2_button  = 0;
+	num_3_button  = 0;
+	num_4_button  = 0;
+	num_5_button  = 0;
+	num_6_button  = 0;
+	num_7_button  = 0;
+	num_8_button  = 0;
+	num_9_button  = 0;
+	num_0_button  = 0;
+
+	
 	do
 	{
 		// Copy to avoid race condition.
@@ -614,8 +722,7 @@ char *userInput(AskUserCommand command)
 				L"STANDARD     1...",
 				L"STANDARD     1...",
 				L"СТАНДАРТНАЯ  1...",
-				L"レベル    1...",
-				// L"常态    1...",
+				L"常态    1...",
 				L"STANDARDNÍ   1...",
 				L"STANDARD     1...",
 				L"ESTÁNDAR     1...",
@@ -2091,10 +2198,9 @@ bool userDenied(AskUserCommand command)
 				L"NO"  //IT
 		};
 
-		waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
+		clearDisplay();
+		// waitForNoButtonPress();// comment this out and it just flies through without waiting for a YES...
 
-		// initDisplay();
-	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)USE_MNEMONIC_PASSPHRASE_line0[lang], wcslen(USE_MNEMONIC_PASSPHRASE_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)USE_MNEMONIC_PASSPHRASE_line1[lang], wcslen(USE_MNEMONIC_PASSPHRASE_line1[lang]), COL_1_X, LINE_1_Y);
@@ -2105,9 +2211,11 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		// display();
 
+		delay(5000);
 		r = waitForButtonPress();
+
+		clearDisplay();
 		if (!r){
 //			showWorking();
 		}else{
@@ -3097,8 +3205,8 @@ bool userDenied(AskUserCommand command)
 		if (!r){
 //			showWorking();
 		}else{
-			writeX_Screen();
-			showReady();
+			// writeX_Screen();
+			// showReady();
 		};
 	}
 	else if (command == ASKUSER_CHANGE_NAME)
@@ -3403,10 +3511,6 @@ bool userDenied(AskUserCommand command)
 			showReady();
 		};
 	}
-
-
-
-
 	else
 	{
 		static const wchar_t udCANCEL_line0[][9] = {
@@ -3436,7 +3540,6 @@ bool userDenied(AskUserCommand command)
 		waitForButtonPress();
 		r = true; // unconditionally deny
 	}
-
 	return r;
 }
 
@@ -5386,6 +5489,11 @@ void showWorking(void)
 	writeEinkDisplay("COMPUTING...", false, COL_1_X, LINE_1_Y, "",false,10,30, "",false,0,0, "",false,0,0, "",false,0,0);
 }
 
+void showCreatingWallet(void)
+{
+	writeEinkDisplay("CREATING WALLET...", false, COL_1_X, LINE_1_Y, "",false,10,30, "",false,0,0, "",false,0,0, "",false,0,0);
+}
+
 
 void showDenied(void)
 {
@@ -5490,11 +5598,11 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 		pch = strtok (NULL, " ");
 		i++;
 	}
-
+	clearDisplay();
 	buttonInterjectionNoAckSetup(ASKUSER_MNEMONIC_PREP);
 
-	waitForNoButtonPress();
-	waitForNumberButtonPress();
+	// waitForNoButtonPress();
+	waitForButtonPress();
 	clearDisplay();
 	int col1 = 20;
 	int col2 = 120;
@@ -5510,10 +5618,13 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 	writeEinkDisplayPrep("1", col1-offset, row1, "3",col1-offset,row2, "5",col1-offset,row3, "7",col1-offset,row4, "9", col1-offset,row5, "11", col1-offset-8,row6,
 						"2", col2-offset, row1, "4",col2-offset,row2, "6",col2-offset,row3, "8",col2-offset,row4, "10",col2-offset-8,row5, "12",col2-offset-8,row6);
 
-	writeEinkDisplayBig(mnemPiece[0], col1, row1, mnemPiece[2],col1,row2, mnemPiece[4],col1,row3, mnemPiece[6],col1,row4, mnemPiece[8], col1,row5, mnemPiece[10], col1,row6,
+	writeEinkDisplayPrep(mnemPiece[0], col1, row1, mnemPiece[2],col1,row2, mnemPiece[4],col1,row3, mnemPiece[6],col1,row4, mnemPiece[8], col1,row5, mnemPiece[10], col1,row6,
 						mnemPiece[1], col2, row1, mnemPiece[3],col2,row2, mnemPiece[5],col2,row3, mnemPiece[7],col2,row4, mnemPiece[9],col2,row5, mnemPiece[11],col2,row6);
-	waitForNoButtonPress();
-	waitForNumberButtonPress();
+	// writeEinkDisplayBig(mnemPiece[0], col1, row1, mnemPiece[2],col1,row2, mnemPiece[4],col1,row3, mnemPiece[6],col1,row4, mnemPiece[8], col1,row5, mnemPiece[10], col1,row6,
+	// 					mnemPiece[1], col2, row1, mnemPiece[3],col2,row2, mnemPiece[5],col2,row3, mnemPiece[7],col2,row4, mnemPiece[9],col2,row5, mnemPiece[11],col2,row6);
+	
+	// waitForNoButtonPress();
+	waitForButtonPress();
 	clearDisplay();
 
 	if(length == 18)
@@ -5522,10 +5633,10 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 		writeEinkDisplayPrep("13", col1-offset-8, row1, "14",col2-offset-8,row1, "15",col1-offset-8,row2, "16",col2-offset-8,row2, "17", col1-offset-8,row3, "18", col2-offset-8,row3,
 							"", col2-offset-8, row1, "",col2-offset-8,row2, "",col2-offset-8,row3, "",col2-offset-8,row4, "",col2-offset-8,row5, "",col2-offset-8,row6);
 
-		writeEinkDisplayBig(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
+		writeEinkDisplayPrep(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
 							"", col2, row1, "",col2,row2, "",col2,row3, "",col2,row4, "",col2,row5, "",col2,row6);
-		waitForNoButtonPress();
-		waitForNumberButtonPress();
+		// waitForNoButtonPress();
+		waitForButtonPress();
 		clearDisplay();
 	}
 	else if(length == 24)
@@ -5534,10 +5645,10 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 		writeEinkDisplayPrep("13", col1-offset-8, row1, "14",col2-offset-8,row1, "15",col1-offset-8,row2, "16",col2-offset-8,row2, "17", col1-offset-8,row3, "18", col2-offset-8,row3,
 							"19", col1-offset-8, row4, "20",col2-offset-8,row4, "21",col1-offset-8,row5, "22",col2-offset-8,row5, "23",col1-offset-8,row6, "24",col2-offset-8,row6);
 
-		writeEinkDisplayBig(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
+		writeEinkDisplayPrep(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
 							mnemPiece[18], col1, row4, mnemPiece[19],col2,row4, mnemPiece[20],col1,row5, mnemPiece[21],col2,row5, mnemPiece[22],col1,row6, mnemPiece[23],col2,row6);
-		waitForNoButtonPress();
-		waitForNumberButtonPress();
+		// waitForNoButtonPress();
+		waitForButtonPress();
 		clearDisplay();
 	}
 
@@ -5550,10 +5661,10 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 		writeEinkDisplayPrep("1", col1-offset, row1, "3",col1-offset,row2, "5",col1-offset,row3, "7",col1-offset,row4, "9", col1-offset,row5, "11", col1-offset-8,row6,
 							"2", col2-offset, row1, "4",col2-offset,row2, "6",col2-offset,row3, "8",col2-offset,row4, "10",col2-offset-8,row5, "12",col2-offset-8,row6);
 
-		writeEinkDisplayBig(mnemPiece[0], col1, row1, mnemPiece[2],col1,row2, mnemPiece[4],col1,row3, mnemPiece[6],col1,row4, mnemPiece[8], col1,row5, mnemPiece[10], col1,row6,
+		writeEinkDisplayPrep(mnemPiece[0], col1, row1, mnemPiece[2],col1,row2, mnemPiece[4],col1,row3, mnemPiece[6],col1,row4, mnemPiece[8], col1,row5, mnemPiece[10], col1,row6,
 							mnemPiece[1], col2, row1, mnemPiece[3],col2,row2, mnemPiece[5],col2,row3, mnemPiece[7],col2,row4, mnemPiece[9],col2,row5, mnemPiece[11],col2,row6);
-		waitForNoButtonPress();
-		waitForNumberButtonPress();
+		// waitForNoButtonPress();
+		waitForButtonPress();
 		clearDisplay();
 
 		if(length == 18)
@@ -5561,10 +5672,10 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 			writeEinkDisplayPrep("13", col1-offset-8, row1, "14",col2-offset-8,row1, "15",col1-offset-8,row2, "16",col2-offset-8,row2, "17", col1-offset-8,row3, "18", col2-offset-8,row3,
 								"", col2-offset-8, row1, "",col2-offset-8,row2, "",col2-offset-8,row3, "",col2-offset-8,row4, "",col2-offset-8,row5, "",col2-offset-8,row6);
 
-			writeEinkDisplayBig(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
+			writeEinkDisplayPrep(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
 								"", col2, row1, "",col2,row2, "",col2,row3, "",col2,row4, "",col2,row5, "",col2,row6);
-			waitForNoButtonPress();
-			waitForNumberButtonPress();
+			// waitForNoButtonPress();
+			waitForButtonPress();
 			clearDisplay();
 		}
 		else if(length == 24)
@@ -5572,10 +5683,10 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 			writeEinkDisplayPrep("13", col1-offset-8, row1, "14",col2-offset-8,row1, "15",col1-offset-8,row2, "16",col2-offset-8,row2, "17", col1-offset-8,row3, "18", col2-offset-8,row3,
 								"19", col1-offset-8, row4, "20",col2-offset-8,row4, "21",col1-offset-8,row5, "22",col2-offset-8,row5, "23",col1-offset-8,row6, "24",col2-offset-8,row6);
 
-			writeEinkDisplayBig(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
+			writeEinkDisplayPrep(mnemPiece[12], col1, row1, mnemPiece[13],col2,row1, mnemPiece[14],col1,row2, mnemPiece[15],col2,row2, mnemPiece[16], col1,row3, mnemPiece[17], col2,row3,
 								mnemPiece[18], col1, row4, mnemPiece[19],col2,row4, mnemPiece[20],col1,row5, mnemPiece[21],col2,row5, mnemPiece[22],col1,row6, mnemPiece[23],col2,row6);
-			waitForNoButtonPress();
-			waitForNumberButtonPress();
+			// waitForNoButtonPress();
+			waitForButtonPress();
 			clearDisplay();
 		}
 	}
