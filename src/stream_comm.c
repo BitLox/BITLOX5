@@ -2458,6 +2458,7 @@ bool initialFormatAuto(void)
 			else
 			{
 				wallet_return = sanitiseNonVolatileStorage(0, 0xffffffff, false, tempLang);
+				// the following is what shows the checkmark after formatting
 				translateWalletError(wallet_return);
 				uninitWallet(); // force wallet to unload
 				int s = 123;

@@ -704,7 +704,6 @@ char *userInput(AskUserCommand command)
 
 	if (command == ASKUSER_INITIAL_SETUP)
 		{
-		// notify2();
 		static const wchar_t INITIAL_SETUP_line0[][25] = {
 				L"INITIAL SETUP",
 				L"ERSTEINRICHTUNG",
@@ -745,24 +744,38 @@ char *userInput(AskUserCommand command)
 		} ;
 
 		static const wchar_t INITIAL_SETUP_line3[][18] = {
-				L"EXPERT       3...", //EN
-				L"EXPERT       3...", //DE
-				L"ЭКСПЕРТ      3...", //RU
-				L"专家    3...", //ZH
-				L"EXPERT       3...", //CZ
-				L"EXPERT       3...", //FR
-				L"EXPERTO      3...", //ES
-				L"ESPECIALISTA 3...", //PT
-				L"UZMAN        3...", //TU
-				L"ESPERTO      3..."  //IT
+			L"EXPERT       3...", //EN
+			L"EXPERT       3...", //DE
+			L"ЭКСПЕРТ      3...", //RU
+			L"专家    3...", //ZH
+			L"EXPERT       3...", //CZ
+			L"EXPERT       3...", //FR
+			L"EXPERTO      3...", //ES
+			L"ESPECIALISTA 3...", //PT
+			L"UZMAN        3...", //TU
+			L"ESPERTO      3..."  //IT
 		} ;
+		// What the hell is this? It's a kludge to get around the weird truncation message:%3C20250326215058.3.a36124ed5a09cb91@mg-d1.substack.com%3Eif it's already been formatted. Though in real life that's an edge case.
+		static const wchar_t INITIAL_SETUP_line4[][2] = {
+			L".", //EN
+			L".", //DE
+			L".", //RU
+			L".", //ZH
+			L".", //CZ
+			L".", //FR
+			L".", //ES
+			L".", //PT
+			L".", //TU
+			L"."  //IT
+		} ;
+		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line4[lang], wcslen(INITIAL_SETUP_line4[lang]), COL_1_X, LINE_4_Y+100);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line0[lang], wcslen(INITIAL_SETUP_line0[lang]), COL_1_X, LINE_0_Y);
 		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line1[lang], wcslen(INITIAL_SETUP_line1[lang]), COL_1_X, LINE_1_Y);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line2[lang], wcslen(INITIAL_SETUP_line2[lang]), COL_1_X, LINE_2_Y);
 		writeEinkDrawUnicodeSingle((unsigned int*)INITIAL_SETUP_line3[lang], wcslen(INITIAL_SETUP_line3[lang]), COL_1_X, LINE_3_Y);
 
-
+		// drawCheck(draw_check_X,draw_check_Y); //testing purposes
 		// waitForNumberButtonPress();
 		// r = waitForNumberButtonPress();
 	}
@@ -869,7 +882,7 @@ char *userInput(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		display();
+		// display();
 
 
 //		r = waitForNumberButtonPress();

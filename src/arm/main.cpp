@@ -380,12 +380,13 @@ void useWhatSetup(void)
 {
 Serial.println(" ---------in useWhatSetup----------");
 
-	char rChar;
+	// char rChar;
 	bool yesOrNo;
 	int r;
-	int s;
+	// int s;
 	uint8_t temp1[1];
-
+	// Serial.println(" ---------delay(1000);-----------");
+	// delay(10000);
 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
 	Serial.println(" ---------after ASKUSER_INITIAL_SETUP----------");
@@ -494,7 +495,10 @@ Serial.println(" ---------in useWhatSetup----------");
 		break;
 
 	case 0:
-		writeDisplayW2("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, "MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, "TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, "WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
+		writeDisplayW2("READY FOR RESTORE...", false, COL_1_X, LINE_0_Y, 
+			"MAY TAKE UP TO 2 MINUTES",false,COL_1_X,LINE_1_Y, 
+			"TO DECRYPT AND WRITE",false,COL_1_X,LINE_2_Y, 
+			"WALLET DATA",false,COL_1_X,LINE_3_Y, "",false,0,0);
 		useWhatCommsStealth();
 		// initUsart();
 		loop();

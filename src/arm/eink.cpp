@@ -700,6 +700,7 @@ void writeSplashScreen(void)
 //     EPAPER.image_flash(BLE_bits);
 // }
 
+// Isn't this supposed to be a big check?
 void writeCheck_Screen(void)
 {
     drawCheck(10, 10);
