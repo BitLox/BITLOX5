@@ -17,11 +17,12 @@
 
 //#define NOBUTTONS
 
-//#define FIXED_SEED_DANA
+#define FIXED_SEED_DANA
 //#define FIXED_SEED_NIK
 //#define DISPLAY_PARMS
 #define DISPLAY_SEED
 
+#define DANA_SEED_0 "nigger"
 #define DANA_SEED_1 "neck spider van cherry pet timber twenty correct talent stone gentle rocket"
 #define DANA_SEED_2 "lobster stage now all position come multiply endorse lounge stereo saddle shoot"
 #define DANA_SEED_3 "cousin relax surround forest dismiss dune rent leader match expose off chat"
@@ -2566,24 +2567,24 @@ bool createDefaultWalletAuto(int strength, int level)
 			// clearDisplay();
 			writeEinkNoDisplay("Line 2566",  COL_1_X, LINE_4_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
 			delay(1000);
-			use_mnemonic_pass = buttonInterjectionNoAck(ASKUSER_USE_MNEMONIC_PASSPHRASE);
-			if(!use_mnemonic_pass)
-			{
-				writeEinkNoDisplay("use_mnemonic_pass is FALSE",  COL_1_X, LINE_3_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
-				delay(1000);
-			}
-			if(use_mnemonic_pass)
-			{
-				writeEinkNoDisplay("use_mnemonic_pass is TRUE",  COL_1_X, LINE_3_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
-				delay(1000);
-			}
-			if(!use_mnemonic_pass)
-			{
-				buttonInterjectionNoAckSetup(ASKUSER_ALPHA_INPUT_PREFACE);
-				writeEinkNoDisplay("Line 2582",  COL_1_X, LINE_4_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
-				delay(1000);
-				// pass = getInput(true, false);
-			}
+			// use_mnemonic_pass = buttonInterjectionNoAck(ASKUSER_USE_MNEMONIC_PASSPHRASE);
+			// if(!use_mnemonic_pass)
+			// {
+			// 	writeEinkNoDisplay("use_mnemonic_pass is FALSE",  COL_1_X, LINE_3_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+			// 	delay(1000);
+			// }
+			// if(use_mnemonic_pass)
+			// {
+			// 	writeEinkNoDisplay("use_mnemonic_pass is TRUE",  COL_1_X, LINE_3_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+			// 	delay(1000);
+			// }
+			// if(!use_mnemonic_pass)
+			// {
+			// 	buttonInterjectionNoAckSetup(ASKUSER_ALPHA_INPUT_PREFACE);
+			// 	writeEinkNoDisplay("Line 2582",  COL_1_X, LINE_4_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+			// 	delay(1000);
+			// 	// pass = getInput(true, false);
+			// }
 			clearDisplay();
 			uint8_t seed[512 / 8] = { };
 
@@ -2593,7 +2594,7 @@ bool createDefaultWalletAuto(int strength, int level)
 			char strBits[3];
 			char lineTemp[64] = { };
 #ifdef FIXED_SEED_DANA
-			const char * mnem128 = DANA_SEED_6;
+			const char * mnem128 = DANA_SEED_1;
 #endif
 
 #ifdef FIXED_SEED_NIK

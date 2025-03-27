@@ -769,22 +769,30 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 	uint8_t uuid[DEVICE_UUID_LENGTH];
 	WalletErrors r;
 
-	writeEinkDisplay("In newWallet", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	writeEinkDisplay("In newWallet, button please", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 //	displayBigHexStream(transaction_pin_hash, 32);
 	waitForButtonPress();
+	clearDisplay();
 	writeEinkDisplay("After ButtonPress", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 
 	if (uninitWallet() != WALLET_NO_ERROR)
 	{
+		clearDisplay();
+		writeEinkDisplay("uninitWallet", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	
 		return last_error; // propagate error code
 	}
 
 	if (getNumberOfWallets() == 0)
 	{
+		clearDisplay();
+		writeEinkDisplay("getNumberOfWallets", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 		return last_error; // propagate error code
 	}
 	if (wallet_spec >= num_wallets)
 	{
+		clearDisplay();
+		writeEinkDisplay("wallet_spec", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 		last_error = WALLET_INVALID_WALLET_NUM;
 		return last_error;
 	}
@@ -794,11 +802,17 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 	r = readWalletRecord(&current_wallet, wallet_nv_address);
 	if (r != WALLET_NO_ERROR)
 	{
+		clearDisplay();
+		writeEinkDisplay("readWalletRecord != WALLET_NO_ERRO", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		last_error = r;
 		return last_error;
 	}
 	if (current_wallet.unencrypted.version != VERSION_NOTHING_THERE)
 	{
+		clearDisplay();
+		writeEinkDisplay("cw.u.v != VERSION_NOTHING_THERE", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		last_error = WALLET_ALREADY_EXISTS;
 		return last_error;
 	}
@@ -808,39 +822,69 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 		// The creation of a hidden wallet is supposed to be discreet, so
 		// all unencrypted fields should be left untouched. This forces us to
 		// use the existing UUID.
+		clearDisplay();
+		writeEinkDisplay("make_hidden", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		memcpy(uuid, current_wallet.unencrypted.uuid, DEVICE_UUID_LENGTH);
 	}
 	else
 	{
+		clearDisplay();
+		writeEinkDisplay("At Generate wallet UUID", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		// Generate wallet UUID now, because it is needed to derive the wallet
 		// encryption key.
 		if (getRandom256(random_buffer))
 		{
+			clearDisplay();
+			writeEinkDisplay("At getRandom256", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	
 			last_error = WALLET_RNG_FAILURE;
 			return last_error;
 		}
+		clearDisplay();
+		writeEinkDisplay("After getRandom256", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		memcpy(uuid, random_buffer, DEVICE_UUID_LENGTH);
 	}
+	clearDisplay();
+	writeEinkDisplay("Before deriveAndSetEncryptionKey", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 	deriveAndSetEncryptionKey(uuid, password, password_length);
+
+	clearDisplay();
+	writeEinkDisplay("After deriveAndSetEncryptionKey", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 
 	// Update unencrypted fields of current_wallet.
 	if (!make_hidden)
 	{
+		clearDisplay();
+		writeEinkDisplay("Inside  !make_hidden", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	
 		r = updateWalletVersion();
 		if (r != WALLET_NO_ERROR)
 		{
+			clearDisplay();
+			writeEinkDisplay("Inside !make_hidden ERROR", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	
 			last_error = r;
 			return last_error;
 		}
 		memset(current_wallet.unencrypted.reserved, 0, sizeof(current_wallet.unencrypted.reserved));
 		memcpy(current_wallet.unencrypted.name, name, NAME_LENGTH);
 		memcpy(current_wallet.unencrypted.uuid, uuid, DEVICE_UUID_LENGTH);
+		clearDisplay();
+		writeEinkDisplay("After memset/memcpy", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 	}
 
 	// Update encrypted fields of current_wallet.
 	current_wallet.encrypted.num_addresses = 0;
 	if (getRandom256(random_buffer))
 	{
+		clearDisplay();
+		writeEinkDisplay("Update encrypted fields ERROR", false, COL_1_X, LINE_2_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		last_error = WALLET_RNG_FAILURE;
 		return last_error;
 	}
@@ -848,7 +892,8 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 
 	if(transaction_pin_used_param)
 	{
-//		writeEinkDisplay("In if(transpin)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+		clearDisplay();
+		writeEinkDisplay("In if(transaction_pin_used_param)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 //		displayBigHexStream(transaction_pin_hash, 32);
 //		waitForButtonPress();
 
@@ -857,11 +902,15 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 
 	}else
 	{
+		clearDisplay();
+		writeEinkDisplay("In if(transaction_pin_used_param)ELSE", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 		current_wallet.encrypted.transaction_pin_used = false;
-		memcpy(current_wallet.encrypted.transaction_pin, 0, 32);
+		uint8_t src[32] = {0};
+		memcpy(current_wallet.encrypted.transaction_pin, src, 32);
 	}
 
-//	writeEinkDisplay("after if(transpin)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	clearDisplay();
+	writeEinkDisplay("after if(transpin)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 //	displayBigHexStream(current_wallet.encrypted.transaction_pin, 32);
 //	waitForButtonPress();
 
@@ -870,10 +919,16 @@ WalletErrors newWallet(uint32_t wallet_spec, uint8_t *name, bool use_seed, uint8
 
 	if (use_seed)
 	{
+		clearDisplay();
+		writeEinkDisplay("if(use_seed)", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	
 		memcpy(current_wallet.encrypted.seed, seed, SEED_LENGTH);
 	}
 	else
 	{
+		clearDisplay();
+		writeEinkDisplay("if(use_seed)ELSE", false, COL_1_X, LINE_1_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+
 		if (getRandom256(random_buffer))
 		{
 			last_error = WALLET_RNG_FAILURE;

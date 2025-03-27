@@ -524,7 +524,7 @@ void setupSequence(int level){
 		Serial.println(" ---------in level 1----------");
 		initialFormatAuto();
 		Serial.println(" ---------after initialFormatAuto----------");
-		delay(10000);
+		// delay(10000);
 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
 		Serial.println(" ---------after createDefaultWalletAuto----------");
 		useWhatComms();
@@ -607,7 +607,7 @@ void setup()
 	// large block of text, temporary splash screen
 	tftBlackScreen();
 	char q[] = "BITLOX5";
-	drawtext(q, ST77XX_RED, 3, 50, 50);
+	drawtext(q, ST77XX_RED, 3, 60, 60);
 	delay(2000);
 
 	tftBlackScreen();

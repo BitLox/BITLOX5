@@ -88,8 +88,8 @@ int checkisFormatted(void)
 	int isForm;
 	uint8_t tempComms[1];
 	nonVolatileRead(tempComms, IS_FORMATTED_ADDRESS, 1);
-	// isForm = (int)tempComms[0];
-	isForm = 0;
+	isForm = (int)tempComms[0];
+	// isForm = 0;
 	return isForm;
 }
 
@@ -99,8 +99,8 @@ int checkHasPIN(void)
 	uint8_t tempComms[1];
 	nonVolatileRead(tempComms, HAS_PIN_ADDRESS, 1);
 
-	// isForm = (int)tempComms[0];
-	isForm = 0;
+	isForm = (int)tempComms[0];
+	// isForm = 0;
 
 	return isForm;
 }

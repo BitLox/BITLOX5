@@ -2225,7 +2225,7 @@ bool userDenied(AskUserCommand command)
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
 
-		delay(5000);
+		// delay(5000);
 		r = waitForButtonPress();
 
 		clearDisplay();
