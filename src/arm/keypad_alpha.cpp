@@ -452,8 +452,9 @@ uint8_t *fetchPIN(void)
 
 void pinStatusCheckandPremadePIN()
 {
+	#ifdef DEBUG_MODE
 	Serial.println(" ---------pinStatusCheckandPremadePIN----------");
-
+	#endif
 	uint8_t temp[32];
 	uint8_t ref_compare_hash[32];
 	uint8_t j;
@@ -488,8 +489,10 @@ void pinStatusCheckandPremadePIN()
 
 	int pinStatus;
 	pinStatus = checkHasPIN();
+	#ifdef DEBUG_MODE
 	Serial.print("---------pinStatus------");
 	Serial.println(pinStatus);
+	#endif
 
 	if(pinStatus != 127)
 		{
@@ -544,8 +547,9 @@ void pinStatusCheckandPremadePIN()
 						temp2[0] = type;
 						nonVolatileWrite(temp2, SETUP_TYPE_ADDRESS, 1);
 
+						#ifdef DEBUG_MODE
 						Serial.println("----nonVolatileWrite PIN----");
-					
+						#endif
 					}else if(yesOrNo)
 					{
 						pinStatusCheckandPremadePIN();
@@ -606,16 +610,22 @@ void checkDevicePIN(bool displayAlpha)
 		buttonInterjectionNoAck(ASKUSER_ENTER_PIN);
 	}
 
+	#ifdef DEBUG_MODE
 	Serial.println("-----before getInput----------");	
+	#endif
 	// bufferPIN3 = waitForNumberButtonPress();
 	bufferPIN3 = getInput(displayAlpha, false);
+	#ifdef DEBUG_MODE
 	Serial.println("-----after getInput----------");	
-
+	#endif
 	tftBlackScreen();
+	#ifdef DEBUG_MODE
 	Serial.println("-----before checkhashes----------");
+	#endif
 	checkHashes(bufferPIN3, displayAlpha);
+	#ifdef DEBUG_MODE
 	Serial.println("-----after checkhashes----------");
-
+	#endif
 }
 
 char *getTransactionPINfromUser(void)

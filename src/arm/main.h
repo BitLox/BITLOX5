@@ -7,7 +7,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-// #define NRF_STACK_SIZE 4096
+// #define DEBUG_MODE
 
 //end of add your includes here
 #ifdef __cplusplus

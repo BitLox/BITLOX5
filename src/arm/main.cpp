@@ -14,6 +14,7 @@
 #include "keypad_alpha.h"
 #include "../stream_comm.h"
 #include "eink.h"
+#include "hwinit.h"
 
 int level;
 
@@ -389,12 +390,15 @@ Serial.println(" ---------in useWhatSetup----------");
 	// delay(10000);
 	inputInterjectionNoAck(ASKUSER_INITIAL_SETUP);
 
+	#ifdef DEBUG_MODE
 	Serial.println(" ---------after ASKUSER_INITIAL_SETUP----------");
+	#endif
 	r = waitForNumberButtonPress0to3();
+	#ifdef DEBUG_MODE
 	Serial.println(" ---------after waitForNumberButtonPress----------");
 	Serial.print(" --variable r--  ");
 	Serial.println(r);
-
+	#endif
 	tftBlackScreen();
 
 	switch (r){
@@ -402,7 +406,9 @@ Serial.println(" ---------in useWhatSetup----------");
 		temp1[0] = 0;
 
 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_STANDARD_SETUP);
+		#ifdef DEBUG_MODE
 		Serial.println(" ---------in Case 1----------");
+		#endif
 		yesOrNo = waitForButtonPress();
 		tftBlackScreen();
 		if(!yesOrNo)
@@ -420,7 +426,9 @@ Serial.println(" ---------in useWhatSetup----------");
 		temp1[0] = 0;
 
 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_ADVANCED_SETUP);
+		#ifdef DEBUG_MODE
 		Serial.println(" ---------in Case 2----------");
+		#endif
 		yesOrNo = waitForButtonPress();
 		tftBlackScreen();
 		if(!yesOrNo)
@@ -440,7 +448,9 @@ Serial.println(" ---------in useWhatSetup----------");
 		temp1[0] = 0;
 
 		buttonInterjectionNoAckSetup(ASKUSER_DESCRIBE_EXPERT_SETUP);
+		#ifdef DEBUG_MODE
 		Serial.println(" ---------in Case 3----------");
+		#endif
 		yesOrNo = waitForButtonPress();
 
 
@@ -516,17 +526,25 @@ Serial.println(" ---------in useWhatSetup----------");
 void setupSequence(int level){
 	bool canceledWalletCreation;
 	int strength;
+	#ifdef DEBUG_MODE
 	Serial.println(" ---------in setupSequence----------");
+	#endif
 
 	if(level == 1)
 	{
 		strength = 128;
+		#ifdef DEBUG_MODE
 		Serial.println(" ---------in level 1----------");
+		#endif
 		initialFormatAuto();
+		#ifdef DEBUG_MODE
 		Serial.println(" ---------after initialFormatAuto----------");
 		// delay(10000);
+		#endif
 		canceledWalletCreation = createDefaultWalletAuto(strength, level);
+		#ifdef DEBUG_MODE
 		Serial.println(" ---------after createDefaultWalletAuto----------");
+		#endif
 		useWhatComms();
 		// initUsart();
 		if(!canceledWalletCreation)
@@ -590,6 +608,7 @@ void notify5(){
 
 void setup()
 {
+	#ifdef DEBUG_MODE
 	Serial.begin(9600);
 
 	while (!Serial)
@@ -598,6 +617,7 @@ void setup()
     }
 
 	Serial.println(" ---------ENTRY----------");
+	#endif
 
 	// initialize digital pin LED_BUILTIN as an output.
 	pinMode(LED_BUILTIN, OUTPUT);
@@ -613,7 +633,10 @@ void setup()
 	tftBlackScreen();
 
 	initKeypad();
+	
+	#ifdef DEBUG_MODE
 	Serial.println("MPR121 init exited");
+	#endif	
 	
 	languageMenuInitially();
 
@@ -642,11 +665,14 @@ void setup()
 	}
 	else if (pinStatus == 127)
 	{
+		#ifdef DEBUG_MODE
 		Serial.println(" -----pinStatus == 127, checkDevicePIN----------");
+		#endif
 		checkDevicePIN(false);
 	}
-
+	#ifdef DEBUG_MODE
 	Serial.println(" ---------PAST useWhatSetup/checkDevicePIN----------");
+	#endif
 
 	useWhatCommsStealth();
 	// initUsart();
@@ -658,7 +684,7 @@ void setup()
 	else
 	{
 		useWhatComms();
-		// initUsart();
+		initUsart();
 		showReady();
 	}
 
@@ -666,11 +692,11 @@ void setup()
 }
 
 void loop() {
-	// processPacket();
-	Serial.println(" ---------LOOP A LOOP----------");
-  // digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  // delay(1000);                       // wait for a second
-  // digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  // delay(1000);                       // wait for a second
+	processPacket();
+	// Serial.println(" ---------LOOP A LOOP----------");
+//   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+//   delay(100);                       // wait for a second
+//   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+//   delay(100);                       // wait for a second
 }
 

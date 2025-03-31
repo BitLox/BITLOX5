@@ -17,12 +17,11 @@
 
 //#define NOBUTTONS
 
-#define FIXED_SEED_DANA
+// #define FIXED_SEED_DANA
 //#define FIXED_SEED_NIK
 //#define DISPLAY_PARMS
 #define DISPLAY_SEED
 
-#define DANA_SEED_0 "nigger"
 #define DANA_SEED_1 "neck spider van cherry pet timber twenty correct talent stone gentle rocket"
 #define DANA_SEED_2 "lobster stage now all position come multiply endorse lounge stereo saddle shoot"
 #define DANA_SEED_3 "cousin relax surround forest dismiss dune rent leader match expose off chat"
@@ -679,6 +678,7 @@ static uint16_t receivePacketHeader(void)
 	uint8_t buffer[4];
 	uint16_t message_id;
 
+	// usartSpew();
 //	startTimer1();
 
 	do {

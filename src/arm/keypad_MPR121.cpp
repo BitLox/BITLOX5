@@ -46,11 +46,15 @@ void initKeypad(void){
     // If tied to SDA its 0x5C and if SCL then 0x5D
     if (!cap.begin(0x5A))
     {
+        #ifdef DEBUG_MODE
         Serial.println("MPR121 not found, check wiring?");
+        #endif
         // while (1)
         //     ;
     }
+    #ifdef DEBUG_MODE
     Serial.println("MPR121 found!");
+    #endif
 }
 
 void cleanI2C(){

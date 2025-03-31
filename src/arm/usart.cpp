@@ -112,7 +112,11 @@ void initUsart(void)
 
 
 	}else{
-		// Serial.begin(57600);
+		Serial.begin(57600);
+		while (!Serial)
+		{ // needed to keep leonardo/micro from starting too fast!
+			delay(10);
+		}	
 	}
 //	pmc_enable_periph_clk(ID_TRNG);
 //	trng_enable(TRNG);
@@ -128,10 +132,16 @@ void initUsart(void)
 
 void initFormatting(void)
 {
+	#ifdef DEBUG_MODE
 	Serial.println(" ---------initFormatting---in-------");
+	#endif	
+
 	is_formatted = checkisFormatted();
+	
+	#ifdef DEBUG_MODE
 	Serial.println(is_formatted);
 	Serial.println(" ---------after checkisFormatted----------");
+	#endif	
 }
 
 
@@ -281,6 +291,7 @@ uint8_t usartReceive(void)
 	{
 		Serial1.readBytes(rTmp, 1);
 	}else{
+		Serial.println("---------readBytes----------");
 		Serial.readBytes(rTmp, 1);
 	}
 
