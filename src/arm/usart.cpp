@@ -291,8 +291,9 @@ uint8_t usartReceive(void)
 	{
 		Serial1.readBytes(rTmp, 1);
 	}else{
-		Serial.println("---------readBytes----------");
+		// Serial.println("---------readBytes----------");
 		Serial.readBytes(rTmp, 1);
+		// Serial.println((u_int8_t)rTmp, HEX);
 	}
 
 	// The check in the loop doesn't need to be atomic, because the worst
