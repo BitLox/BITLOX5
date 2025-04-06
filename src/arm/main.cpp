@@ -162,7 +162,7 @@ void useWhatCommsStealth(void)
 	int result;
 	int s;
 	uint8_t temp1[1];
-	// result = getAndReturnInput();
+	result = getAndReturnInput();
 	result = 1;
 	switch (result){
 	case 1:
@@ -379,7 +379,9 @@ void writeX_Screen(void)
 
 void useWhatSetup(void)
 {
-Serial.println(" ---------in useWhatSetup----------");
+	#ifdef DEBUG_MODE
+	Serial.println(" ---------in useWhatSetup----------");
+	#endif
 
 	// char rChar;
 	bool yesOrNo;
@@ -674,7 +676,7 @@ void setup()
 	Serial.println(" ---------PAST useWhatSetup/checkDevicePIN----------");
 	#endif
 
-	useWhatCommsStealth();
+	// useWhatCommsStealth();
 	// initUsart();
 
 	if(is_formatted != 123)

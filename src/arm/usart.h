@@ -5,8 +5,8 @@
  *      Author: thesquid
  */
 
-#ifndef ARM_BITLOX_54_ARM_USART_H_
-#define ARM_BITLOX_54_ARM_USART_H_
+#ifndef _USART_H_
+#define _USART_H_
 
 #ifdef __cplusplus
      extern "C" {

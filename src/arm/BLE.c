@@ -2,6 +2,7 @@
  * BLE.c
  *
  *  Created on: Sep 10, 2014
+ * 	Edited on:  April 5, 2025
  *      Author: thesquid
  */
 #include <Arduino.h>
@@ -25,12 +26,10 @@
 #endif
 
 #if defined(NRF52840_XXAA)
-#define ENABLE_PIN  4
-#define BRTS_PIN  3
-#define BCTS_PIN  10
+#define ENABLE_PIN  19 // neé 4
+#define BRTS_PIN  18 // neé 3
+#define BCTS_PIN  17 // neé 10
 #endif
-
-
 
 int ENABLE = ENABLE_PIN;
 int BRTS = BRTS_PIN;
@@ -70,16 +69,16 @@ int checkBLE(void)
 
 void activateBLE(void)
 {
-    // pinMode( ENABLE, OUTPUT );
-    // pinMode(BRTS, OUTPUT);
-    // pinMode(BCTS, OUTPUT);
-    // digitalWrite( ENABLE, LOW );
+    pinMode(ENABLE, OUTPUT);
+    pinMode(BRTS, OUTPUT);
+    pinMode(BCTS, OUTPUT);
+    digitalWrite(ENABLE, LOW);
 }
 
 void deactivateBLE(void)
 {
-    // pinMode( ENABLE, OUTPUT );
-    // digitalWrite( ENABLE, HIGH );
+    pinMode(ENABLE, OUTPUT);
+    digitalWrite(ENABLE, HIGH);
 }
 
 

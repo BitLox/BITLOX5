@@ -71,7 +71,7 @@
 #include "arm/ST7789.h"
 // #include "arm/hwinit.h"
 // #include "arm/avr2arm.h"
-#include "Arduino.h"
+#include <Arduino.h>
 // #include "arm/BLE.h"
 // #include "arm/usart.h"
 // #include "arm/keypad_alpha.h"
@@ -94,10 +94,15 @@
 #define BCTS_PIN2  10
 #endif
 
+// #if defined(NRF52840_XXAA)
+// #define ENABLE_PIN2  4
+// #define BRTS_PIN2  3
+// #define BCTS_PIN2  10
+// #endif
 #if defined(NRF52840_XXAA)
-#define ENABLE_PIN2  4
-#define BRTS_PIN2  3
-#define BCTS_PIN2  10
+#define ENABLE_PIN2  19
+#define BRTS_PIN2  18
+#define BCTS_PIN2  17
 #endif
 
 int ENABLE2 = ENABLE_PIN2;

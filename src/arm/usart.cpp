@@ -13,7 +13,7 @@
 
 #include "usart.h"
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 #include "../common.h"
 #include "../endian.h"
@@ -100,7 +100,7 @@ void initUsart(void)
 //
 //		Serial1.end();
 
-		// Serial1.begin(115200);
+		Serial1.begin(115200);
 
 //		Serial1.begin(57600);
 //		Serial1.begin(38400);
@@ -426,25 +426,3 @@ void powerDown()
 #endif
 }
 
-//void startTimer1(void){
-//#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-//	Timer1.attachInterrupt(moof).setPeriod(1000000000).start();
-//#endif
-//}
-//void startTimer2(void){
-//#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-//	Timer2.attachInterrupt(powerDown).setPeriod(500000000).start();
-//#endif
-//}
-//
-//void stopTimer1(void){
-//#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-//	Timer1.stop();
-//#endif
-//}
-//
-//void stopTimer2(void){
-//#if defined(__MSP430_CPU__) || defined(__SAM3X8E__)|| defined(__SAM3A8C__)
-//	Timer2.stop();
-//#endif
-//}
