@@ -7,13 +7,12 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-// #define DEBUG_MODE
+#define DEBUG_MODE
 
 //end of add your includes here
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 
 // FUNCTION DECLARATIONS

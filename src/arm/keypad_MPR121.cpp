@@ -17,11 +17,15 @@ BSD license, all text above must be included in any redistribution
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_MPR121.h>
+#include "main.h"
 #include "keypad_MPR121.h"
+
 
 #ifndef _BV
 #define _BV(bit) (1 << (bit))
 #endif
+
+// #define DEBUG_MODE
 
 // You can have up to 4 on one i2c bus but one is enough for testing!
 Adafruit_MPR121 cap = Adafruit_MPR121();
@@ -52,9 +56,12 @@ void initKeypad(void){
         // while (1)
         //     ;
     }
-    #ifdef DEBUG_MODE
-    Serial.println("MPR121 found!");
-    #endif
+    else
+    {
+            #ifdef DEBUG_MODE
+            Serial.println("MPR121 found!");
+            #endif
+    }
 }
 
 void cleanI2C(){

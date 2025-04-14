@@ -18,6 +18,8 @@
 
 int level;
 
+
+
 void HardFault_Handler(void) {
     printf("HardFault!\n");
     while (1); // Halt for debug

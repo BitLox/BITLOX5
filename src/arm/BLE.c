@@ -26,14 +26,14 @@
 #endif
 
 #if defined(NRF52840_XXAA)
-#define ENABLE_PIN  19 // neé 4
-#define BRTS_PIN  18 // neé 3
-#define BCTS_PIN  17 // neé 10
+#define ENABLE_PIN  5 // neé 4
+#define BRTS_PIN  12 // neé 3
+// #define BCTS_PIN  17 // neé 10
 #endif
 
 int ENABLE = ENABLE_PIN;
 int BRTS = BRTS_PIN;
-int BCTS = BCTS_PIN;
+// int BCTS = BCTS_PIN;
 
 //const int BLE_EN_PIN = 28;//nee 23
 
@@ -71,7 +71,7 @@ void activateBLE(void)
 {
     pinMode(ENABLE, OUTPUT);
     pinMode(BRTS, OUTPUT);
-    pinMode(BCTS, OUTPUT);
+    // pinMode(BCTS, OUTPUT);
     digitalWrite(ENABLE, LOW);
 }
 
