@@ -679,7 +679,7 @@ bool checkStream(void)
   */
 static uint16_t receivePacketHeader(void)
 {
-//	writeEinkDisplay("in receivePacketHeader", false, COL_1_X, LINE_0_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+	// writeEinkDisplay("in receivePacketHeader", false, COL_1_X, LINE_0_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 	uint8_t buffer[4];
 	uint16_t message_id;
 
