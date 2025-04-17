@@ -130,24 +130,25 @@ void ePaper::end()
 *********************************************************************************************************/
 void ePaper::init_io()
 {
-    // init IO
-    pinMode(Pin_BUSY, INPUT);
-    pinMode(Pin_RESET, OUTPUT);
-    pinMode(Pin_PANEL_ON, OUTPUT);
-    pinMode(Pin_DISCHARGE, OUTPUT);
-    pinMode(Pin_BORDER, OUTPUT);
-    pinMode(Pin_EPD_CS, OUTPUT);
-    pinMode(Pin_SD_CS, OUTPUT);
+    // init IO 
+    // ALMOST CERTAINLY these were farking up the attemped implementation of the old BLE module grafted onto the new board!
+    // pinMode(Pin_BUSY, INPUT);
+    // pinMode(Pin_RESET, OUTPUT);
+    // pinMode(Pin_PANEL_ON, OUTPUT);
+    // pinMode(Pin_DISCHARGE, OUTPUT);
+    // pinMode(Pin_BORDER, OUTPUT);
+    // pinMode(Pin_EPD_CS, OUTPUT);
+    // pinMode(Pin_SD_CS, OUTPUT); // THIS is what was toggling the BLUE LED on!!!
     
     pinMode(9, OUTPUT);
     digitalWrite(9, HIGH);
 
-    digitalWrite(Pin_RESET, LOW);
-    digitalWrite(Pin_PANEL_ON, LOW);
-    digitalWrite(Pin_DISCHARGE, LOW);
-    digitalWrite(Pin_BORDER, LOW);
-    digitalWrite(Pin_EPD_CS, HIGH);
-    digitalWrite(Pin_SD_CS, HIGH);
+    // digitalWrite(Pin_RESET, LOW);
+    // digitalWrite(Pin_PANEL_ON, LOW);
+    // digitalWrite(Pin_DISCHARGE, LOW);
+    // digitalWrite(Pin_BORDER, LOW);
+    // digitalWrite(Pin_EPD_CS, HIGH);
+    // digitalWrite(Pin_SD_CS, HIGH);
     
     // init SPI
     SPI.begin();
@@ -181,17 +182,18 @@ int ePaper::getTemperature()
 int ePaper::drawUnicode(unsigned int uniCode, int x, int y)
 {
    // if(((x+16)>= DISP_LEN) || ((y+16) >= DISP_WIDTH) || x<0 || y<0) return 0;
-   
-   pinMode(9, OUTPUT);
-   digitalWrite(9, HIGH);
-   SPI.begin();
-   SPI.setBitOrder(MSBFIRST);
-   SPI.setDataMode(SPI_MODE0);
+
+    pinMode(9, OUTPUT);
+    digitalWrite(9, HIGH);
+
+    SPI.begin();
+    SPI.setBitOrder(MSBFIRST);
+    SPI.setDataMode(SPI_MODE0);
+
 
     int dtaLen = GT20L16.getMatrixUnicode(uniCode, tMatrix);
 
     SPI.end();
-
 
     // initDisplay();
     // tftBlackScreen();

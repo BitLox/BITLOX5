@@ -5557,13 +5557,11 @@ void languageMenuInitially(void){
 //	nonVolatileRead(byteRead, DEVICE_LANG_SET_ADDRESS, 1);
 //	uint8_t  byteRead = eeprom_read_byte((uint8_t*)148);
 	if (lang != 123) {
-		// initDisplay();
 		writeEinkDrawUnicode(str_lang_list_UNICODE[0],  24, 0, 5,
 				str_lang_list_UNICODE[1],  24, 0, 22,
 				str_lang_list_UNICODE[2],  24, 0, 39,
 				str_lang_list_UNICODE[3],  24, 0, 56,
 				str_lang_list_UNICODE[4],  24, 0, 73);
-		// display();
 		setLangInitially();
 	}else{
 //		writeEink("set", false, 10, 10);

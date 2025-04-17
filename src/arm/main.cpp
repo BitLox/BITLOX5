@@ -70,7 +70,7 @@ void useWhatComms(void)
 	int result;
 	int s;
 	uint8_t temp1[1];
-	uint8_t temp2[1];
+	// uint8_t temp2[1];
 
   	writeUSB_BLE_Screen();
 
@@ -164,7 +164,7 @@ void useWhatCommsStealth(void)
 	int result;
 	int s;
 	uint8_t temp1[1];
-	result = getAndReturnInput();
+	// result = getAndReturnInput();
 	result = 1;
 	switch (result){
 	case 1:
@@ -550,7 +550,7 @@ void setupSequence(int level){
 		Serial.println(" ---------after createDefaultWalletAuto----------");
 		#endif
 		useWhatComms();
-		// initUsart();
+		initUsart();
 		if(!canceledWalletCreation)
 		{
 			// showQRcode(0,0,0);
@@ -624,8 +624,13 @@ void setup()
 	#endif
 
 	// initialize digital pin LED_BUILTIN as an output.
-	pinMode(LED_BUILTIN, OUTPUT);
-
+	// LED_BUILTIN is the RED LED next to the USB socket
+	// Pin 4 is the BLUE LED
+	pinMode(LED_BLUE, OUTPUT);
+	digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+	delay(100);                       // wait for a second
+	digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
+  
 	// initialize ST7789
 	initDisplay();
 	// large block of text, temporary splash screen
@@ -633,6 +638,8 @@ void setup()
 	char q[] = "BITLOX5";
 	drawtext(q, ST77XX_RED, 3, 60, 60);
 	delay(2000);
+
+	
 
 	tftBlackScreen();
 
@@ -643,7 +650,6 @@ void setup()
 	#endif	
 	
 	languageMenuInitially();
-
 	tftBlackScreen();
 
 	initFormatting();
@@ -663,6 +669,11 @@ void setup()
 
 	int pinStatus;
 	pinStatus = checkHasPIN();
+	// while (1)
+	// {
+	// 	;;
+	// }
+
 	if(pinStatus != 127)
 	{
 		useWhatSetup();

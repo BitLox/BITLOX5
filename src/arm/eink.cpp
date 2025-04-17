@@ -266,7 +266,6 @@ void writeEinkDrawUnicode(	unsigned int *toDisplayLine0, int l0, int x0, int y0,
 								unsigned int *toDisplayLine3, int l3, int x3, int y3,
 								unsigned int *toDisplayLine4, int l4, int x4, int y4  )
 {
-    // drawtextW3("UNICODE NOT YET SUPPORTED wEDrwU", 10, 10);
 
 	unsigned int *line0;
 	unsigned int *line1;
