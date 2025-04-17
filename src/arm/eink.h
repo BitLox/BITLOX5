@@ -9,6 +9,10 @@
 #ifndef EINK_H_
 #define EINK_H_
 
+#ifndef uint16_t
+typedef unsigned short uint16_t;
+#endif
+
 #ifdef __cplusplus
      extern "C" {
 #endif
@@ -119,6 +123,7 @@
 
      void write_moof(void);
 
+	 void displayUint16(uint16_t value);
 
 #ifdef __cplusplus
      }

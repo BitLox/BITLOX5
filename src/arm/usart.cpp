@@ -312,6 +312,9 @@ uint8_t usartReceive(void)
 		// Serial.println("---------readBytes----------");
 		Serial.readBytes(rTmp, 1);
 		// Serial.println((u_int8_t)rTmp, HEX);
+		digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(10);                       // wait for a 1/100 second
+		digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
 	}
 
 	// The check in the loop doesn't need to be atomic, because the worst

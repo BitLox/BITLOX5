@@ -35,6 +35,12 @@
 #define LINE_LENGTH  25
 
 // #include "arm/avr2arm.h"
+#include <Arduino.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 
 #include "stream_comm.h"
 
@@ -43,15 +49,7 @@
 // #include "arm/keypad_alpha.h"
 //#include "arm/DueTimer/DueTimer.h"
 
-
 #include "arm/main.h"
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-
 #include "common.h"
 #include "endian.h"
 #include "hwinterface.h"
@@ -71,7 +69,7 @@
 #include "arm/ST7789.h"
 // #include "arm/hwinit.h"
 // #include "arm/avr2arm.h"
-#include <Arduino.h>
+
 // #include "arm/BLE.h"
 // #include "arm/usart.h"
 // #include "arm/keypad_alpha.h"
@@ -695,7 +693,13 @@ static uint16_t receivePacketHeader(void)
 			;;
 		}
 		;;
+		// digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+		// delay(10);                       // wait for a second
+		// digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+	
 	} while ( checkStream() );
+
+
 
 //	stopTimer1();
 
@@ -2684,7 +2688,7 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
  void processPacket(void)
 {
 	uint16_t message_id;
-	union MessageBufferUnion message_buffer;
+	static union MessageBufferUnion message_buffer __attribute__((aligned(4)));
 //	PointAffine master_public_key;
 	bool receive_failure;
 	bool permission_denied;
@@ -2721,6 +2725,7 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 	message_id = receivePacketHeader();
 
 
+
 	// Checklist for each case:
 	// 1. Have you checked or dealt with length?
 	// 2. Have you fully read the input stream before writing (to avoid
@@ -2730,13 +2735,15 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 	// 4. Have you checked for errors from wallet functions?
 	// 5. Have you used the right check for the wallet functions?
 
-	memset(&message_buffer, 0, sizeof(message_buffer));
+	memset(&message_buffer, 0, sizeof(union MessageBufferUnion));
 
-
+	#ifdef DEBUG_MODE
+	tftBlackScreen();
+	displayUint16(message_id);
+	#endif
 
 	switch (message_id)
 	{
-
 	case PACKET_TYPE_INITIALIZE:
 		// Reset state and report features.
 		session_id_length = 0; // just in case receiveMessage() fails
@@ -3354,6 +3361,26 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 
 
 	default:
+		digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(10);                       // wait for a second
+		digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
+		delay(10);                       // wait for a second
+		digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(10);                       // wait for a second
+		digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+		delay(100);                       // wait for a second
+		digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(100);                       // wait for a second
+		digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+		delay(100);                       // wait for a second
+		digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(100);                       // wait for a second
+		digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
+		delay(10);                       // wait for a second
+		digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(10);                       // wait for a second
+		digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+
 		// Unknown message ID.
 		readAndIgnoreInput();
 		writeFailureString(STRINGSET_MISC, MISCSTR_UNEXPECTED_PACKET);

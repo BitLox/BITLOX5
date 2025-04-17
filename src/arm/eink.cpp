@@ -141,6 +141,23 @@ drawtextW2(line4, x4, y4);
 
 }
 
+// Function to display a uint16_t value
+void displayUint16(uint16_t value) {
+    // Buffer to hold the string (uint16_t can be up to 5 digits + null terminator)
+    char buffer[6];
+    
+    // Convert uint16_t to string
+    snprintf(buffer, sizeof(buffer), "%u", value);
+    
+    // Call writeEinkNoDisplay with the buffer for one of the lines
+    writeEinkNoDisplay(buffer, 0, 0,    // Display value on line 0
+                       "", 0, 0,        // Empty line 1
+                       "", 0, 0,        // Empty line 2
+                       "", 0, 0,        // Empty line 3
+                       "", 0, 0);       // Empty line 4
+}
+
+
 void writeEinkNoDisplay(char *toDisplayLine0, int x0, int y0,
 						char *toDisplayLine1, int x1, int y1,
 						char *toDisplayLine2, int x2, int y2,

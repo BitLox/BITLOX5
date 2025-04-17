@@ -627,9 +627,14 @@ void setup()
 	// LED_BUILTIN is the RED LED next to the USB socket
 	// Pin 4 is the BLUE LED
 	pinMode(LED_BLUE, OUTPUT);
+	pinMode(LED_BUILTIN, OUTPUT);
+
 	digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
 	delay(100);                       // wait for a second
 	digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
+	digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+	delay(100);                       // wait for a second
+	digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
   
 	// initialize ST7789
 	initDisplay();
