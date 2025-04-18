@@ -35,6 +35,7 @@
 // #include "avr2arm.h"
 #include "../stream_comm.h"
 #include "keypad_MPR121.h"
+#include "ST7789.h"
 
 #define COUNT_OF(x) ((sizeof(x)/sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))
 
@@ -2459,12 +2460,8 @@ bool userDenied(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
+		tftBlackScreen();
 
-
-		// waitForNoButtonPress();
-
-		// initDisplay();
-	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_WALLET_PIN_line0[lang], wcslen(ENTER_WALLET_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);

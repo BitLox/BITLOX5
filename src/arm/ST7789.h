@@ -65,6 +65,8 @@ void drawtextW5(const char *text, int x, int y);
 void drawLine(int x, int y, int dx, int dy);
 void fillRectangle(int x, int y, int dx, int dy);
 void drawDot(int pX, int pY, uint16_t color);
+void bigCheck(int x, int y, int scale);
+
 
 #ifdef __cplusplus
 } // extern "C"

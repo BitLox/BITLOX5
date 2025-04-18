@@ -642,6 +642,31 @@ void drawCheck(int x, int y)
 	drawLine(x+5,y+2,x+12,y-5);
 }
 
+void drawCheckScaled(int x, int y, int scale) {
+    if (scale <= 0) return; // Prevent invalid scales
+    if (x < 0 || y < 0 || x >= 170 || y >= 320) return; // Check display bounds
+
+    x = x + 2 * scale;
+
+    // Thickness: ~3 pixels at scale = 10 for a 7-pixel-thick stroke
+    int thickness = scale / 1;
+    if (thickness < 1) thickness = 1;
+
+    // Vertex point where the two arms meet
+    int vertexX = x + 5 * scale;
+    int vertexY = y + 5 * scale;
+
+    // Lower left arm: From (x, y) to vertex
+    for (int t = -thickness; t <= thickness; t++) {
+        drawLine(x, y + t, vertexX, vertexY + t);
+    }
+
+    // Upper right arm: From vertex to (vertexX + 8 * scale, vertexY - 8 * scale)
+    for (int t = -thickness; t <= thickness; t++) {
+        drawLine(vertexX + t, vertexY, vertexX + 8 * scale + t, vertexY - 8 * scale);
+    }
+}
+
 void drawX(int x, int y)
 {
 	x = x - 1;
@@ -673,11 +698,11 @@ void drawCAPSLOCK(int x, int y)
 }
 
 
-//void drawCheckX(void)
-//{
-//	drawCheck(5,85);
-//	drawX(180,85);
-//}
+void drawCheckX(void)
+{
+	drawCheck(5,85);
+	drawX(180,85);
+}
 
 void display(void)
 {
@@ -719,18 +744,19 @@ void writeSplashScreen(void)
 // Isn't this supposed to be a big check?
 void writeCheck_Screen(void)
 {
-    drawCheck(10, 10);
-	// EPAPER.begin(EPD_SIZE);                             // setup epaper, size
-    // EPAPER.setDirection(DIRDOWN);                     // set display direction
-    // EPAPER.image_flash(check_bits);
+    // bigCheck(100, 100, 10);
+	// drawCheckScaled(20, 100, 10);
+	drawCheck(10, 70);
+	delay(2000);
+	tftBlackScreen();
 }
 
 // void writeX_Screen(void)
 // {
-// 	drawX(10, 10);
-// 	EPAPER.begin(EPD_SIZE);                             // setup epaper, size
-//     EPAPER.setDirection(DIRDOWN);                     // set display direction
-//     EPAPER.image_flash(x_mark_bits);
+// 	drawX(100, 100);
+// 	// EPAPER.begin(EPD_SIZE);                             // setup epaper, size
+//     // EPAPER.setDirection(DIRDOWN);                     // set display direction
+//     // EPAPER.image_flash(x_mark_bits);
 // }
 
 //void writeNotEqual_Screen(void)

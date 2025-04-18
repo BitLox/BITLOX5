@@ -565,6 +565,8 @@ static void translateWalletError(WalletErrors r)
 	if (r == WALLET_NO_ERROR)
 	{
 		writeCheck_Screen();
+		delay(1000);
+		
 //		showReady();
 		sendPacket(PACKET_TYPE_SUCCESS, Success_fields, &message_buffer);
 //		_delay_ms(200);
@@ -2655,7 +2657,7 @@ void showQRcode(AddressHandle ah_root4, AddressHandle ah_chain4, AddressHandle a
 
 	getAddressOnly(address_hash, ah_root4, ah_chain4, ah_index4);
 	hashToAddr(toEncode, address_hash, ADDRESS_VERSION_PUBKEY);
-	writeEinkNoDisplay(toEncode,  COL_1_X, LINE_1_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "",33,LINE_3_Y);
+	writeEinkNoDisplay(toEncode,  COL_1_X, LINE_1_Y, "",COL_1_X,LINE_2_Y, "",33,LINE_2_Y, "",COL_1_X,LINE_3_Y, "Address",33,LINE_3_Y);
 
 	// writeQRcode(toEncode);
 }

@@ -265,6 +265,11 @@ void drawLine(int x, int y, int dx, int dy){
   tft.drawLine(x,y,dx,dy,ST77XX_RED);
 }
 
+void bigCheck(int x, int y, int scale){
+  tft.fillTriangle(x, y, x + 5 * scale, y + 5 * scale, x, y + 5 * scale, ST77XX_RED); // Lower left
+	tft.fillTriangle(x + 6 * scale, y + 3 * scale, x + 13 * scale, y - 4 * scale, x + 13 * scale, y + 3 * scale, ST77XX_RED); // Upper right
+}
+
 // void drawCheck(int x, int y)
 // {
 // 	x = x + 2;

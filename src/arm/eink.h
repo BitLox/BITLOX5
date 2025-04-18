@@ -104,6 +104,7 @@ typedef unsigned short uint16_t;
 //     void writeWorking_Screen(void);
      void overlayBatteryStatus(bool displayValue);
      void drawCheck(int x, int y);
+	 void drawCheckScaled(int x, int y, int scale);
      void drawX(int x, int y);
      void drawCheckX(void);
      void initDisplay(void);
