@@ -2277,12 +2277,21 @@ bool userDenied(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
+		// What the hell is this? It's a kludge to get around the weird truncation message:%3C20250326215058.3.a36124ed5a09cb91@mg-d1.substack.com%3Eif it's already been formatted. Though in real life that's an edge case.
+		static const wchar_t KLUDGE_line4[][2] = {
+			L".", //EN
+			L".", //DE
+			L".", //RU
+			L".", //ZH
+			L".", //CZ
+			L".", //FR
+			L".", //ES
+			L".", //PT
+			L".", //TU
+			L"."  //IT
+		} ;
+		writeEinkDrawUnicodeSingle((unsigned int*)KLUDGE_line4[lang], wcslen(KLUDGE_line4[lang]), COL_1_X, LINE_4_Y+100);
 
-
-		// waitForNoButtonPress();
-
-		// initDisplay();
-	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_PIN_line0[lang], wcslen(ENTER_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2293,7 +2302,6 @@ bool userDenied(AskUserCommand command)
 
 		drawX(draw_X_X,draw_X_Y);
 		drawCheck(draw_check_X,draw_check_Y);
-		// display();
 
 //		r = waitForButtonPress();
 //		if (!r){
