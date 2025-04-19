@@ -48,11 +48,11 @@ char transStringBuffer1[MAX_STRING_DISPLAY] = {0};
 
 
 void setLang(void){
-	char langChar;
+	// char langChar;
 	int lang;
-	langChar = waitForNumberButtonPress();
+	lang = waitForNumberButtonPress();
 
-	lang = langChar - '0';
+	// lang = lang - '0';
 
 	if (lang == 0){
 		lang = 9;
@@ -61,9 +61,9 @@ void setLang(void){
 	{
 		lang = lang - 1;
 	}
-	if (langChar == 'Y'){
-		lang = 0;
-	}
+	// if (langChar == 'Y'){
+	// 	lang = 0;
+	// }
 	uint8_t temp1[1];
 	temp1[0] = (uint8_t)lang;
 
@@ -5556,7 +5556,7 @@ void languageMenuInitially(void){
 	nonVolatileRead(tempLangSet, DEVICE_LANG_SET_ADDRESS, 1);
 
 	int lang;
-
+	clearDisplay();
 	lang = (int)tempLangSet[0];
 //	lang =0;// temp to force selection
 //	nonVolatileRead(byteRead, DEVICE_LANG_SET_ADDRESS, 1);
@@ -5580,7 +5580,7 @@ void languageMenu(void){
 	nonVolatileRead(tempLangSet, DEVICE_LANG_SET_ADDRESS, 1);
 
 	int lang;
-
+	clearDisplay();
 	lang = (int)tempLangSet[0];
 //	lang =0;// temp to force selection
 //	nonVolatileRead(byteRead, DEVICE_LANG_SET_ADDRESS, 1);
