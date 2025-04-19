@@ -747,7 +747,7 @@ void writeCheck_Screen(void)
     // bigCheck(100, 100, 10);
 	// drawCheckScaled(20, 100, 10);
 	drawCheck(10, 70);
-	delay(2000);
+	delay(500);
 	tftBlackScreen();
 }
 
