@@ -308,9 +308,9 @@ uint8_t usartReceive(void)
 	if(bluetooth_on==1)
 	{
 		Serial1.readBytes(rTmp, 1);
-		// digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
-		// delay(10);                       // wait for a 1/100 second
-		// digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
+		digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+		delay(10);                       // wait for a 1/100 second
+		digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
 	}else{
 		// Serial.println("---------readBytes----------");
 		Serial.readBytes(rTmp, 1);
