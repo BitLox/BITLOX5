@@ -1910,68 +1910,122 @@ void getAddressOnly(uint8_t *out_address3, AddressHandle ah_root3, AddressHandle
   * \param arg Unused.
   * \return true on success, false on failure (nanopb convention).
   */
-bool listWalletsCallback(pb_ostream_t *stream, const pb_field_t *field, void * const *arg)
-{
-	uint32_t versionLWC = 0;
-	uint32_t i, k;
-	uint32_t j = 0;
-	WalletInfo message_buffer;
-	WalletInfo message_buffer_2[105] = {};
+ bool listWalletsCallback(pb_ostream_t *stream, const pb_field_t *field, void * const *arg)
+ {
+	 static WalletInfo message_buffer_2[105] __attribute__((aligned(4))) = {}; // Static, aligned
+	 uint32_t versionLWC = 0;
+	 uint32_t i, k;
+	 uint32_t j = 0;
+	 WalletInfo message_buffer;
+ 
+	 for (i = 0; i < number_of_wallets; i++)
+	 {
+		 message_buffer.wallet_number = i;
+		 message_buffer.wallet_name.size = NAME_LENGTH;
+		 message_buffer.wallet_uuid.size = DEVICE_UUID_LENGTH;
+		 memset(message_buffer.wallet_uuid.bytes, 0, DEVICE_UUID_LENGTH); // Fix: Zero bytes
+		 memset(message_buffer.wallet_name.bytes, 0, NAME_LENGTH); // Fix: Zero bytes
+		 message_buffer.version = 0;
+		 versionLWC = 0;
+ 
+		 if (getWalletInfo(
+			 &versionLWC,
+			 message_buffer.wallet_name.bytes,
+			 message_buffer.wallet_uuid.bytes,
+			 i) != WALLET_NO_ERROR)
+		 {
+			 return true;
+		 }
+		 message_buffer.version = versionLWC;
+		 message_buffer.has_version = true;
+ 
+		 if (versionLWC != VERSION_NOTHING_THERE)
+		 {
+			 if (versionLWC == VERSION_UNENCRYPTED || versionLWC == VERSION_IS_ENCRYPTED)
+			 {
+				 message_buffer_2[j] = message_buffer; // Copy entire struct
+				 j++;
+			 }
+		 }
+	 }
+ 
+	 for (k = 0; k < j; k++)
+	 {
+		 if (!pb_encode_tag_for_field(stream, field))
+		 {
+			 return false;
+		 }
+		 if (!pb_encode_submessage(stream, WalletInfo_fields, &message_buffer_2[k]))
+		 {
+			 return false;
+		 }
+	 }
+	 return true;
+ }
 
-//	writeEinkDisplayNumberSingleBig(number_of_wallets,5,40);
 
-	for (i = 0; i < number_of_wallets; i++)
-	{
-		message_buffer.wallet_number = i;
-		message_buffer.wallet_name.size = NAME_LENGTH;
-		message_buffer.wallet_uuid.size = DEVICE_UUID_LENGTH;
-		memcpy(message_buffer.wallet_uuid.bytes, 0, DEVICE_UUID_LENGTH);
-		memcpy(message_buffer.wallet_name.bytes, 0, NAME_LENGTH);
-		message_buffer.version = 0;
-		versionLWC = 0;
+//   bool listWalletsCallback(pb_ostream_t *stream, const pb_field_t *field, void * const *arg)
+// {
+// 	uint32_t versionLWC = 0;
+// 	uint32_t i, k;
+// 	uint32_t j = 0;
+// 	WalletInfo message_buffer;
+// 	WalletInfo message_buffer_2[105] = {};
 
-		if (getWalletInfo(
-			&versionLWC,
-			message_buffer.wallet_name.bytes,
-			message_buffer.wallet_uuid.bytes,
-			i) != WALLET_NO_ERROR)
-		{
-			// It's too late to return an error message, so cut off the
-			// array now.
-			return true;
-		}
-		message_buffer.version = versionLWC;
-		message_buffer.has_version = true;
+// //	writeEinkDisplayNumberSingleBig(number_of_wallets,5,40);
 
-		if (versionLWC != VERSION_NOTHING_THERE)
-		{
-			if (versionLWC == VERSION_UNENCRYPTED || versionLWC == VERSION_IS_ENCRYPTED)
-			{
-				message_buffer_2[j].wallet_number = message_buffer.wallet_number;
-				message_buffer_2[j].wallet_name.size = NAME_LENGTH;
-				message_buffer_2[j].wallet_uuid.size = DEVICE_UUID_LENGTH;
-				message_buffer_2[j].version = message_buffer.version;
-				message_buffer_2[j].has_version = message_buffer.has_version;
-				memcpy(message_buffer_2[j].wallet_name.bytes, message_buffer.wallet_name.bytes, NAME_LENGTH);
-				memcpy(message_buffer_2[j].wallet_uuid.bytes, message_buffer.wallet_uuid.bytes, DEVICE_UUID_LENGTH);
-				j++;
-			}
-		}
-	}
+// 	for (i = 0; i < number_of_wallets; i++)
+// 	{
+// 		message_buffer.wallet_number = i;
+// 		message_buffer.wallet_name.size = NAME_LENGTH;
+// 		message_buffer.wallet_uuid.size = DEVICE_UUID_LENGTH;
+// 		memcpy(message_buffer.wallet_uuid.bytes, 0, DEVICE_UUID_LENGTH);
+// 		memcpy(message_buffer.wallet_name.bytes, 0, NAME_LENGTH);
+// 		message_buffer.version = 0;
+// 		versionLWC = 0;
 
-	for(k = 0; k < j; k++)
-	{
-		if (!pb_encode_tag_for_field(stream, field))
-		{
-			return false;
-		}
-		if (!pb_encode_submessage(stream, WalletInfo_fields, &message_buffer_2[k]))
-		{
-			return false;
-		}
-	}
-	return true;
-}
+// 		if (getWalletInfo(
+// 			&versionLWC,
+// 			message_buffer.wallet_name.bytes,
+// 			message_buffer.wallet_uuid.bytes,
+// 			i) != WALLET_NO_ERROR)
+// 		{
+// 			// It's too late to return an error message, so cut off the
+// 			// array now.
+// 			return true;
+// 		}
+// 		message_buffer.version = versionLWC;
+// 		message_buffer.has_version = true;
+
+// 		if (versionLWC != VERSION_NOTHING_THERE)
+// 		{
+// 			if (versionLWC == VERSION_UNENCRYPTED || versionLWC == VERSION_IS_ENCRYPTED)
+// 			{
+// 				message_buffer_2[j].wallet_number = message_buffer.wallet_number;
+// 				message_buffer_2[j].wallet_name.size = NAME_LENGTH;
+// 				message_buffer_2[j].wallet_uuid.size = DEVICE_UUID_LENGTH;
+// 				message_buffer_2[j].version = message_buffer.version;
+// 				message_buffer_2[j].has_version = message_buffer.has_version;
+// 				memcpy(message_buffer_2[j].wallet_name.bytes, message_buffer.wallet_name.bytes, NAME_LENGTH);
+// 				memcpy(message_buffer_2[j].wallet_uuid.bytes, message_buffer.wallet_uuid.bytes, DEVICE_UUID_LENGTH);
+// 				j++;
+// 			}
+// 		}
+// 	}
+
+// 	for(k = 0; k < j; k++)
+// 	{
+// 		if (!pb_encode_tag_for_field(stream, field))
+// 		{
+// 			return false;
+// 		}
+// 		if (!pb_encode_submessage(stream, WalletInfo_fields, &message_buffer_2[k]))
+// 		{
+// 			return false;
+// 		}
+// 	}
+// 	return true;
+// }
 
 
 
@@ -2746,7 +2800,33 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 
 	switch (message_id)
 	{
-	case PACKET_TYPE_INITIALIZE:
+		case PACKET_TYPE_LIST_WALLETS:
+		// List wallets.
+		receive_failure = receiveMessage(ListWallets_fields, &(message_buffer.list_wallets));
+		if (!receive_failure)
+		{
+			number_of_wallets = getNumberOfWallets();
+			tftBlackScreen();
+			displayUint16(number_of_wallets);
+		
+			if (number_of_wallets == 0)
+			{
+				wallet_return = walletGetLastError();
+				translateWalletError(wallet_return);
+			}
+			else
+			{
+				message_buffer.wallets.wallet_info.funcs.encode = &listWalletsCallback;
+				sendPacket(PACKET_TYPE_WALLETS, Wallets_fields, &(message_buffer.wallets));
+			}
+		}
+		else
+		{
+			writeEinkDisplay("List wallets FAIL", false, COL_1_X, LINE_4_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
+		}
+		break;
+
+		case PACKET_TYPE_INITIALIZE:
 		// Reset state and report features.
 		session_id_length = 0; // just in case receiveMessage() fails
 		receive_failure = receiveMessage(Initialize_fields, &(message_buffer.initialize));
@@ -3162,30 +3242,6 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 		}
 		break;
 
-
-	case PACKET_TYPE_LIST_WALLETS:
-		// List wallets.
-		receive_failure = receiveMessage(ListWallets_fields, &(message_buffer.list_wallets));
-		if (!receive_failure)
-		{
-			number_of_wallets = getNumberOfWallets();
-
-			if (number_of_wallets == 0)
-			{
-				wallet_return = walletGetLastError();
-				translateWalletError(wallet_return);
-			}
-			else
-			{
-				message_buffer.wallets.wallet_info.funcs.encode = &listWalletsCallback;
-				sendPacket(PACKET_TYPE_WALLETS, Wallets_fields, &(message_buffer.wallets));
-			}
-		}
-		else
-		{
-			writeEinkDisplay("List wallets FAIL", false, COL_1_X, LINE_4_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
-		}
-		break;
 
 //	case PACKET_TYPE_BACKUP_WALLET:
 //		// Backup wallet.

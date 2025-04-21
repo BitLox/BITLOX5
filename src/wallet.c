@@ -1604,33 +1604,37 @@ WalletErrors backupWallet(bool do_encrypt, uint32_t destination_device)
   *         that a read error occurred. For example, a return value of 9999
   *         means that non-volatile storage is 10000 bytes large (or
   *         equivalently, 9999 is the largest valid address).
+  * 
+  * TEMPORARILY HARD CODED TO 4096 bytes 2025-04-21
+  * 
   */
 static uint32_t findOutNonVolatileSize(void)
 {
-	uint32_t test_bit;
+	// uint32_t test_bit;
 	uint32_t size;
-	uint8_t junk;
-	NonVolatileReturn r;
+	// uint8_t junk;
+	// NonVolatileReturn r;
 
-	// Find out size using binary search.
-	test_bit = 0x80000000;
-	size = 0;
-	while (test_bit != 0)
-	{
-		size |= test_bit;
-		r = nonVolatileRead(&junk, size, 1);
-		if (r == NV_INVALID_ADDRESS)
-		{
-			size ^= test_bit; // too big; clear it
-		}
-		else if (r != NV_NO_ERROR)
-		{
-			last_error = WALLET_READ_ERROR;
-			return 0; // read error occurred
-		}
-		test_bit >>= 1;
-	}
+	// // Find out size using binary search.
+	// test_bit = 0x80000000;
+	// size = 0;
+	// while (test_bit != 0)
+	// {
+	// 	size |= test_bit;
+	// 	r = nonVolatileRead(&junk, size, 1);
+	// 	if (r == NV_INVALID_ADDRESS)
+	// 	{
+	// 		size ^= test_bit; // too big; clear it
+	// 	}
+	// 	else if (r != NV_NO_ERROR)
+	// 	{
+	// 		last_error = WALLET_READ_ERROR;
+	// 		return 0; // read error occurred
+	// 	}
+	// 	test_bit >>= 1;
+	// }
 	last_error = WALLET_NO_ERROR;
+	size = 4096;
 	return size;
 }
 

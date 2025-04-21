@@ -308,13 +308,16 @@ uint8_t usartReceive(void)
 	if(bluetooth_on==1)
 	{
 		Serial1.readBytes(rTmp, 1);
+		// digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+		// delay(10);                       // wait for a 1/100 second
+		// digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
 	}else{
 		// Serial.println("---------readBytes----------");
 		Serial.readBytes(rTmp, 1);
 		// Serial.println((u_int8_t)rTmp, HEX);
-		digitalWrite(LED_BLUE, HIGH);   // turn the LED on (HIGH is the voltage level)
+		digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
 		delay(10);                       // wait for a 1/100 second
-		digitalWrite(LED_BLUE, LOW);    // turn the LED off by making the voltage LOW
+		digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
 	}
 
 	// The check in the loop doesn't need to be atomic, because the worst
