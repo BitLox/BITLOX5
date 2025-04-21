@@ -92,20 +92,20 @@
 #define BCTS_PIN2  10
 #endif
 
-// #if defined(NRF52840_XXAA)
-// #define ENABLE_PIN2  4
-// #define BRTS_PIN2  3
-// #define BCTS_PIN2  10
-// #endif
 #if defined(NRF52840_XXAA)
-#define ENABLE_PIN2  19
-#define BRTS_PIN2  18
-#define BCTS_PIN2  17
+#define ENABLE_PIN2  5
+#define BRTS_PIN2  12
+// #define BCTS_PIN2  10
 #endif
+// #if defined(NRF52840_XXAA)
+// #define ENABLE_PIN2  19
+// #define BRTS_PIN2  18
+// #define BCTS_PIN2  17
+// #endif
 
 int ENABLE2 = ENABLE_PIN2;
 int BRTS2 = BRTS_PIN2;
-int BCTS2 = BCTS_PIN2;
+// int BCTS2 = BCTS_PIN2;
 
 // Prototypes for forward-referenced functions.
 bool mainInputStreamCallback(pb_istream_t *stream, uint8_t *buf, size_t count);
@@ -3180,6 +3180,10 @@ void setChangeAddress(AddressHandle ah_root5, AddressHandle ah_chain5, AddressHa
 				message_buffer.wallets.wallet_info.funcs.encode = &listWalletsCallback;
 				sendPacket(PACKET_TYPE_WALLETS, Wallets_fields, &(message_buffer.wallets));
 			}
+		}
+		else
+		{
+			writeEinkDisplay("List wallets FAIL", false, COL_1_X, LINE_4_Y, "",false,5,30, "",false,5,50, "",false,5,70, "",false,0,0);
 		}
 		break;
 

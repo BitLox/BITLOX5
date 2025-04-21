@@ -367,6 +367,7 @@ WalletErrors initWallet(uint32_t wallet_spec, const uint8_t *password, const uns
 	return last_error;
 }
 
+// this entire routine is deprecated and should be removed.
 uint32_t readEntireWalletSpace(uint8_t *bulkDataOut)
 {
 	uint32_t wallet_space_size = 0;
