@@ -17,8 +17,8 @@
   * This file is licensed as described by the file LICENCE.
   */
 #include <Arduino.h>
-
 #include <stdlib.h>
+#include "utils.h"
 
 #include "../common.h"
 #include "../hwinterface.h"
@@ -47,7 +47,8 @@ int hardwareRandom32Bytes(uint8_t *buffer)
 
 		#if defined(NRF52840_XXAA)
 
-		uint32_t num = 1;
+		uint32_t num = getRandomNumber32();
+		// uint32_t num = 1;
 
 		#endif
 

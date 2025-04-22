@@ -5606,7 +5606,8 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 
 	char * pch;
 	pch = strtok (mnemonicToDisplay," ");
-	const char *mnemPiece[length];
+	// const char *mnemPiece[length];
+	char *mnemPiece[length];
 	int i = 0;
 	while (pch != NULL)
 	{
@@ -5620,16 +5621,27 @@ void displayMnemonic(const char * mnemonicToDisplay, int length)
 	// waitForNoButtonPress();
 	waitForButtonPress();
 	clearDisplay();
-	int col1 = 20;
-	int col2 = 120;
+// 	int col1 = 20;
+// 	int col2 = 120;
+// 	int row1 = 0;
+// 	int row2 = 16;
+// 	int row3 = 32;
+// 	int row4 = 48;
+// 	int row5 = 64;
+// // the new descenders on the "g" cause the line to truncate if writing below 79 correction 78 check the word "luggage"!
+// 	int row6 = 78;
+// 	int offset = 12;
+
+	int col1 = 30;
+	int col2 = 180;
 	int row1 = 0;
-	int row2 = 16;
-	int row3 = 32;
-	int row4 = 48;
-	int row5 = 64;
+	int row2 = 20;
+	int row3 = 40;
+	int row4 = 60;
+	int row5 = 80;
 // the new descenders on the "g" cause the line to truncate if writing below 79 correction 78 check the word "luggage"!
-	int row6 = 78;
-	int offset = 12;
+	int row6 = 100;
+	int offset = 23;
 
 	writeEinkDisplayPrep("1", col1-offset, row1, "3",col1-offset,row2, "5",col1-offset,row3, "7",col1-offset,row4, "9", col1-offset,row5, "11", col1-offset-8,row6,
 						"2", col2-offset, row1, "4",col2-offset,row2, "6",col2-offset,row3, "8",col2-offset,row4, "10",col2-offset-8,row5, "12",col2-offset-8,row6);

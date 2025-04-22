@@ -2,6 +2,7 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h> 
+#include <hw_rng.h>
 
 #include "main.h"
 #include "ST7789.h"
@@ -15,6 +16,7 @@
 #include "../stream_comm.h"
 #include "eink.h"
 #include "hwinit.h"
+#include "utils.h"
 
 int level;
 
@@ -622,6 +624,15 @@ void setup()
 
 	Serial.println(" ---------ENTRY----------");
 	#endif
+    
+	// ensure rng hardware is initialized
+	SimpleHacks::HW_RNG::begin(); 
+
+
+    // uint8_t alpha  = SimpleHacks::HW_RNG::get_uint8() ; (void)alpha;
+    // uint16_t beta  = SimpleHacks::HW_RNG::get_uint16(); (void)beta;
+    // uint32_t gamma = SimpleHacks::HW_RNG::get_uint32(); (void)gamma;
+    // uint64_t delta = SimpleHacks::HW_RNG::get_uint64(); (void)delta;
 
 	// initialize digital pin LED_BUILTIN as an output.
 	// LED_BUILTIN is the RED LED next to the USB socket
@@ -638,16 +649,19 @@ void setup()
   
 	// initialize ST7789
 	initDisplay();
+
+	// uint32_t random32 =	getRandomNumber32();
+	// tftBlackScreen();
+	// displayUint32(random32);
+	// delay(1000);
+
 	// large block of text, temporary splash screen
 	tftBlackScreen();
 	char q[] = "BITLOX5";
 	drawtext(q, ST77XX_RED, 3, 60, 60);
 	delay(2000);
 
-	
-
 	tftBlackScreen();
-
 	initKeypad();
 	
 	#ifdef DEBUG_MODE
@@ -674,10 +688,6 @@ void setup()
 
 	int pinStatus;
 	pinStatus = checkHasPIN();
-	// while (1)
-	// {
-	// 	;;
-	// }
 
 	if(pinStatus != 127)
 	{
@@ -711,12 +721,9 @@ void setup()
 
 }
 
+
+
 void loop() {
 	processPacket();
-	// Serial.println(" ---------LOOP A LOOP----------");
-//   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-//   delay(100);                       // wait for a second
-//   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-//   delay(100);                       // wait for a second
 }
 

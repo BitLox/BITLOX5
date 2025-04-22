@@ -2496,6 +2496,10 @@ bool initialFormatAuto(void)
 	bool permission_denied;
 	WalletErrors wallet_return;
 	uint8_t entropy_initialation[32] = {66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66};
+	// for(i=0, i<32, i++){
+	// 	entropy_initialation[i] = 
+	// }
+	
 	uint8_t aem_use_Hold[1];
 	uint8_t aem_phrase_Hold[64];
 

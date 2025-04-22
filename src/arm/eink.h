@@ -9,9 +9,10 @@
 #ifndef EINK_H_
 #define EINK_H_
 
-#ifndef uint16_t
-typedef unsigned short uint16_t;
-#endif
+// #ifndef uint16_t
+// typedef unsigned short uint16_t;
+// #endif
+#include "common.h" // For uint16_t, uint32_t
 
 #ifdef __cplusplus
      extern "C" {
@@ -125,6 +126,7 @@ typedef unsigned short uint16_t;
      void write_moof(void);
 
 	 void displayUint16(uint16_t value);
+	 void displayUint32(uint32_t value); // New function for uint32_t
 
 #ifdef __cplusplus
      }

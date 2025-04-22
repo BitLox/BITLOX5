@@ -25,7 +25,7 @@
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 
 #include "ST7789.h"
-
+#include <stdio.h> // For snprintf
 
 //#define progMemBuffer 128
 
@@ -157,6 +157,11 @@ void displayUint16(uint16_t value) {
                        "", 0, 0);       // Empty line 4
 }
 
+void displayUint32(uint32_t value) {
+    char buffer[11]; // 10 digits for uint32_t + null terminator
+    snprintf(buffer, sizeof(buffer), "%u", value);
+    writeEinkNoDisplay(buffer, 0, 0, "", 0, 0, "", 0, 0, "", 0, 0, "", 0, 0);
+}
 
 void writeEinkNoDisplay(char *toDisplayLine0, int x0, int y0,
 						char *toDisplayLine1, int x1, int y1,
