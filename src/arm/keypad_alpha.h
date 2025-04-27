@@ -8,15 +8,15 @@
 #ifndef _KEYPAD_ALPHA_H_
 #define _KEYPAD_ALPHA_H_
 
-#define PIN_MAX_SIZE 20
+// #define PIN_MAX_SIZE 20
 
-#define STRIPE_X_START 5
-#define STRIPE_Y_START 20
-#define STRIPE_X_END 195
-#define STRIPE_Y_END 20
+// #define STRIPE_X_START 5
+// #define STRIPE_Y_START 20
+// #define STRIPE_X_END 195
+// #define STRIPE_Y_END 20
 
-#define caps_lock_X 182
-#define caps_lock_Y 41
+// #define caps_lock_X 182
+// #define caps_lock_Y 41
 
 //#define COL_1_X 5
 //#define LINE_1_Y 1
@@ -33,25 +33,25 @@
 // #define LINE_3_Y 59
 // #define LINE_4_Y 80
 
-#define COL_1_X 5
-#define LINE_0_Y 4
-#define LINE_1_Y 24
-#define LINE_2_Y 43
-#define LINE_3_Y 62
-#define LINE_4_Y 83
+// #define COL_1_X 5
+// #define LINE_0_Y 4
+// #define LINE_1_Y 24
+// #define LINE_2_Y 43
+// #define LINE_3_Y 62
+// #define LINE_4_Y 83
 
 
-#define STATUS_X 5
-#define STATUS_Y 25
+// #define STATUS_X 5
+// #define STATUS_Y 25
 
-#define STATUS_X_1 5
-#define STATUS_Y_1 40
+// #define STATUS_X_1 5
+// #define STATUS_Y_1 40
 
-#define INPUT_X 5
-#define INPUT_Y 40
+// #define INPUT_X 5
+// #define INPUT_Y 40
 
-#define OUTPUT_X 75
-#define OUTPUT_Y 55
+// #define OUTPUT_X 75
+// #define OUTPUT_Y 55
 
 
 
@@ -69,13 +69,13 @@ char alphkeypad(int current_x, int current_y);
 
 #if defined(__SAM3A8C__)
 char alphkeypad_3A8C(int current_x, int current_y);
-char alphkeypad_3A8CnoDisplay(int current_x, int current_y);
+char keypad_noDisplay(int current_x, int current_y);
 char alphkeypad_3A8C_CAPS(int current_x, int current_y);
 #endif
 
 #if defined(NRF52840_XXAA)
 char alphkeypad_3A8C(int current_x, int current_y);
-char alphkeypad_3A8CnoDisplay(int current_x, int current_y);
+char keypad_noDisplay(int current_x, int current_y);
 char alphkeypad_3A8C_CAPS(int current_x, int current_y);
 #endif
 

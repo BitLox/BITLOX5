@@ -10,20 +10,31 @@
 //add your includes here
 #define PIN_MAX_SIZE 20
 
+// #define STRIPE_X_START 5
+// #define STRIPE_Y_START 17
+// #define STRIPE_X_END 195
+// #define STRIPE_Y_END 17
+
+
 #define STRIPE_X_START 5
-#define STRIPE_Y_START 17
+#define STRIPE_Y_START 20
 #define STRIPE_X_END 195
-#define STRIPE_Y_END 17
+#define STRIPE_Y_END 20
+
+// #define caps_lock_X 182
+// #define caps_lock_Y 41
+
 
 #define caps_lock_X 182
 #define caps_lock_Y 41
 
 #define COL_1_X 5
-#define LINE_0_Y 1
-#define LINE_1_Y 21
-#define LINE_2_Y 40
-#define LINE_3_Y 59
-#define LINE_4_Y 80
+#define LINE_0_Y 4
+#define LINE_1_Y 24
+#define LINE_2_Y 43
+#define LINE_3_Y 62
+#define LINE_4_Y 83
+
 
 #define STATUS_X 5
 #define STATUS_Y 25
@@ -36,6 +47,26 @@
 
 #define OUTPUT_X 75
 #define OUTPUT_Y 55
+
+
+// #define COL_1_X 5
+// #define LINE_0_Y 1
+// #define LINE_1_Y 21
+// #define LINE_2_Y 40
+// #define LINE_3_Y 59
+// #define LINE_4_Y 80
+
+// #define STATUS_X 5
+// #define STATUS_Y 25
+
+// #define STATUS_X_1 5
+// #define STATUS_Y_1 40
+
+// #define INPUT_X 5
+// #define INPUT_Y 40
+
+// #define OUTPUT_X 75
+// #define OUTPUT_Y 55
 
 
 //end of add your includes here

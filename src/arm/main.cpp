@@ -668,6 +668,7 @@ void setup()
 	Serial.println("MPR121 init exited");
 	#endif	
 	
+	// Check if a language has been selected, display initial choice screen if necessary
 	languageMenuInitially();
 	tftBlackScreen();
 

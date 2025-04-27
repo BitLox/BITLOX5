@@ -1092,16 +1092,17 @@ char *getInput(bool displayInput, bool initialSetup) {
 	  {
 		  if (caps)
 		  {
-			  //					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+			// theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
 		  }
 		  else
 		  {
-			  //					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+			theChar = keypad_noDisplay((8 * i) + INPUT_X, INPUT_Y);
+			// theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
 		  }
 	  }
 	  else
 	  {
-		  theChar = alphkeypad_3A8CnoDisplay((8 * i) + INPUT_X, INPUT_Y);
+		  theChar = keypad_noDisplay((8 * i) + INPUT_X, INPUT_Y);
 	  }
 
 	  if (initialSetup)
@@ -1185,10 +1186,10 @@ char *getInput(bool displayInput, bool initialSetup) {
 			  memset(&staticBuffer[0], 0, sizeof(staticBuffer));
 			  strncpy(staticBuffer, tempBuffer, i - 1);
 			  i = i - 2;
-			  if (display)
-			  {
-				  writeSelectedCharAndStringBlanking((8 * i) + INPUT_X, INPUT_Y, caps);
-			  }
+			//   if (display)
+			//   {
+			// 	  writeSelectedCharAndStringBlanking((8 * i) + INPUT_X, INPUT_Y, caps);
+			//   }
 		  }
 		  else if (theChar == '~' && (i == 0))
 		  {
@@ -1254,7 +1255,7 @@ char *getInputIndices(bool displayInput, bool initialSetup) {
 		}
 		else
 		{
-			theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+			theChar = keypad_noDisplay((8*i)+INPUT_X, INPUT_Y);
 		}
 
 if(initialSetup)
@@ -1406,7 +1407,7 @@ char *getInputAEM(bool displayInput, bool initialSetup)
 		}
 		else
 		{
-//			theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+//			theChar = keypad_noDisplay((8*i)+INPUT_X, INPUT_Y);
 		}
 
 
@@ -1519,7 +1520,7 @@ char *getInputVariable(bool displayInput, bool initialSetup, int numChars) {
 			}
 			else
 			{
-				theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+				theChar = keypad_noDisplay((8*i)+INPUT_X, INPUT_Y);
 			}
 
         if(initialSetup)
@@ -1659,7 +1660,7 @@ char *getInputWallets(bool displayInput, bool initialSetup) {
 		}
 		else
 		{
-			theChar = alphkeypad_3A8CnoDisplay((8*i)+INPUT_X, INPUT_Y);
+			theChar = keypad_noDisplay((8*i)+INPUT_X, INPUT_Y);
 		}
 
         if(initialSetup)
@@ -1935,7 +1936,7 @@ void checkHashes(char *buffer4, bool displayAlpha)
 
 void writeSelectedCharAndString(char currentChar, int current_x, int current_y, bool caps)
 {
-	initDisplay();
+	// initDisplay();
 //	writeEinkNoDisplaySingle("PRESS/HOLD/RELEASE",  5, 3);
 //	writeUnderline(5, 29, 195, 29);
 
@@ -1945,6 +1946,7 @@ void writeSelectedCharAndString(char currentChar, int current_x, int current_y, 
 		EPAPER.drawChar(currentChar, current_x, current_y);
 	}
 
+	delay(1000);
 	for(i=0;i<((current_x - INPUT_X)/8);i++)
 	{
 		EPAPER.drawChar('-', (8*i)+INPUT_X, INPUT_Y);
@@ -1954,13 +1956,13 @@ void writeSelectedCharAndString(char currentChar, int current_x, int current_y, 
 		drawCAPSLOCK(caps_lock_X,caps_lock_Y);
 	}
 
-	display();
+	// display();
 
 }
 
 void writeSelectedCharAndStringBlanking(int current_x, int current_y, bool caps)
 {
-	initDisplay();
+	// initDisplay();
 
 	int i;
 
@@ -1989,12 +1991,12 @@ void writeSelectedCharAndStringBlanking(int current_x, int current_y, bool caps)
 	{
 		drawCAPSLOCK(caps_lock_X,caps_lock_Y);
 	}
-	display();
+	// display();
 }
 
 void writeSelectedCharAndStringBlankingMnemonics(int current_x, int current_y, bool caps)
 {
-	initDisplay();
+	// initDisplay();
 
 	int i;
 
@@ -2023,13 +2025,13 @@ void writeSelectedCharAndStringBlankingMnemonics(int current_x, int current_y, b
 	{
 		drawCAPSLOCK(caps_lock_X,caps_lock_Y);
 	}
-	display();
+	// display();
 }
 
 
 void writeSelectedCharAndStringBlankingPlus(int current_x, int current_y)
 {
-	initDisplay();
+	// initDisplay();
 	writeEinkNoDisplaySingle("OK",  5, 3);
 	writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 
@@ -2048,7 +2050,7 @@ void writeSelectedCharAndStringBlankingPlus(int current_x, int current_y)
 //			drawCheck(3,85);
 //			drawX(180,87);
 //
-	display();
+	// display();
 }
 
 char alphkeypad_3A8C(int current_x, int current_y)
@@ -3135,7 +3137,7 @@ char alphkeypad_3A8C_CAPS(int current_x, int current_y)
 
 }//ALPHKEYPAD_3A8C_CAPS  ENDING
 
-char alphkeypad_3A8CnoDisplay(int current_x, int current_y)
+char keypad_noDisplay(int current_x, int current_y)
 {
 	int result;
 	char temp1;
@@ -3182,17 +3184,6 @@ char alphkeypad_3A8CnoDisplay(int current_x, int current_y)
 
 	return temp1;
 
-// 	pinMode(ROW_PIN_3, INPUT_PULLUP);
-// 	pinMode(ROW_PIN_2, INPUT_PULLUP);
-// 	pinMode(ROW_PIN_1, INPUT_PULLUP);
-// 	pinMode(COL_PIN_1, OUTPUT);
-// 	pinMode(COL_PIN_2, OUTPUT);
-// 	pinMode(COL_PIN_3, OUTPUT);
-// 	pinMode(COL_PIN_4, OUTPUT);
-// 	digitalWrite(COL_PIN_1, HIGH);
-// 	digitalWrite(COL_PIN_2, HIGH);
-// 	digitalWrite(COL_PIN_3, HIGH);
-// 	digitalWrite(COL_PIN_4, HIGH);
 
 // 	int recoverDelay = 1;
 // 	int postDelay = 5;
@@ -3218,7 +3209,7 @@ char alphkeypad_3A8CnoDisplay(int current_x, int current_y)
 //     while(digitalRead(ROW_PIN_3) == LOW){
 // 		if (digitalRead(ROW_PIN_3) == LOW) {
 // 		  selectedChar = hexaKeys[0][0][0];
-// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+		//   writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
 // //		  if (digitalRead(ROW_PIN_3) == LOW) {
 // //			selectedChar = hexaKeys[1][0][0];
 // //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
@@ -3539,4 +3530,4 @@ char alphkeypad_3A8CnoDisplay(int current_x, int current_y)
 //   }
 //   return selectedChar;
 
-}//ALPHKEYPAD_3A8CNoDisplay  ENDING
+}//keypad_noDisplay  ENDING

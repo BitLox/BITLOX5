@@ -2277,7 +2277,7 @@ bool userDenied(AskUserCommand command)
 				L"GO"  //IT
 		} ;
 
-		// What the hell is this? It's a kludge to get around the weird truncation message:%3C20250326215058.3.a36124ed5a09cb91@mg-d1.substack.com%3Eif it's already been formatted. Though in real life that's an edge case.
+		// What the hell is this? It's a kludge to get around the weird truncation if it's already been formatted. Though in real life that's an edge case.
 		static const wchar_t KLUDGE_line4[][2] = {
 			L".", //EN
 			L".", //DE
@@ -2338,10 +2338,8 @@ bool userDenied(AskUserCommand command)
 				L"ALPHA"  //IT
 		} ;
 
-		// waitForNoButtonPress();
-
-		// initDisplay();
-	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
+		
+		clearDisplay();
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_PIN_line0[lang], wcslen(ENTER_PIN_line0[lang]), COL_1_X, LINE_0_Y);
 //		writeUnderline(STRIPE_X_START, STRIPE_Y_START, STRIPE_X_END, STRIPE_Y_END);
 //		writeEinkDrawUnicodeSingle(str_ASKUSER_DESCRIBE_STANDARD_SETUP_line1_UNICODE_SIZED[lang][0], line1length, COL_1_X, LINE_2_Y);
@@ -2351,16 +2349,6 @@ bool userDenied(AskUserCommand command)
 		writeEinkDrawUnicodeSingle((unsigned int*)udALPHA_line0[lang], wcslen(udALPHA_line0[lang]), (DENY_X_START)-((zhSizer*wcslen(udALPHA_line0[lang]))*8), LINE_4_Y);
 
 		drawX(draw_X_X,draw_X_Y);
-//		drawCheck(draw_check_X,draw_check_Y);
-		// display();
-
-//		r = waitForButtonPress();
-//		if (!r){
-//			clearDisplay();
-//		}else{
-//			writeX_Screen();
-//			showReady();
-//		};
 	}
 	else if (command == ASKUSER_ENTER_TRANSACTION_PIN)
 	{
