@@ -19,6 +19,7 @@ void initKeypad(void);
 void getInput121(void);
 int getAndReturnInput(void);
 void cleanI2C(void);
+int getAndReturnInputPlusDisplay(int x, int y);
 
 #ifdef __cplusplus
 } // extern "C"

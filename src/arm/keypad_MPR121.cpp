@@ -145,3 +145,38 @@ int getAndReturnInput()
     }while(state);
     return result;
 }
+
+int getAndReturnInputPlusDisplay(int x, int y)
+{
+    int result;
+    int state = 1;
+    do
+    {
+        cleanI2C();
+        // Get the currently touched pads
+        currtouched = cap.touched();
+        for (uint8_t i = 0; i < 12; i++)
+        {
+            // it if *is* touched and *wasnt* touched before, alert!
+            if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
+            {
+                // Serial.print(i);
+                // Serial.println(" touched");
+            }
+            // if it *was* touched and now *isnt*, alert!
+            if (!(currtouched & _BV(i)) && (lasttouched & _BV(i)))
+            {
+                // Serial.print(i);
+                // Serial.println(" released");
+                state = 0;
+                result = i;
+            }
+        }
+
+        // reset our state
+        lasttouched = currtouched;
+
+        delay(100);
+    }while(state);
+    return result;
+}

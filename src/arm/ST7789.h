@@ -4,8 +4,12 @@
 // - extern variable definitions
 // In the appropriate section
 
-#ifndef _ST7789_H_
-#define _ST7789_H_
+#ifndef ST7789_H
+#define ST7789_H
+
+#define TFT_CS         10
+#define TFT_RST        11 // Or set to -1 and connect to Arduino RESET pin
+#define TFT_DC         6
 
 //add your includes here
 #define PIN_MAX_SIZE 20
