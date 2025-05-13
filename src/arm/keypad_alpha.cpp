@@ -1103,6 +1103,7 @@ char *getInput(bool displayInput, bool initialSetup) {
 	  {
 		theChar = alphkeypad_3A8CnoDisplay((8 * i) + INPUT_X, INPUT_Y);
 		// theChar = getAndReturnInputDisplay((8 * i) + INPUT_X, INPUT_Y);
+		// test
 	}
 
 	  if (initialSetup)
