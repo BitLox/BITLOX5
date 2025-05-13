@@ -14,7 +14,6 @@
 extern "C" {
 #endif
 
-
 // FUNCTION DECLARATIONS
 void loop(void);
 void setup(void);

@@ -21,12 +21,14 @@ BSD license, all text above must be included in any redistribution
  *      Author: thesquid
  */
 
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_MPR121.h>
 #include <string.h>
-#include "eink.h"
-// #include <Arduino.h>
+#include "main.h"
 #include "keypad.h"
+#include "eink.h"
 #include "nRF52_ePaper/due_ePaper.h"
-//#include "../sha2_trez.h"
 #include "usart.h"
 #include "BLE.h"
 #include "../storage_common.h"
@@ -35,19 +37,9 @@ BSD license, all text above must be included in any redistribution
 #include "../sha256.h"
 #include "../prandom.h"
 #include "lcd_and_input.h"
-// #include "main.h"
 #include "../stream_comm.h"
 #include "../common.h"
-// #include "ST7789.h"
-// #include "keypad.h"
-
 #include "../baseconv.h"
-
-#include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_MPR121.h>
-#include "main.h"
-#include "keypad.h"
 #include "ST7789.h"
 
 // Define capsLock
@@ -89,12 +81,6 @@ const char* keyMapCaps[12] = {
     "@@@@"    // Pad 11
 };
 
-// Caps lock state
-// bool capsLock = false; // False = lowercase, True = uppercase
-
-
-// #define DEBUG_MODE
-
 // You can have up to 4 on one i2c bus but one is enough for testing!
 Adafruit_MPR121 cap = Adafruit_MPR121();
 
@@ -105,15 +91,6 @@ uint16_t currtouched = 0;
 
 
 void initKeypad(void){
-    // Serial.begin(9600);
-
-    // while (!Serial)
-    // { // needed to keep leonardo/micro from starting too fast!
-    //     delay(10);
-    // }
-
-    // Serial.println("Adafruit MPR121 Capacitive Touch sensor test");
-
     // Default address is 0x5A, if tied to 3.3V its 0x5B
     // If tied to SDA its 0x5C and if SCL then 0x5D
     if (!cap.begin(0x5A))
@@ -121,14 +98,12 @@ void initKeypad(void){
         #ifdef DEBUG_MODE
         Serial.println("MPR121 not found, check wiring?");
         #endif
-        // while (1)
-        //     ;
     }
     else
     {
-            #ifdef DEBUG_MODE
-            Serial.println("MPR121 found!");
-            #endif
+        #ifdef DEBUG_MODE
+        Serial.println("MPR121 found!");
+        #endif
     }
 }
 
@@ -323,25 +298,18 @@ int getAndReturnInputPlusDisplay(int x, int y)
     return result;
 }
 
+// const byte DEPTH = 4;
+// const byte COLS = 3; //three columns
+// const byte ROWS = 4; //four rows
 
 
-// char *mnemonic_input(void);
-// char alphkeypad_noNumbers_3A8C(int current_x, int current_y);
-// void writeSelectedCharAndStringBlankingMnemonics(int current_x, int current_y, bool caps);
-
-
-const byte DEPTH = 4;
-const byte COLS = 3; //three columns
-const byte ROWS = 4; //four rows
-
-
-#define ROW_PIN_1      22
-#define ROW_PIN_2      23
-#define ROW_PIN_3      24
-#define COL_PIN_1      18
-#define COL_PIN_2      19
-#define COL_PIN_3      20
-#define COL_PIN_4      21
+// #define ROW_PIN_1      22
+// #define ROW_PIN_2      23
+// #define ROW_PIN_3      24
+// #define COL_PIN_1      18
+// #define COL_PIN_2      19
+// #define COL_PIN_3      20
+// #define COL_PIN_4      21
 
 //define the symbols on the buttons of the keypads
 //char hexaKeys_plastic[DEPTH][COLS][ROWS] = {
@@ -368,99 +336,99 @@ const byte ROWS = 4; //four rows
 //};
 //
 
-const char hexaKeys[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'p', '^', 'y'},
-    {'v', 's', 'm', 'j'},
-    {'g', 'd', 'a', '~'}
-  },
-  {
-    {'@', 'q', '^', 'z'},
-    {'w', 't', 'n', 'k'},
-    {'h', 'e', 'b', '~'}
-  },
-  {
-    {'@', 'r', '^', 'z'},
-    {'x', 'u', 'o', 'l'},
-    {'i', 'f', 'c', '~'}
-  }
-};
+// const char hexaKeys[DEPTH][COLS][ROWS] = {
+//   {
+//     {'@', '6', '0', '9'},
+//     {'8', '7', '5', '4'},
+//     {'3', '2', '1', '~'}
+//   },
+//   {
+//     {'@', 'p', '^', 'y'},
+//     {'v', 's', 'm', 'j'},
+//     {'g', 'd', 'a', '~'}
+//   },
+//   {
+//     {'@', 'q', '^', 'z'},
+//     {'w', 't', 'n', 'k'},
+//     {'h', 'e', 'b', '~'}
+//   },
+//   {
+//     {'@', 'r', '^', 'z'},
+//     {'x', 'u', 'o', 'l'},
+//     {'i', 'f', 'c', '~'}
+//   }
+// };
 
-const char hexaKeysCAPS[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'P', '^', 'Y'},
-    {'V', 'S', 'M', 'J'},
-    {'G', 'D', 'A', '~'}
-  },
-  {
-    {'@', 'Q', '^', 'Z'},
-    {'W', 'T', 'N', 'K'},
-    {'H', 'E', 'B', '~'}
-  },
-  {
-    {'@', 'R', '^', 'Z'},
-    {'X', 'U', 'O', 'L'},
-    {'I', 'F', 'C', '~'}
-  }
-};
+// const char hexaKeysCAPS[DEPTH][COLS][ROWS] = {
+//   {
+//     {'@', '6', '0', '9'},
+//     {'8', '7', '5', '4'},
+//     {'3', '2', '1', '~'}
+//   },
+//   {
+//     {'@', 'P', '^', 'Y'},
+//     {'V', 'S', 'M', 'J'},
+//     {'G', 'D', 'A', '~'}
+//   },
+//   {
+//     {'@', 'Q', '^', 'Z'},
+//     {'W', 'T', 'N', 'K'},
+//     {'H', 'E', 'B', '~'}
+//   },
+//   {
+//     {'@', 'R', '^', 'Z'},
+//     {'X', 'U', 'O', 'L'},
+//     {'I', 'F', 'C', '~'}
+//   }
+// };
 
-const char hexaKeysPlusSpace[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'p', '^', 'y'},
-    {'v', 's', 'm', 'j'},
-    {'g', 'd', 'a', '~'}
-  },
-  {
-    {'@', 'q', '_', 'z'},
-    {'w', 't', 'n', 'k'},
-    {'h', 'e', 'b', '~'}
-  },
-  {
-    {'@', 'r', '^', 'z'},
-    {'x', 'u', 'o', 'l'},
-    {'i', 'f', 'c', '~'}
-  }
-};
+// const char hexaKeysPlusSpace[DEPTH][COLS][ROWS] = {
+//   {
+//     {'@', '6', '0', '9'},
+//     {'8', '7', '5', '4'},
+//     {'3', '2', '1', '~'}
+//   },
+//   {
+//     {'@', 'p', '^', 'y'},
+//     {'v', 's', 'm', 'j'},
+//     {'g', 'd', 'a', '~'}
+//   },
+//   {
+//     {'@', 'q', '_', 'z'},
+//     {'w', 't', 'n', 'k'},
+//     {'h', 'e', 'b', '~'}
+//   },
+//   {
+//     {'@', 'r', '^', 'z'},
+//     {'x', 'u', 'o', 'l'},
+//     {'i', 'f', 'c', '~'}
+//   }
+// };
 
-const char hexaKeysCAPSPlusSpace[DEPTH][COLS][ROWS] = {
-  {
-    {'@', '6', '0', '9'},
-    {'8', '7', '5', '4'},
-    {'3', '2', '1', '~'}
-  },
-  {
-    {'@', 'P', '^', 'Y'},
-    {'V', 'S', 'M', 'J'},
-    {'G', 'D', 'A', '~'}
-  },
-  {
-    {'@', 'Q', '_', 'Z'},
-    {'W', 'T', 'N', 'K'},
-    {'H', 'E', 'B', '~'}
-  },
-  {
-    {'@', 'R', '^', 'Z'},
-    {'X', 'U', 'O', 'L'},
-    {'I', 'F', 'C', '~'}
-  }
-};
+// const char hexaKeysCAPSPlusSpace[DEPTH][COLS][ROWS] = {
+//   {
+//     {'@', '6', '0', '9'},
+//     {'8', '7', '5', '4'},
+//     {'3', '2', '1', '~'}
+//   },
+//   {
+//     {'@', 'P', '^', 'Y'},
+//     {'V', 'S', 'M', 'J'},
+//     {'G', 'D', 'A', '~'}
+//   },
+//   {
+//     {'@', 'Q', '_', 'Z'},
+//     {'W', 'T', 'N', 'K'},
+//     {'H', 'E', 'B', '~'}
+//   },
+//   {
+//     {'@', 'R', '^', 'Z'},
+//     {'X', 'U', 'O', 'L'},
+//     {'I', 'F', 'C', '~'}
+//   }
+// };
 
-const int keyDelay = 50;
+// const int keyDelay = 50;
 
 
 int signum (int x) {
@@ -1546,10 +1514,10 @@ char *getInputIndices(bool displayInput, bool initialSetup) {
 		{
 		if(capsLock)
 			{
-				theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+				theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 			}else
 			{
-				theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+				theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 			}
 		}
 		else
@@ -1697,11 +1665,11 @@ char *getInputAEM(bool displayInput, bool initialSetup)
 		{
 			if(capsLock)
 			{
-//				theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+				// theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 			}
 			else
 			{
-//				theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+				// theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 			}
 		}
 		else
@@ -1811,10 +1779,10 @@ char *getInputVariable(bool displayInput, bool initialSetup, int numChars) {
 			{
         	if(capsLock)
 				{
-					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+					theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 				}else
 				{
-					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+					theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 				}
 			}
 			else
@@ -1951,10 +1919,10 @@ char *getInputWallets(bool displayInput, bool initialSetup) {
 		{
 			if(capsLock)
 				{
-					theChar = alphkeypad_3A8C_CAPS((8*i)+INPUT_X, INPUT_Y);
+					theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 				}else
 				{
-					theChar = alphkeypad_3A8C((8*i)+INPUT_X, INPUT_Y);
+					theChar = getAndReturnInputDisplay((8*i)+INPUT_X, INPUT_Y);
 				}
 		}
 		else
@@ -2351,1089 +2319,1089 @@ void writeSelectedCharAndStringBlankingPlus(int current_x, int current_y)
 	display();
 }
 
-char alphkeypad_3A8C(int current_x, int current_y)
-{
-	pinMode(ROW_PIN_3, INPUT_PULLUP);
-	pinMode(ROW_PIN_2, INPUT_PULLUP);
-	pinMode(ROW_PIN_1, INPUT_PULLUP);
-	pinMode(COL_PIN_1, OUTPUT);
-	pinMode(COL_PIN_2, OUTPUT);
-	pinMode(COL_PIN_3, OUTPUT);
-	pinMode(COL_PIN_4, OUTPUT);
-	digitalWrite(COL_PIN_1, HIGH);
-	digitalWrite(COL_PIN_2, HIGH);
-	digitalWrite(COL_PIN_3, HIGH);
-	digitalWrite(COL_PIN_4, HIGH);
-
-	int recoverDelay = 1;
-	int postDelay = 5;
-	bool displayOrNot = true;
-	char selectedChar;
-
-	bool caps = false;
-
-	char a = 'a';
-
-  while (a != 'c') {
-
-
-
-
-    //  @
-    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeys[0][0][0];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_3) == LOW) {
-//			selectedChar = hexaKeys[1][0][0];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-////			if (digitalRead(ROW_PIN_3) == LOW) {
-////			  selectedChar = hexaKeys[2][0][0];
-////			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//////			  if (digitalRead(ROW_PIN_3) == LOW) {
-//////				selectedChar = hexaKeys[3][0][0];
-//////				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//////			  }
-////			}
-//		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  4
-//    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeys[0][1][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-    //   8 hexaKeys[0][2][0]
-//    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeys[0][2][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeys[1][2][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-			  selectedChar = hexaKeys[2][2][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeys[3][2][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-    //   @ hexaKeys[0][0][1]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeys[0][0][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeys[1][0][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeys[2][0][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_3) == LOW) {
-				selectedChar = hexaKeys[3][0][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //     5  hexaKeys[0][1][1]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeys[0][1][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //     9  hexaKeys[0][2][1]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeys[0][2][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeys[1][2][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-			  selectedChar = hexaKeys[2][2][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeys[3][2][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-
-    //      9  hexaKeys[0][0][2]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeys[0][0][2];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeys[1][0][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			if (digitalRead(ROW_PIN_3) == LOW) {
-//			  selectedChar = hexaKeys[2][0][2];
-//			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_3) == LOW) {
-//				selectedChar = hexaKeys[3][0][2];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-//			}
-		  }
-		}
-      a = 'c'   ;
-    }
-	delay(recoverDelay);
-
-
-
-    //     6  hexaKeys[0][1][2]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeys[0][1][2];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][2];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  Y=@  hexaKeys[0][2][2]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-	while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeys[0][2][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeys[1][2][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-				if (digitalRead(ROW_PIN_1) == LOW) {
-					selectedChar = hexaKeys[2][2][2];
-					writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-					if (digitalRead(ROW_PIN_1) == LOW) {
-						selectedChar = hexaKeys[3][2][2];
-						writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-					}
-				}
-			}
-		}
-		a = 'c';
-	}
-	delay(recoverDelay);
-
-
-
-
-    //  3  hexaKeys[0][0][3]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeys[0][0][3];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeys[1][0][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeys[2][0][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_3) == LOW) {
-//				selectedChar = hexaKeys[3][0][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  7  hexaKeys[0][1][3]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeys[0][1][3];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][3];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-	//  N  hexaKeys[0][2][3]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeys[0][2][3];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_1) == LOW) {
-//			selectedChar = hexaKeys[1][2][3];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			if (digitalRead(ROW_PIN_1) == LOW) {
-//			  selectedChar = hexaKeys[2][2][3];
-//			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_1) == LOW) {
-//				selectedChar = hexaKeys[3][2][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-//			}
-//		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-  }//WHILE ENDING
-  if(selectedChar == '@')
-  {
-//	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
-  }
-  else if(selectedChar == '~')
-  {
-	  return selectedChar;
-  }
-  else if(selectedChar == '^')
-  {
-	  return selectedChar;
-  }
-  else
-  {
-	  writeSelectedCharAndStringBlanking(current_x, current_y, caps);
-  }
-  return selectedChar;
-
-}//ALPHKEYPAD_3A8C  ENDING
-
-
-char alphkeypad_noNumbers_3A8C(int current_x, int current_y)
-{
-	pinMode(ROW_PIN_3, INPUT_PULLUP);
-	pinMode(ROW_PIN_2, INPUT_PULLUP);
-	pinMode(ROW_PIN_1, INPUT_PULLUP);
-	pinMode(COL_PIN_1, OUTPUT);
-	pinMode(COL_PIN_2, OUTPUT);
-	pinMode(COL_PIN_3, OUTPUT);
-	pinMode(COL_PIN_4, OUTPUT);
-	digitalWrite(COL_PIN_1, HIGH);
-	digitalWrite(COL_PIN_2, HIGH);
-	digitalWrite(COL_PIN_3, HIGH);
-	digitalWrite(COL_PIN_4, HIGH);
-
-	int recoverDelay = 1;
-	int postDelay = 5;
-	bool displayOrNot = true;
-	char selectedChar;
-
-	bool caps = false;
-
-	char a = 'a';
-
-  while (a != 'c') {
-
-
-
-
-    //  @
-    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeys[0][0][0];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_3) == LOW) {
-//			selectedChar = hexaKeys[1][0][0];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-////			if (digitalRead(ROW_PIN_3) == LOW) {
-////			  selectedChar = hexaKeys[2][0][0];
-////			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//////			  if (digitalRead(ROW_PIN_3) == LOW) {
-//////				selectedChar = hexaKeys[3][0][0];
-//////				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//////			  }
-////			}
-//		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  4
-//    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-//		if (digitalRead(ROW_PIN_2) == LOW) {
-//		  selectedChar = hexaKeys[0][1][0];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-    //   8 hexaKeys[0][2][0]
-//    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_1) == LOW){
-//		if (digitalRead(ROW_PIN_1) == LOW) {
-//		  selectedChar = hexaKeys[0][2][0];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeys[1][2][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-			  selectedChar = hexaKeys[2][2][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeys[3][2][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-    //   @ hexaKeys[0][0][1]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-//		if (digitalRead(ROW_PIN_3) == LOW) {
-//		  selectedChar = hexaKeys[0][0][1];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeys[1][0][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeys[2][0][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_3) == LOW) {
-				selectedChar = hexaKeys[3][0][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //     5  hexaKeys[0][1][1]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-//		if (digitalRead(ROW_PIN_2) == LOW) {
-//		  selectedChar = hexaKeys[0][1][1];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //     9  hexaKeys[0][2][1]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_1) == LOW){
-//		if (digitalRead(ROW_PIN_1) == LOW) {
-//		  selectedChar = hexaKeys[0][2][1];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeys[1][2][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-			  selectedChar = hexaKeys[2][2][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeys[3][2][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-
-    //      0  hexaKeys[0][0][2]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-//		if (digitalRead(ROW_PIN_3) == LOW) {
-//		  selectedChar = hexaKeys[0][0][2];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_3) == LOW) {
-//			selectedChar = hexaKeys[1][0][2];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			if (digitalRead(ROW_PIN_3) == LOW) {
-//			  selectedChar = hexaKeys[2][0][2];
-//			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_3) == LOW) {
-//				selectedChar = hexaKeys[3][0][2];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-//			}
-//		  }
-//		}
-      a = 'c'   ;
-    }
-	delay(recoverDelay);
-
-
-
-    //     6  hexaKeys[0][1][2]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-//		if (digitalRead(ROW_PIN_2) == LOW) {
-//		  selectedChar = hexaKeys[0][1][2];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][2];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  Y=@  hexaKeys[0][2][2]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-	while(digitalRead(ROW_PIN_1) == LOW){
-//		if (digitalRead(ROW_PIN_1) == LOW) {
-//			selectedChar = hexaKeys[0][2][2];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeys[1][2][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-				if (digitalRead(ROW_PIN_1) == LOW) {
-					selectedChar = hexaKeys[2][2][2];
-					writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-					if (digitalRead(ROW_PIN_1) == LOW) {
-						selectedChar = hexaKeys[3][2][2];
-						writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-					}
-				}
-//			}
-		}
-		a = 'c';
-	}
-	delay(recoverDelay);
-
-
-
-
-    //  3  hexaKeys[0][0][3]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-//		if (digitalRead(ROW_PIN_3) == LOW) {
-//		  selectedChar = hexaKeys[0][0][3];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeys[1][0][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeys[2][0][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_3) == LOW) {
-//				selectedChar = hexaKeys[3][0][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  7  hexaKeys[0][1][3]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-    while(digitalRead(ROW_PIN_2) == LOW){
-//		if (digitalRead(ROW_PIN_2) == LOW) {
-//		  selectedChar = hexaKeys[0][1][3];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeys[1][1][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeys[2][1][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeys[3][1][3];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-//		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-	//  N  hexaKeys[0][2][3]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeys[0][2][3];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_1) == LOW) {
-//			selectedChar = hexaKeys[1][2][3];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			if (digitalRead(ROW_PIN_1) == LOW) {
-//			  selectedChar = hexaKeys[2][2][3];
-//			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_1) == LOW) {
-//				selectedChar = hexaKeys[3][2][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-//			}
-//		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-  }//WHILE ENDING
-  if(selectedChar == '@')
-  {
-//	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
-  }
-  else if(selectedChar == '~')
-  {
-	  return selectedChar;
-  }
-  else if(selectedChar == '^')
-  {
-	  return selectedChar;
-  }
-  else
-  {
-	  writeSelectedCharAndStringBlanking(current_x, current_y, caps);
-  }
-  return selectedChar;
-
-}//ALPHKEYPAD_3A8C_NO_NUMBERS  ENDING
-
-
-char alphkeypad_3A8C_CAPS(int current_x, int current_y)
-{
-	pinMode(ROW_PIN_3, INPUT_PULLUP);
-	pinMode(ROW_PIN_2, INPUT_PULLUP);
-	pinMode(ROW_PIN_1, INPUT_PULLUP);
-	pinMode(COL_PIN_1, OUTPUT);
-	pinMode(COL_PIN_2, OUTPUT);
-	pinMode(COL_PIN_3, OUTPUT);
-	pinMode(COL_PIN_4, OUTPUT);
-	digitalWrite(COL_PIN_1, HIGH);
-	digitalWrite(COL_PIN_2, HIGH);
-	digitalWrite(COL_PIN_3, HIGH);
-	digitalWrite(COL_PIN_4, HIGH);
-
-	int recoverDelay = 1;
-	int postDelay = 5;
-	bool displayOrNot = true;
-	char selectedChar;
-
-	bool caps = true;
-
-	char a = 'a';
-
-  while (a != 'c') {
-
-
-
-
-    //  @
-    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][0][0];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_3) == LOW) {
-//			selectedChar = hexaKeys[1][0][0];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-////			if (digitalRead(ROW_PIN_3) == LOW) {
-////			  selectedChar = hexaKeys[2][0][0];
-////			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//////			  if (digitalRead(ROW_PIN_3) == LOW) {
-//////				selectedChar = hexaKeys[3][0][0];
-//////				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
-//////			  }
-////			}
-//		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  4
-//    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][1][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeysCAPS[1][1][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][1][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeysCAPS[3][1][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-    //   8 hexaKeys[0][2][0]
-//    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][2][0];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeysCAPS[1][2][0];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][2][0];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeysCAPS[3][2][0];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-    //   @ hexaKeys[0][0][1]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][0][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeysCAPS[1][0][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][0][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_3) == LOW) {
-				selectedChar = hexaKeysCAPS[3][0][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //     5  hexaKeys[0][1][1]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][1][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeysCAPS[1][1][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][1][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeysCAPS[3][1][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //     9  hexaKeys[0][2][1]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][2][1];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeysCAPS[1][2][1];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][2][1];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeysCAPS[3][2][1];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-
-    //      9  hexaKeys[0][0][2]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][0][2];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeysCAPS[1][0][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][0][2];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_3) == LOW) {
-				selectedChar = hexaKeysCAPS[3][0][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c'   ;
-    }
-	delay(recoverDelay);
-
-
-
-    //     6  hexaKeys[0][1][2]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][1][2];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeysCAPS[1][1][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][1][2];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeysCAPS[3][1][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  Y=@  hexaKeys[0][2][2]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
-	while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-			selectedChar = hexaKeysCAPS[0][2][2];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_1) == LOW) {
-				selectedChar = hexaKeysCAPS[1][2][2];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-				if (digitalRead(ROW_PIN_1) == LOW) {
-					selectedChar = hexaKeysCAPS[2][2][2];
-					writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-					if (digitalRead(ROW_PIN_1) == LOW) {
-						selectedChar = hexaKeysCAPS[3][2][2];
-						writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-					}
-				}
-			}
-		}
-		a = 'c';
-	}
-	delay(recoverDelay);
-
-
-
-
-    //  3  hexaKeys[0][0][3]
-    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-	delay(postDelay);
-    while(digitalRead(ROW_PIN_3) == LOW){
-		if (digitalRead(ROW_PIN_3) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][0][3];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_3) == LOW) {
-			selectedChar = hexaKeysCAPS[1][0][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_3) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][0][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_3) == LOW) {
-//				selectedChar = hexaKeysCAPS[3][0][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-    //  7  hexaKeys[0][1][3]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-    while(digitalRead(ROW_PIN_2) == LOW){
-		if (digitalRead(ROW_PIN_2) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][1][3];
-		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-		  if (digitalRead(ROW_PIN_2) == LOW) {
-			selectedChar = hexaKeysCAPS[1][1][3];
-			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			if (digitalRead(ROW_PIN_2) == LOW) {
-			  selectedChar = hexaKeysCAPS[2][1][3];
-			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  if (digitalRead(ROW_PIN_2) == LOW) {
-				selectedChar = hexaKeysCAPS[3][1][3];
-				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-			  }
-			}
-		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-	//  N  hexaKeys[0][2][3]
-//    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
-//    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
-    while(digitalRead(ROW_PIN_1) == LOW){
-		if (digitalRead(ROW_PIN_1) == LOW) {
-		  selectedChar = hexaKeysCAPS[0][2][3];
-//		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//		  if (digitalRead(ROW_PIN_1) == LOW) {
-//			selectedChar = hexaKeysCAPS[1][2][3];
-//			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			if (digitalRead(ROW_PIN_1) == LOW) {
-//			  selectedChar = hexaKeysCAPS[2][2][3];
-//			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  if (digitalRead(ROW_PIN_1) == LOW) {
-//				selectedChar = hexaKeysCAPS[3][2][3];
-//				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
-//			  }
-//			}
-//		  }
-		}
-      a = 'c';
-    }
-	delay(recoverDelay);
-
-
-
-
-  }//WHILE ENDING
-  if(selectedChar == '@')
-  {
-//	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
-  }
-  else if(selectedChar == '~')
-  {
-	  return selectedChar;
-  }
-  else
-  {
-	  writeSelectedCharAndStringBlanking(current_x, current_y, caps);
-  }
-  return selectedChar;
-
-}//ALPHKEYPAD_3A8C_CAPS  ENDING
+// char alphkeypad_3A8C(int current_x, int current_y)
+// {
+// 	pinMode(ROW_PIN_3, INPUT_PULLUP);
+// 	pinMode(ROW_PIN_2, INPUT_PULLUP);
+// 	pinMode(ROW_PIN_1, INPUT_PULLUP);
+// 	pinMode(COL_PIN_1, OUTPUT);
+// 	pinMode(COL_PIN_2, OUTPUT);
+// 	pinMode(COL_PIN_3, OUTPUT);
+// 	pinMode(COL_PIN_4, OUTPUT);
+// 	digitalWrite(COL_PIN_1, HIGH);
+// 	digitalWrite(COL_PIN_2, HIGH);
+// 	digitalWrite(COL_PIN_3, HIGH);
+// 	digitalWrite(COL_PIN_4, HIGH);
+
+// 	int recoverDelay = 1;
+// 	int postDelay = 5;
+// 	bool displayOrNot = true;
+// 	char selectedChar;
+
+// 	bool caps = false;
+
+// 	char a = 'a';
+
+//   while (a != 'c') {
+
+
+
+
+//     //  @
+//     digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeys[0][0][0];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_3) == LOW) {
+// //			selectedChar = hexaKeys[1][0][0];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// ////			if (digitalRead(ROW_PIN_3) == LOW) {
+// ////			  selectedChar = hexaKeys[2][0][0];
+// ////			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //////			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //////				selectedChar = hexaKeys[3][0][0];
+// //////				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //////			  }
+// ////			}
+// //		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  4
+// //    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeys[0][1][0];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][0];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][0];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][0];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+//     //   8 hexaKeys[0][2][0]
+// //    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeys[0][2][0];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeys[1][2][0];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 			  selectedChar = hexaKeys[2][2][0];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeys[3][2][0];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+//     //   @ hexaKeys[0][0][1]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeys[0][0][1];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeys[1][0][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeys[2][0][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_3) == LOW) {
+// 				selectedChar = hexaKeys[3][0][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //     5  hexaKeys[0][1][1]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeys[0][1][1];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //     9  hexaKeys[0][2][1]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeys[0][2][1];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeys[1][2][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 			  selectedChar = hexaKeys[2][2][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeys[3][2][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+
+//     //      9  hexaKeys[0][0][2]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeys[0][0][2];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeys[1][0][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			if (digitalRead(ROW_PIN_3) == LOW) {
+// //			  selectedChar = hexaKeys[2][0][2];
+// //			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //				selectedChar = hexaKeys[3][0][2];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// //			}
+// 		  }
+// 		}
+//       a = 'c'   ;
+//     }
+// 	delay(recoverDelay);
+
+
+
+//     //     6  hexaKeys[0][1][2]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeys[0][1][2];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][2];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  Y=@  hexaKeys[0][2][2]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+// 	while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeys[0][2][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeys[1][2][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 				if (digitalRead(ROW_PIN_1) == LOW) {
+// 					selectedChar = hexaKeys[2][2][2];
+// 					writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 					if (digitalRead(ROW_PIN_1) == LOW) {
+// 						selectedChar = hexaKeys[3][2][2];
+// 						writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 					}
+// 				}
+// 			}
+// 		}
+// 		a = 'c';
+// 	}
+// 	delay(recoverDelay);
+
+
+
+
+//     //  3  hexaKeys[0][0][3]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeys[0][0][3];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeys[1][0][3];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeys[2][0][3];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //				selectedChar = hexaKeys[3][0][3];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  7  hexaKeys[0][1][3]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeys[0][1][3];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][3];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][3];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][3];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+// 	//  N  hexaKeys[0][2][3]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeys[0][2][3];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_1) == LOW) {
+// //			selectedChar = hexaKeys[1][2][3];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			if (digitalRead(ROW_PIN_1) == LOW) {
+// //			  selectedChar = hexaKeys[2][2][3];
+// //			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_1) == LOW) {
+// //				selectedChar = hexaKeys[3][2][3];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// //			}
+// //		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+//   }//WHILE ENDING
+//   if(selectedChar == '@')
+//   {
+// //	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
+//   }
+//   else if(selectedChar == '~')
+//   {
+// 	  return selectedChar;
+//   }
+//   else if(selectedChar == '^')
+//   {
+// 	  return selectedChar;
+//   }
+//   else
+//   {
+// 	  writeSelectedCharAndStringBlanking(current_x, current_y, caps);
+//   }
+//   return selectedChar;
+
+// }//ALPHKEYPAD_3A8C  ENDING
+
+
+// char alphkeypad_noNumbers_3A8C(int current_x, int current_y)
+// {
+// 	pinMode(ROW_PIN_3, INPUT_PULLUP);
+// 	pinMode(ROW_PIN_2, INPUT_PULLUP);
+// 	pinMode(ROW_PIN_1, INPUT_PULLUP);
+// 	pinMode(COL_PIN_1, OUTPUT);
+// 	pinMode(COL_PIN_2, OUTPUT);
+// 	pinMode(COL_PIN_3, OUTPUT);
+// 	pinMode(COL_PIN_4, OUTPUT);
+// 	digitalWrite(COL_PIN_1, HIGH);
+// 	digitalWrite(COL_PIN_2, HIGH);
+// 	digitalWrite(COL_PIN_3, HIGH);
+// 	digitalWrite(COL_PIN_4, HIGH);
+
+// 	int recoverDelay = 1;
+// 	int postDelay = 5;
+// 	bool displayOrNot = true;
+// 	char selectedChar;
+
+// 	bool caps = false;
+
+// 	char a = 'a';
+
+//   while (a != 'c') {
+
+
+
+
+//     //  @
+//     digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeys[0][0][0];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_3) == LOW) {
+// //			selectedChar = hexaKeys[1][0][0];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// ////			if (digitalRead(ROW_PIN_3) == LOW) {
+// ////			  selectedChar = hexaKeys[2][0][0];
+// ////			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //////			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //////				selectedChar = hexaKeys[3][0][0];
+// //////				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //////			  }
+// ////			}
+// //		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  4
+// //    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// //		if (digitalRead(ROW_PIN_2) == LOW) {
+// //		  selectedChar = hexaKeys[0][1][0];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][0];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][0];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][0];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+//     //   8 hexaKeys[0][2][0]
+// //    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// //		if (digitalRead(ROW_PIN_1) == LOW) {
+// //		  selectedChar = hexaKeys[0][2][0];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeys[1][2][0];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 			  selectedChar = hexaKeys[2][2][0];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeys[3][2][0];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+//     //   @ hexaKeys[0][0][1]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// //		if (digitalRead(ROW_PIN_3) == LOW) {
+// //		  selectedChar = hexaKeys[0][0][1];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeys[1][0][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeys[2][0][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_3) == LOW) {
+// 				selectedChar = hexaKeys[3][0][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //     5  hexaKeys[0][1][1]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// //		if (digitalRead(ROW_PIN_2) == LOW) {
+// //		  selectedChar = hexaKeys[0][1][1];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //     9  hexaKeys[0][2][1]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// //		if (digitalRead(ROW_PIN_1) == LOW) {
+// //		  selectedChar = hexaKeys[0][2][1];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeys[1][2][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 			  selectedChar = hexaKeys[2][2][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeys[3][2][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+
+//     //      0  hexaKeys[0][0][2]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// //		if (digitalRead(ROW_PIN_3) == LOW) {
+// //		  selectedChar = hexaKeys[0][0][2];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_3) == LOW) {
+// //			selectedChar = hexaKeys[1][0][2];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			if (digitalRead(ROW_PIN_3) == LOW) {
+// //			  selectedChar = hexaKeys[2][0][2];
+// //			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //				selectedChar = hexaKeys[3][0][2];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// //			}
+// //		  }
+// //		}
+//       a = 'c'   ;
+//     }
+// 	delay(recoverDelay);
+
+
+
+//     //     6  hexaKeys[0][1][2]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// //		if (digitalRead(ROW_PIN_2) == LOW) {
+// //		  selectedChar = hexaKeys[0][1][2];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][2];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  Y=@  hexaKeys[0][2][2]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+// 	while(digitalRead(ROW_PIN_1) == LOW){
+// //		if (digitalRead(ROW_PIN_1) == LOW) {
+// //			selectedChar = hexaKeys[0][2][2];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeys[1][2][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 				if (digitalRead(ROW_PIN_1) == LOW) {
+// 					selectedChar = hexaKeys[2][2][2];
+// 					writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 					if (digitalRead(ROW_PIN_1) == LOW) {
+// 						selectedChar = hexaKeys[3][2][2];
+// 						writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 					}
+// 				}
+// //			}
+// 		}
+// 		a = 'c';
+// 	}
+// 	delay(recoverDelay);
+
+
+
+
+//     //  3  hexaKeys[0][0][3]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// //		if (digitalRead(ROW_PIN_3) == LOW) {
+// //		  selectedChar = hexaKeys[0][0][3];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeys[1][0][3];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeys[2][0][3];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //				selectedChar = hexaKeys[3][0][3];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  7  hexaKeys[0][1][3]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// //		if (digitalRead(ROW_PIN_2) == LOW) {
+// //		  selectedChar = hexaKeys[0][1][3];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeys[1][1][3];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeys[2][1][3];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeys[3][1][3];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// //		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+// 	//  N  hexaKeys[0][2][3]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeys[0][2][3];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_1) == LOW) {
+// //			selectedChar = hexaKeys[1][2][3];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			if (digitalRead(ROW_PIN_1) == LOW) {
+// //			  selectedChar = hexaKeys[2][2][3];
+// //			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_1) == LOW) {
+// //				selectedChar = hexaKeys[3][2][3];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// //			}
+// //		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+//   }//WHILE ENDING
+//   if(selectedChar == '@')
+//   {
+// //	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
+//   }
+//   else if(selectedChar == '~')
+//   {
+// 	  return selectedChar;
+//   }
+//   else if(selectedChar == '^')
+//   {
+// 	  return selectedChar;
+//   }
+//   else
+//   {
+// 	  writeSelectedCharAndStringBlanking(current_x, current_y, caps);
+//   }
+//   return selectedChar;
+
+// }//ALPHKEYPAD_3A8C_NO_NUMBERS  ENDING
+
+
+// char alphkeypad_3A8C_CAPS(int current_x, int current_y)
+// {
+// 	pinMode(ROW_PIN_3, INPUT_PULLUP);
+// 	pinMode(ROW_PIN_2, INPUT_PULLUP);
+// 	pinMode(ROW_PIN_1, INPUT_PULLUP);
+// 	pinMode(COL_PIN_1, OUTPUT);
+// 	pinMode(COL_PIN_2, OUTPUT);
+// 	pinMode(COL_PIN_3, OUTPUT);
+// 	pinMode(COL_PIN_4, OUTPUT);
+// 	digitalWrite(COL_PIN_1, HIGH);
+// 	digitalWrite(COL_PIN_2, HIGH);
+// 	digitalWrite(COL_PIN_3, HIGH);
+// 	digitalWrite(COL_PIN_4, HIGH);
+
+// 	int recoverDelay = 1;
+// 	int postDelay = 5;
+// 	bool displayOrNot = true;
+// 	char selectedChar;
+
+// 	bool caps = true;
+
+// 	char a = 'a';
+
+//   while (a != 'c') {
+
+
+
+
+//     //  @
+//     digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][0][0];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_3) == LOW) {
+// //			selectedChar = hexaKeys[1][0][0];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// ////			if (digitalRead(ROW_PIN_3) == LOW) {
+// ////			  selectedChar = hexaKeys[2][0][0];
+// ////			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //////			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //////				selectedChar = hexaKeys[3][0][0];
+// //////				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);       delay(keyDelay);
+// //////			  }
+// ////			}
+// //		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  4
+// //    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][1][0];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][1][0];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][1][0];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][1][0];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+//     //   8 hexaKeys[0][2][0]
+// //    digitalWrite(COL_PIN_1, LOW); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][2][0];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][2][0];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][2][0];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][2][0];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+//     //   @ hexaKeys[0][0][1]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][0][1];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][0][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][0][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_3) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][0][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //     5  hexaKeys[0][1][1]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][1][1];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][1][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][1][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][1][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //     9  hexaKeys[0][2][1]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, LOW);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][2][1];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][2][1];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][2][1];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][2][1];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+
+//     //      9  hexaKeys[0][0][2]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][0][2];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][0][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][0][2];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_3) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][0][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c'   ;
+//     }
+// 	delay(recoverDelay);
+
+
+
+//     //     6  hexaKeys[0][1][2]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][1][2];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][1][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][1][2];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][1][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  Y=@  hexaKeys[0][2][2]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, LOW); digitalWrite(COL_PIN_4, HIGH);
+// 	while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 			selectedChar = hexaKeysCAPS[0][2][2];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_1) == LOW) {
+// 				selectedChar = hexaKeysCAPS[1][2][2];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 				if (digitalRead(ROW_PIN_1) == LOW) {
+// 					selectedChar = hexaKeysCAPS[2][2][2];
+// 					writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 					if (digitalRead(ROW_PIN_1) == LOW) {
+// 						selectedChar = hexaKeysCAPS[3][2][2];
+// 						writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 					}
+// 				}
+// 			}
+// 		}
+// 		a = 'c';
+// 	}
+// 	delay(recoverDelay);
+
+
+
+
+//     //  3  hexaKeys[0][0][3]
+//     digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+//     digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+// 	delay(postDelay);
+//     while(digitalRead(ROW_PIN_3) == LOW){
+// 		if (digitalRead(ROW_PIN_3) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][0][3];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_3) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][0][3];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_3) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][0][3];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_3) == LOW) {
+// //				selectedChar = hexaKeysCAPS[3][0][3];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+//     //  7  hexaKeys[0][1][3]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+//     while(digitalRead(ROW_PIN_2) == LOW){
+// 		if (digitalRead(ROW_PIN_2) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][1][3];
+// 		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 		  if (digitalRead(ROW_PIN_2) == LOW) {
+// 			selectedChar = hexaKeysCAPS[1][1][3];
+// 			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			if (digitalRead(ROW_PIN_2) == LOW) {
+// 			  selectedChar = hexaKeysCAPS[2][1][3];
+// 			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  if (digitalRead(ROW_PIN_2) == LOW) {
+// 				selectedChar = hexaKeysCAPS[3][1][3];
+// 				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// 			  }
+// 			}
+// 		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+// 	//  N  hexaKeys[0][2][3]
+// //    digitalWrite(COL_PIN_1, HIGH); digitalWrite(COL_PIN_2, HIGH);
+// //    digitalWrite(COL_PIN_3, HIGH); digitalWrite(COL_PIN_4, LOW);
+//     while(digitalRead(ROW_PIN_1) == LOW){
+// 		if (digitalRead(ROW_PIN_1) == LOW) {
+// 		  selectedChar = hexaKeysCAPS[0][2][3];
+// //		  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //		  if (digitalRead(ROW_PIN_1) == LOW) {
+// //			selectedChar = hexaKeysCAPS[1][2][3];
+// //			writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			if (digitalRead(ROW_PIN_1) == LOW) {
+// //			  selectedChar = hexaKeysCAPS[2][2][3];
+// //			  writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  if (digitalRead(ROW_PIN_1) == LOW) {
+// //				selectedChar = hexaKeysCAPS[3][2][3];
+// //				writeSelectedCharAndString(selectedChar, current_x, current_y, caps);         delay(keyDelay);
+// //			  }
+// //			}
+// //		  }
+// 		}
+//       a = 'c';
+//     }
+// 	delay(recoverDelay);
+
+
+
+
+//   }//WHILE ENDING
+//   if(selectedChar == '@')
+//   {
+// //	  writeSelectedCharAndStringBlankingPlus(current_x, current_y);
+//   }
+//   else if(selectedChar == '~')
+//   {
+// 	  return selectedChar;
+//   }
+//   else
+//   {
+// 	  writeSelectedCharAndStringBlanking(current_x, current_y, caps);
+//   }
+//   return selectedChar;
+
+// }//ALPHKEYPAD_3A8C_CAPS  ENDING
 
 char alphkeypad_3A8CnoDisplay(int current_x, int current_y)
 {
