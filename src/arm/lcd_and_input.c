@@ -2339,7 +2339,7 @@ bool userDenied(AskUserCommand command)
 		} ;
 
 		// waitForNoButtonPress();
-
+		clearDisplay();
 		// initDisplay();
 	    // overlayBatteryStatus(BATT_VALUE_DISPLAY);
 		writeEinkDrawUnicodeSingle((unsigned int*)ENTER_PIN_line0[lang], wcslen(ENTER_PIN_line0[lang]), COL_1_X, LINE_0_Y);

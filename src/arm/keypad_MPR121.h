@@ -4,8 +4,8 @@
 // - extern variable definitions
 // In the appropriate section
 
-#ifndef _KEYPAD_MPR121_H_
-#define _KEYPAD_MPR121_H_
+#ifndef KEYPAD_MPR121_H
+#define KEYPAD_MPR121_H
 
 
 
@@ -14,12 +14,18 @@
 extern "C" {
 #endif
 
+// Caps lock state
+extern bool capsLock; // False = lowercase, True = uppercase
+
+
 // FUNCTION DECLARATIONS
 void initKeypad(void);
 void getInput121(void);
 int getAndReturnInput(void);
 void cleanI2C(void);
 int getAndReturnInputPlusDisplay(int x, int y);
+char getAndReturnInputDisplay(int x, int y);
+
 
 #ifdef __cplusplus
 } // extern "C"

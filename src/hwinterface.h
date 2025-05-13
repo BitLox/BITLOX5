@@ -27,7 +27,8 @@
 //     must be multiple of 256
 // weird ywrobot module with ATMLH048 32DM ->4096 bytes 
 #define EEPROM_SIZE		 4096
-#define EEPROM_ADDR    0x57 
+#define EEPROM_ADDR    0x57 // YWROBOT
+// #define EEPROM_ADDR    0x50 // YL-90 Sparkfun 32k
 
 #define ACCEPT_X_START	20
 #define DENY_X_START	185

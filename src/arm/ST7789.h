@@ -70,6 +70,7 @@ void drawLine(int x, int y, int dx, int dy);
 void fillRectangle(int x, int y, int dx, int dy);
 void drawDot(int pX, int pY, uint16_t color);
 void bigCheck(int x, int y, int scale);
+void displayChar(char c, int x, int y, bool isCapsToggle);
 
 
 #ifdef __cplusplus

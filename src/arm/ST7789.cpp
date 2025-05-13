@@ -33,7 +33,7 @@
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h>
 #include "ST7789.h"
-
+#include "keypad_MPR121.h"
 
 // OPTION 1 (recommended) is to use the HARDWARE SPI pins, which are unique
 // to each board and not reassignable. For Arduino Uno: MOSI = pin 11 and
@@ -273,4 +273,26 @@ void bigCheck(int x, int y, int scale){
 
 void drawDot(int pX, int pY, uint16_t color){
   tft.drawPixel(pX, pY, color);
+}
+
+void displayChar(char c, int x, int y, bool isCapsToggle = false) {
+  // Clear only the character area to avoid overlap (adjust size for your font)
+  tft.fillRect(x, y, 48, 64, ST77XX_BLACK); // 48x64 for textSize 8; adjust as needed
+
+  if (!isCapsToggle) {
+      // Display the character at x, y
+      tft.setCursor(x, y);
+      tft.setTextColor(ST77XX_WHITE);
+      tft.setTextSize(8); // Large text for visibility
+      // tft.setFont(&FreeSans24pt7b); // Uncomment if using custom font
+      tft.print(c);
+  }
+
+  // Show caps lock status
+  tft.fillRect(0, 130, 100, 16, ST77XX_BLACK); // Clear previous status
+  tft.setCursor(0, 130);
+  tft.setTextColor(0x2b87); // Custom color
+  tft.setTextSize(2);
+  // tft.setFont(&FreeSans9pt7b); // Uncomment if using custom font
+  tft.print(capsLock ? "CAPS" : "lowercase");
 }
