@@ -44,10 +44,6 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 
 void initDisplay(void){
 tft.init(170, 320);           // Init ST7789 170x320
-
-  // OR use this initializer (uncomment) if using a 0.96" 80x160 TFT:
-//  tft.init(80, 160);           // Init ST7789 170x320   needs to be added to adafruitGFX
-
 tft.setRotation(1);
 }
 
