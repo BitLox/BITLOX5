@@ -46,7 +46,7 @@
 
 #include "hexString.h"
 //#include "ssp.h"
-// #include "arm/keypad_alpha.h"
+// #include "arm/keypad.h"
 //#include "arm/DueTimer/DueTimer.h"
 
 #include "arm/main.h"
@@ -72,7 +72,7 @@
 
 // #include "arm/BLE.h"
 // #include "arm/usart.h"
-// #include "arm/keypad_alpha.h"
+// #include "arm/keypad.h"
 
 #include "bip39_trez_prev.h"
 #include "baseconv.h"

@@ -31,10 +31,10 @@
 #include "eink.h"
 #include <Arduino.h>
 // #include "keypad_arm.h"
-#include "keypad_alpha.h"
+#include "keypad.h"
 // #include "avr2arm.h"
 #include "../stream_comm.h"
-#include "keypad_MPR121.h"
+#include "keypad.h"
 #include "ST7789.h"
 
 #define COUNT_OF(x) ((sizeof(x)/sizeof(0[x])) / ((size_t)(!(sizeof(x) % sizeof(0[x])))))

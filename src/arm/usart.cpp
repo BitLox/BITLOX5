@@ -21,16 +21,16 @@
 #include "eink.h"
 #include "../stream_comm.h"
 //#include "DueTimer/DueTimer.h"
-#include "keypad_alpha.h"
+#include "keypad.h"
 
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h> 
 
 #include "ST7789.h"
-#include "keypad_MPR121.h"
+#include "keypad.h"
 #include "../storage_common.h"
-#include "keypad_alpha.h"
+#include "keypad.h"
 
 /** Size of transmit buffer, in number of bytes.
   * \warning This must be a power of 2.

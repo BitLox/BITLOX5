@@ -18,7 +18,7 @@
 #include "main.h"
 
 #include "picture.h"
-#include "keypad_MPR121.h"
+#include "keypad.h"
 #include "../hwinterface.h"
 
 #include <Adafruit_GFX.h>    // Core graphics library

@@ -46,7 +46,7 @@
 #include "storage_common.h"
 #include "hmac_sha512.h"
 #include "pbkdf2.h"
-// #include "arm/keypad_alpha.h"
+// #include "arm/keypad.h"
 #include "stream_comm.h"
 #include "messages.pb.h"
 #include "arm/lcd_and_input.h"
