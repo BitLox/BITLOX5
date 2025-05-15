@@ -253,94 +253,55 @@ void useWhatCommsStealth(void)
 	}
 }
 
+
+//  duress PIN (911) mimics choosing a comm without actually doing so
 void useWhatCommsDuress(void)
 {
 	int result;
-	int s;
-	uint8_t temp1[1];
 	writeUSB_BLE_Screen();
 	result = getAndReturnInput();
 	result = 1;
 	switch (result){
 	case 1:
-//		temp1[0] = 0;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-//		deactivateBLE();
 		break;
 	case 2:
-//		temp1[0] = 0;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-//		deactivateBLE();
 		break;
 	case 3:
-//		temp1[0] = 0;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-//		deactivateBLE();
 		break;
 	case 10:
-//		temp1[0] = 0;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-//		deactivateBLE();
 		break;
 	case 7:
-//		temp1[0] = 0;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-//		deactivateBLE();
 		break;
 	case 8:
-//		temp1[0] = 0;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
-//		deactivateBLE();
 		break;
 
 
 	case 4:
-//		temp1[0] = 1;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-//		activateBLE();
 		break;
 	case 5:
-//		temp1[0] = 1;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-//		activateBLE();
 		break;
 	case 6:
-//		temp1[0] = 1;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-//		activateBLE();
 		break;
 	case 9:
-//		temp1[0] = 1;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-//		activateBLE();
 		break;
 	case 0:
-//		temp1[0] = 1;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-//		activateBLE();
 		break;
 	case 11:
-//		temp1[0] = 1;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeBLE_Screen();
-//		activateBLE();
 		break;
 
 	default:
-//		s = 0;
-//		temp1[0] = s;
-//		nonVolatileWrite(temp1, DEVICE_COMMS_SET_ADDRESS, 1);
 		writeUSB_Screen();
 		break;
 	}

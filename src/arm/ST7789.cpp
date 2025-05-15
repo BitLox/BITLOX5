@@ -273,13 +273,13 @@ void drawDot(int pX, int pY, uint16_t color){
 
 void displayChar(char c, int x, int y, bool isCapsToggle = false) {
   // Clear only the character area to avoid overlap (adjust size for your font)
-  tft.fillRect(x, y, 48, 64, ST77XX_BLACK); // 48x64 for textSize 8; adjust as needed
+  tft.fillRect(x, y, 30, 40, ST77XX_BLACK); // 48x64 for textSize 8; adjust as needed
 
   if (!isCapsToggle) {
       // Display the character at x, y
       tft.setCursor(x, y);
       tft.setTextColor(ST77XX_WHITE);
-      tft.setTextSize(8); // Large text for visibility
+      tft.setTextSize(5); // Large text for visibility
       // tft.setFont(&FreeSans24pt7b); // Uncomment if using custom font
       tft.print(c);
   }
